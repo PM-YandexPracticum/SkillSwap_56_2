@@ -3,12 +3,10 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   box-sizing: border-box;
   height: 48px;
   padding: 12px 24px;
   border-radius: var(--radius-lg);
-
   font: inherit;
   cursor: pointer;
 }
@@ -21,7 +19,7 @@
 }
 
 .primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  background-color: var(--button-hover);
 }
 
 .primary:active:not(:disabled) {
@@ -43,7 +41,7 @@
 }
 
 .secondary:hover:not(:disabled) {
-  border-color: var(--color-primary-hover);
+  border-color: var(--button-hover);
 }
 
 .secondary:active:not(:disabled) {

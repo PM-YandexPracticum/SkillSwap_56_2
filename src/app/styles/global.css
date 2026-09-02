@@ -11,10 +11,10 @@
   --color-error: #ef4444;
   --color-success: #22c55e;
   --accent: #abd27a;
-  --color-primary-hover: #deebc5;
+  --button-hover: #deebc5;
   --color-primary-pressed: #508826;
   --color-disabled: #e4e8df;
-  --card-input: #ffffff;
+  --card-input: #fff;
   --color-disabled-text: #9ca197;
 
   /* Spacing */
