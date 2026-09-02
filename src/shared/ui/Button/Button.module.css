@@ -1,0 +1,71 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+  height: 48px;
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Primary */
+
+.primary {
+  border: 1px solid transparent;
+  background-color: var(--accent);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.primary:active:not(:disabled) {
+  background-color: var(--color-primary-pressed);
+  color: var(--card-input);
+}
+
+.primary:disabled {
+  background-color: var(--color-disabled);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* Secondary */
+
+.secondary {
+  border: 1px solid var(--accent);
+  background-color: var(--card-input);
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: var(--color-primary-hover);
+}
+
+.secondary:active:not(:disabled) {
+  border-color: var(--color-primary-pressed);
+}
+
+.secondary:disabled {
+  border-color: var(--color-disabled);
+  background-color: var(--card-input);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* tertiary */
+
+.tertiary {
+  border: 1px solid transparent;
+  background-color: var(--card-input);
+}
+
+/* Width */
+
+.fullWidth {
+  width: 100%;
+}
