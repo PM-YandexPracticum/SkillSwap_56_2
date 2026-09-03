@@ -11,6 +11,15 @@
   --color-error: #ef4444;
   --color-success: #22c55e;
 
+  /* Tags-color */
+  --tag-bg-lilac: #EEE7F7;
+  --tag-bg-pink: #F7E7F2;
+  --tag-bg-yellow: #EBE5C5;
+  --tag-bg-blue: #E7F2F6;
+  --tag-bg-beige: #F7EBE5;
+  --tag-bg-mint: #E9F7E7;
+  --tag-bg-neutral: #E8ECF7;
+
   /* Spacing */
   --space-xs: 4px;
   --space-sm: 8px;
