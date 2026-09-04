@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './input.module.css'
-import { InputProps} from './type'
+import { InputProps } from './type'
 
 export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   (
