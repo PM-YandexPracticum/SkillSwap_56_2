@@ -1,0 +1,22 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--layout-width);
+  margin-inline: auto;
+}
+
+.default {
+  padding-inline: var(--layout-padding); /* 36px */
+}
+
+.auth {
+  padding-inline: var(--layout-padding-auth); /* 152px */
+}
+
+.error {
+  padding-inline: var(--layout-padding-error); /* 490px */
+}
