@@ -1,0 +1,27 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo:focus-visible {
+  border-radius: var(--radius-sm);
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 4px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.text {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.011em;
+  white-space: nowrap;
+}
