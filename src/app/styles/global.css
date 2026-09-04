@@ -17,15 +17,16 @@
   --color-disabled: #e4e8df;
   --card-input: #fff;
   --color-disabled-text: #9ca197;
+  --color-radio-checked: #508826;
 
   /* Tags-color */
-  --tag-bg-lilac: #EEE7F7;
-  --tag-bg-pink: #F7E7F2;
-  --tag-bg-yellow: #EBE5C5;
-  --tag-bg-blue: #E7F2F6;
-  --tag-bg-beige: #F7EBE5;
-  --tag-bg-mint: #E9F7E7;
-  --tag-bg-neutral: #E8ECF7;
+  --tag-bg-lilac: #eee7f7;
+  --tag-bg-pink: #f7e7f2;
+  --tag-bg-yellow: #ebe5c5;
+  --tag-bg-blue: #e7f2f6;
+  --tag-bg-beige: #f7ebe5;
+  --tag-bg-mint: #e9f7e7;
+  --tag-bg-neutral: #e8ecf7;
 
   /* Spacing */
   --space-xs: 4px;
