@@ -10,6 +10,22 @@
   --color-border: #e5e7eb;
   --color-error: #ef4444;
   --color-success: #22c55e;
+  --text: #253017;
+  --accent: #abd27a;
+  --button-hover: #deebc5;
+  --color-primary-pressed: #508826;
+  --color-disabled: #e4e8df;
+  --card-input: #fff;
+  --color-disabled-text: #9ca197;
+
+  /* Tags-color */
+  --tag-bg-lilac: #EEE7F7;
+  --tag-bg-pink: #F7E7F2;
+  --tag-bg-yellow: #EBE5C5;
+  --tag-bg-blue: #E7F2F6;
+  --tag-bg-beige: #F7EBE5;
+  --tag-bg-mint: #E9F7E7;
+  --tag-bg-neutral: #E8ECF7;
 
   /* Spacing */
   --space-xs: 4px;

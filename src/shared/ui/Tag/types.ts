@@ -1,0 +1,1 @@
+export type TagTone = "lilac" | "pink" | "yellow" | "blue" | "beige" | "mint" | "neutral";
