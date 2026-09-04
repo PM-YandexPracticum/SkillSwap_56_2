@@ -13,5 +13,8 @@ leftElement?: ReactNode;// слева от инпута (иконка, кноп�
 label?: string;  //email  пароль
 error?: string;  //неверный email  пароль
 helperText?: string;  //введите email  введите пароль 
+multiline?: boolean; // многострочный инпут
+rows?: number; // количество строк для многострочного инпута
+heightTextarea ?: string; // высота текстовой зоны (для многострочного инпута)
 
 }
