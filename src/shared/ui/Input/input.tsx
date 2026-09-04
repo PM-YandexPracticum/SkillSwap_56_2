@@ -71,5 +71,5 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
   },
 )
 
-// Хорошая практика для компонентов с forwardRef в React
+
 Input.displayName = 'Input'
