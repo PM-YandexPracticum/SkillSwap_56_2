@@ -27,7 +27,10 @@
   background-color: #fff;
   border-radius: 12px;
   padding: 12px 20px;
-  transition: box-shadow 0.9s ease;
+  transition:
+    outline-color 0.15s ease,
+    outline-offset 0.15s ease,
+    border-color 0.15s ease;
  
 }
 
@@ -115,9 +118,12 @@
 
 
 
-.inputContainer:focus-within{
-box-shadow: 2px 2px 4px 4px #475f27;
-
+.inputContainer:focus-within {
+  /* Обводка аутлайном: не влияет на поток и не «раздувает» поле,
+     в отличие от тени. outline-offset анимируется — рамка отъезжает от края */
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+  border-color: var(--color-primary-pressed);
 }
 
 
