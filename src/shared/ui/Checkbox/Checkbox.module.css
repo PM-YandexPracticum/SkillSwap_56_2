@@ -30,7 +30,7 @@
   flex: none;
   width: 20px;
   height: 20px;
-  background-color: var(--color-bg);
+  background-color: var(--card-input);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   transition:
@@ -48,16 +48,20 @@
 
 .input:checked + .box,
 .input:indeterminate + .box {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
+
+/* Метка тёмная, а не белая: --accent светлый (#abd27a), белым по нему
+   контраст ~1.75:1 и галочка теряется. Тёмным — ~8.6:1.
+   Тот же приём, что у Button: на заливке --accent текст --text */
 
 /* Галочка: прямоугольник без двух сторон, повёрнутый на 45 градусов */
 .input:checked + .box::after {
   width: 5px;
   height: 9px;
-  border-right: 2px solid var(--color-bg);
-  border-bottom: 2px solid var(--color-bg);
+  border-right: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
   opacity: 1;
   transform: translate(-50%, -60%) rotate(45deg);
 }
@@ -66,7 +70,7 @@
 .input:indeterminate + .box::after {
   width: 10px;
   height: 2px;
-  background-color: var(--color-bg);
+  background-color: var(--text);
   border: none;
   border-radius: 1px;
   opacity: 1;
@@ -74,21 +78,30 @@
 }
 
 .input:focus-visible + .box {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-primary-pressed);
   outline-offset: 2px;
 }
 
 .input:disabled + .box {
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-disabled);
 }
 
 .input:disabled:checked + .box,
 .input:disabled:indeterminate + .box {
-  background-color: var(--color-text-secondary);
-  border-color: var(--color-text-secondary);
+  background-color: var(--color-disabled);
+  border-color: var(--color-disabled);
+}
+
+/* На приглушённой заливке тёмная метка выглядит слишком активной */
+.input:disabled:checked + .box::after {
+  border-color: var(--color-disabled-text);
+}
+
+.input:disabled:indeterminate + .box::after {
+  background-color: var(--color-disabled-text);
 }
 
 .text {
-  color: var(--color-text);
+  color: var(--text);
   font-size: var(--font-size-base);
 }
