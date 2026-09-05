@@ -1,18 +1,10 @@
-.root {
-  display: inline-flex;
-  flex: 0 0 var(--round-image-size);
+.container {
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--round-image-size);
-  height: var(--round-image-size);
-  overflow: hidden;
-  border-radius: 50%;
-  background-color: var(--tag-bg-mint);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: calc(var(--round-image-size) * 0.34);
-  font-weight: 700;
-  line-height: 1;
+  flex-shrink: 0;
 }
 
 .image {
@@ -21,10 +13,29 @@
   object-fit: cover;
 }
 
-.initials {
-  max-width: 100%;
-  padding: 0 12%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.fallbackIcon {
+  color: var(--color-text-secondary);
+}
+
+.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.md {
+  width: 48px;
+  height: 48px;
+}
+
+.lg {
+  width: 64px;
+  height: 64px;
 }

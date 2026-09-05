@@ -1,47 +1,52 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import UserCircleIcon from '../icons/assets/user-circle.svg?react';
+import styles from './RoundImage.module.css';
 
-import styles from './RoundImage.module.css'
+const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ');
 
 interface RoundImageProps {
-  src: string | null
-  name: string
-  size: number
+  src?: string | null;
+  icon?: ReactNode;
+  bgColor?: string;
+  alt: string;
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
-function getInitials(name: string): string {
-  const initials = name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => Array.from(part)[0])
-    .join('')
-
-  return initials.toLocaleUpperCase('ru-RU') || '?'
-}
-
-export const RoundImage = ({ src, name, size }: RoundImageProps) => {
-  const [isImageFailed, setIsImageFailed] = useState(false)
-  const showImage = Boolean(src) && !isImageFailed
-  const style = { '--round-image-size': `${size}px` } as CSSProperties
+export const RoundImage = ({
+  src,
+  icon,
+  bgColor,
+  alt,
+  size = 'md',
+  className
+}: RoundImageProps) => {
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setIsImageFailed(false)
-  }, [src])
+    setHasError(false);
+  }, [src]);
+
+  const showImage = src && !hasError;
 
   return (
-    <div className={styles.root} style={style} aria-label={name}>
+    <div
+      className={cn(styles.container, styles[size], className)}
+      style={!showImage ? { backgroundColor: bgColor || 'var(--color-bg-secondary)' } : undefined}
+    >
       {showImage ? (
         <img
+          src={src}
+          alt={alt}
           className={styles.image}
-          src={src ?? undefined}
-          alt={name}
-          onError={() => setIsImageFailed(true)}
+          onError={() => setHasError(true)}
         />
       ) : (
-        <span className={styles.initials} aria-hidden="true">
-          {getInitials(name)}
-        </span>
+        <div className={styles.iconWrapper}>
+          {icon ? icon : <UserCircleIcon className={styles.fallbackIcon} />}
+        </div>
       )}
     </div>
-  )
-}
+  );
+};

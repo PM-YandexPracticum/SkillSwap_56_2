@@ -9,6 +9,48 @@ export function formatDate(dateString: string): string {
   }).format(new Date(dateString))
 }
 
+function parseCalendarDate(dateString: string): Date {
+  const dateOnlyMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString)
+
+  if (!dateOnlyMatch) {
+    return new Date(dateString)
+  }
+
+  const [, year, month, day] = dateOnlyMatch
+  const date = new Date(Number(year), Number(month) - 1, Number(day))
+
+  if (
+    date.getFullYear() !== Number(year) ||
+    date.getMonth() !== Number(month) - 1 ||
+    date.getDate() !== Number(day)
+  ) {
+    return new Date(Number.NaN)
+  }
+
+  return date
+}
+
+/** Возвращает полный возраст или null для невалидной/будущей даты */
+export function getAge(birthDate: string, currentDate = new Date()): number | null {
+  const birthday = parseCalendarDate(birthDate)
+
+  if (
+    Number.isNaN(birthday.getTime()) ||
+    Number.isNaN(currentDate.getTime()) ||
+    birthday > currentDate
+  ) {
+    return null
+  }
+
+  const years = currentDate.getFullYear() - birthday.getFullYear()
+  const hasBirthdayPassed =
+    currentDate.getMonth() > birthday.getMonth() ||
+    (currentDate.getMonth() === birthday.getMonth() &&
+      currentDate.getDate() >= birthday.getDate())
+
+  return hasBirthdayPassed ? years : years - 1
+}
+
 /** Обрезает строку до maxLength символов */
 export function truncate(str: string, maxLength: number): string {
   if (str.length <= maxLength) return str
