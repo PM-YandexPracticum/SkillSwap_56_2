@@ -5,12 +5,14 @@ import styles from './RoundImage.module.css';
 
 const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ');
 
+export type RoundImageSize = 'sm' | 'md' | 'lg' | 'xl';
+
 interface RoundImageProps {
   src?: string | null;
   icon?: ReactNode;
   bgColor?: string;
   alt: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: RoundImageSize;
   className?: string;
 }
 
