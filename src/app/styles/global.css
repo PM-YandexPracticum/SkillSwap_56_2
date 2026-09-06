@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
-
 /* ─── CSS Custom Properties ─────────────────────────────── */
 :root {
   /* Colors */
@@ -48,7 +46,12 @@
   --space-2xl: 48px;
 
   /* Typography */
-  --font-sans: system-ui, -apple-system, sans-serif;
+
+  /* Roboto — шрифт основного текста по макету, подключается в index.html */
+  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+
+  /* Jost — шрифт заголовков по макету */
+  --font-heading: 'Jost', var(--font-sans);
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
