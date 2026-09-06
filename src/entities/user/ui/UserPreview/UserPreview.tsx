@@ -1,17 +1,16 @@
 import { getAge, plural } from '@/shared/lib/helpers'
 import { RoundImage } from '@/shared/ui/RoundImage'
+import type { RoundImageSize } from '@/shared/ui/RoundImage'
 
 import type { User } from '../../model/types'
 import styles from './UserPreview.module.css'
 
-type AvatarSize = 'sm' | 'md' | 'lg'
-
 interface UserPreviewProps {
   user: User
-  avatarSize?: AvatarSize
+  avatarSize?: RoundImageSize
 }
 
-export const UserPreview = ({ user, avatarSize = 'lg' }: UserPreviewProps) => {
+export const UserPreview = ({ user, avatarSize = 'xl' }: UserPreviewProps) => {
   const age = getAge(user.birthDate)
   const ageText = age === null ? null : `${age} ${plural(age, ['год', 'года', 'лет'])}`
   const meta = [user.city, ageText].filter(Boolean).join(', ')

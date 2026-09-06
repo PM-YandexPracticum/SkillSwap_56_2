@@ -22,6 +22,8 @@
 }
 
 .fallbackIcon {
+  width: 40%;
+  height: 40%;
   color: var(--color-text-secondary);
 }
 
@@ -38,4 +40,9 @@
 .lg {
   width: 64px;
   height: 64px;
+}
+
+.xl {
+  width: 100px;
+  height: 100px;
 }
