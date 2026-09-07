@@ -18,6 +18,8 @@ export interface User {
   id: string
   name: string
   email: string
+  city: string
+  birthDate: string
   avatarUrl: string | null
   createdAt: string
 }
