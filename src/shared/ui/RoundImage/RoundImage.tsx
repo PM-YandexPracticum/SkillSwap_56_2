@@ -5,7 +5,7 @@ import styles from './RoundImage.module.css';
 
 const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ');
 
-export type RoundImageSize = 'sm' | 'md' | 'lg' | 'xl';
+export type RoundImageSize = 'sm' | 'smd' | 'md' | 'lg' | 'xl';
 
 interface RoundImageProps {
   src?: string | null;

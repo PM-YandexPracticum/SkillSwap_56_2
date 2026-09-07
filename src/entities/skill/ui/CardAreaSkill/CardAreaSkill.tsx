@@ -17,7 +17,7 @@ export const CardAreaSkill = ({ title, skills, bgColor, icon }: CardAreaSkillPro
           bgColor={bgColor} 
           icon={icon} 
           alt={title} 
-          size="lg" 
+          size="smd" 
         />
         <h3 className={styles.title}>{title}</h3>
       </div>
