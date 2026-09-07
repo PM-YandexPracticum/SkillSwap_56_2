@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { Footer } from '@/widgets/Footer';
 import styles from './mainLayout.module.css';
 
 type MainLayoutPadding = 'default' | 'auth' | 'error';
@@ -14,6 +15,7 @@ export function MainLayout({ paddingLayout = 'default' }: MainLayoutProps) {
       <div className={`${styles.container} ${styles[paddingLayout]}`}>
         <Outlet />
       </div>
+      <Footer />
     </div>
   )
 }
