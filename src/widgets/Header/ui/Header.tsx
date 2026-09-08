@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 
 import type { User } from '@/entities/user/model/types'
 import { ROUTES } from '@/shared/lib/constants'
-import { Button } from '@/shared/ui/Button'
+import { ButtonLink } from '@/shared/ui/Button'
+import { Container } from '@/shared/ui/Container'
 import ChevronDownIcon from '@/shared/ui/icons/assets/chevron-down.svg?react'
 import LikeIcon from '@/shared/ui/icons/assets/like.svg?react'
 import MoonIcon from '@/shared/ui/icons/assets/moon.svg?react'
@@ -23,7 +24,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <Container className={styles.inner}>
         <Logo className={styles.logo} />
 
         <nav className={styles.nav} aria-label="Основная навигация">
@@ -70,18 +71,16 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
               <MoonIcon aria-hidden="true" />
             </button>
             <div className={styles.buttonGroup}>
-              <Link to={ROUTES.LOGIN} className={styles.buttonLink}>
-                <Button className={styles.loginButton} variant="secondary">
-                  Войти
-                </Button>
-              </Link>
-              <Link to={ROUTES.REGISTER} className={styles.buttonLink}>
-                <Button className={styles.registerButton}>Зарегистрироваться</Button>
-              </Link>
+              <ButtonLink to={ROUTES.LOGIN} className={styles.loginButton} variant="secondary">
+                Войти
+              </ButtonLink>
+              <ButtonLink to={ROUTES.REGISTER} className={styles.registerButton}>
+                Зарегистрироваться
+              </ButtonLink>
             </div>
           </div>
         )}
-      </div>
+      </Container>
     </header>
   )
 }
