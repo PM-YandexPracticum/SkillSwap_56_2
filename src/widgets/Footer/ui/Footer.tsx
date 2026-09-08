@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { ROUTES } from '@/shared/lib/constants'
+import { Container } from '@/shared/ui/Container'
 import { Logo } from '@/shared/ui/Logo'
 
 import styles from './Footer.module.css'
@@ -23,7 +24,7 @@ const FOOTER_COLUMNS = [
 export function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.inner}>
+      <Container className={styles.inner}>
         <div className={styles.brand}>
           <Logo />
           <p className={styles.copyright}>SkillSwap — 2025</p>
@@ -42,7 +43,7 @@ export function Footer() {
             </ul>
           ))}
         </nav>
-      </div>
+      </Container>
     </footer>
   )
 }

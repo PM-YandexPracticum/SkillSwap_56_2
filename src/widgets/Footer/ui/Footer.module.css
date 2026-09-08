@@ -4,16 +4,12 @@
   background-color: var(--color-bg);
 }
 
-/* Сетка страницы: 36 + 324 + 24 + 1020 + 36 = 1440 */
+/* Ширину и поля задаёт Container, здесь только сетка: 324 + 24 + 1020 */
 .inner {
   display: grid;
   grid-template-columns: 324px 1fr;
   gap: 24px;
-  width: 100%;
-  max-width: var(--layout-width);
   min-height: 168px;
-  margin-inline: auto;
-  padding-inline: var(--layout-padding);
 }
 
 /* Логотип и копирайт */
