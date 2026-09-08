@@ -1,7 +1,10 @@
 import { forwardRef, type ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 
-import { getButtonClassName, type ButtonSize, type ButtonVariant } from './buttonClassName'
+import styles from './Button.module.css'
+
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
+type ButtonSize = 'md' | 'lg'
 
 interface ButtonLinkProps extends LinkProps {
   children: ReactNode
@@ -27,7 +30,15 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     },
     ref,
   ) => {
-    const buttonClassName = getButtonClassName({ variant, size, fullWidth, className })
+    const buttonClassName = [
+      styles.button,
+      styles[variant],
+      styles[size],
+      fullWidth ? styles.fullWidth : '',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ')
 
     return (
       <Link ref={ref} className={buttonClassName} {...props}>

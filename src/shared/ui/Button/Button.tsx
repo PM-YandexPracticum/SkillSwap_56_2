@@ -1,6 +1,9 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 
-import { getButtonClassName, type ButtonSize, type ButtonVariant } from './buttonClassName'
+import styles from './Button.module.css'
+
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
+type ButtonSize = 'md' | 'lg'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
@@ -26,7 +29,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const buttonClassName = getButtonClassName({ variant, size, fullWidth, className })
+    const buttonClassName = [
+      styles.button,
+      styles[variant],
+      styles[size],
+      fullWidth ? styles.fullWidth : '',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ')
 
     return (
       <button ref={ref} type={type} className={buttonClassName} {...props}>
