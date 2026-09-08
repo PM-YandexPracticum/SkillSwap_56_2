@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import styles from './CardAreaSkill.module.css';
-import { RoundImage } from '../../../../shared/ui/RoundImage';
+import { RoundImage } from '@/shared/ui/RoundImage';
 
 interface CardAreaSkillProps {
   title: string;
