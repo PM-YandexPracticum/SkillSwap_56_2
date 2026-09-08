@@ -35,9 +35,9 @@ export function AppRouter() {
                   total={3}
                   info={{
                     illustration: lightBulbIllustration,
-                    title: 'Добро пожаловать в SkillSwap!',
+                    title: 'Добро пожаловать в SkillSwap!',
                     description:
-                      'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
+                      'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
                   }}
                 />
               }
