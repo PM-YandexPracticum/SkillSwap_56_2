@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  setupFilesAfterEnv: [require.resolve('@testing-library/jest-dom')],
   roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   transform: {
