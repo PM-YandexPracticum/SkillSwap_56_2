@@ -1,0 +1,106 @@
+.page {
+  min-height: 100vh;
+  padding-block: 36px 172px;
+  background-color: var(--color-bg);
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1368px;
+  max-height: 84px;
+  margin-inline: auto;
+}
+
+.closeLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 147px;
+  height: 48px;
+  padding-inline: 23px;
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  background-color: var(--card-input);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.closeLink:focus-visible {
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: 4px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 556px);
+  gap: 24px;
+}
+
+.formCard {
+  width: 556px;
+  height: 692px;
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  background-color: var(--card-input);
+}
+
+@media (width <= 1200px) {
+  .cards {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formCard {
+    width: 100%;
+  }
+}
+
+@media (width <= 900px) {
+  .page {
+    padding-inline: 24px;
+  }
+
+  .cards {
+    max-width: 556px;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 520px) {
+  .page {
+    padding: 20px 16px;
+  }
+
+  .header {
+    min-height: 40px;
+  }
+
+  .closeLink {
+    min-width: auto;
+    height: 40px;
+    padding-inline: 12px;
+  }
+
+  .formCard {
+    height: auto;
+    min-height: 692px;
+  }
+}
