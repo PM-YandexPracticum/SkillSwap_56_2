@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import styles from './RadioButton.module.css'
 import { RadioOption, NativeInputProps, RadioButtonStateProps } from './types'
 
-type RadioButtonProps = RadioButtonStateProps &
+export type RadioButtonProps = RadioButtonStateProps &
   NativeInputProps & {
     option: RadioOption
     className?: string

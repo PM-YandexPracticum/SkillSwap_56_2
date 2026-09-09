@@ -10,19 +10,15 @@ export type NativeInputProps = Omit<
   'type' | 'name' | 'defaultChecked' | 'checked' | 'value'
 >
 
-export type ControlledRadioButtonProps = {
+type ControlledRadioButtonProps = {
   checked: boolean
   onChange: ChangeEventHandler<HTMLInputElement>
   defaultChecked?: never
 }
 
-export type UncontrolledRadioButtonProps = {
+type UncontrolledRadioButtonProps = {
   defaultChecked?: boolean
   checked?: never
 }
 
 export type RadioButtonStateProps = ControlledRadioButtonProps | UncontrolledRadioButtonProps
-
-export const isControlledRadioButton = (
-  props: RadioButtonStateProps,
-): props is ControlledRadioButtonProps => props.checked !== undefined

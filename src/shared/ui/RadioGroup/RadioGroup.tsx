@@ -2,19 +2,19 @@ import { RadioOption, RadioButton, NativeInputProps } from '../RadioButton'
 import { ChangeEventHandler, forwardRef, useId } from 'react'
 import styles from './RadioGroup.module.css'
 
-export type ControlledProps = {
+type ControlledProps = {
   defaultOptionValue?: never
   selectedOptionValue: string
   onChange: ChangeEventHandler<HTMLInputElement>
 }
 
-export type UncontrolledProps = {
+type UncontrolledProps = {
   defaultOptionValue?: string
   selectedOptionValue?: never
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
-type RadioGroupProps = (ControlledProps | UncontrolledProps) & {
+export type RadioGroupProps = (ControlledProps | UncontrolledProps) & {
   options: RadioOption[]
   title?: string
   className?: string
@@ -23,16 +23,7 @@ type RadioGroupProps = (ControlledProps | UncontrolledProps) & {
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
   (
-    {
-      options,
-      title,
-      className,
-      name,
-      defaultOptionValue,
-      selectedOptionValue,
-      onChange,
-      ...inputProps
-    },
+    { options, title, className, name, defaultOptionValue, selectedOptionValue, onChange, ...rest },
     ref,
   ) => {
     const rootClassName = [styles.root, className].filter(Boolean).join(' ')
@@ -60,7 +51,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
                   option={option}
                   checked={selectedOptionValue === option.value}
                   onChange={onChange}
-                  {...inputProps}
+                  {...rest}
                 />
               ))
             : options.map((option) => (
@@ -70,7 +61,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
                   option={option}
                   defaultChecked={defaultOptionValue === option.value}
                   onChange={onChange}
-                  {...inputProps}
+                  {...rest}
                 />
               ))}
         </div>
