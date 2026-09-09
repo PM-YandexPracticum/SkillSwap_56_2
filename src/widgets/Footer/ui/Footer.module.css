@@ -1,0 +1,66 @@
+.footer {
+  margin-top: auto;
+  padding-block: 32px;
+  background-color: var(--color-bg);
+}
+
+/* Ширину и поля задаёт Container, здесь только сетка: 324 + 24 + 1020 */
+.inner {
+  display: grid;
+  grid-template-columns: 324px 1fr;
+  gap: 24px;
+  min-height: 168px;
+}
+
+/* Логотип и копирайт */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.copyright {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 16px;
+}
+
+/* Ссылки */
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-content: start;
+  padding-top: 60px; /* по макету блок ниже логотипа */
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  color: var(--text);
+  font-size: var(--font-size-base);
+  line-height: 24px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.link:hover {
+  color: var(--color-primary-pressed);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

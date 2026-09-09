@@ -1,12 +1,13 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, type ReactNode } from 'react'
+import { Link, type LinkProps } from 'react-router-dom'
 
 import styles from './Button.module.css'
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 type ButtonSize = 'md' | 'lg'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: ReactNode
+interface ButtonLinkProps extends LinkProps {
+  children: ReactNode
   variant?: ButtonVariant
   size?: ButtonSize
   fullWidth?: boolean
@@ -14,7 +15,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   rightIcon?: ReactNode
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+/** Ссылка с внешностью кнопки: навигация должна оставаться <a>, а не <button> внутри <a> */
+export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
   (
     {
       children,
@@ -24,7 +26,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       className = '',
-      type = 'button',
       ...props
     },
     ref,
@@ -40,13 +41,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       .join(' ')
 
     return (
-      <button ref={ref} type={type} className={buttonClassName} {...props}>
+      <Link ref={ref} className={buttonClassName} {...props}>
         {leftIcon}
-        {children && <span>{children}</span>}
+        <span>{children}</span>
         {rightIcon}
-      </button>
+      </Link>
     )
   },
 )
 
-Button.displayName = 'Button'
+ButtonLink.displayName = 'ButtonLink'

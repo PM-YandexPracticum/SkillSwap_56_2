@@ -3,7 +3,9 @@
   /* Colors */
   --color-primary: #6366f1;
   --color-primary-hover: #4f46e5;
-  --color-bg: #fff;
+
+  /* color-bg изменен с fff, так как в макете цвет фона F9FAF7 */
+  --color-bg: #F9FAF7;
   --color-bg-secondary: #f9fafb;
   --color-text: #111827;
   --color-text-secondary: #6b7280;
@@ -18,6 +20,14 @@
   --card-input: #fff;
   --color-disabled-text: #9ca197;
   --color-radio-checked: #508826;
+
+  /* Layout */
+  
+  /* вынесено в root, так как можно переиспользовать не только в mainlayout, но и в header, footer */
+  --layout-width: 1440px; 
+  --layout-padding: 36px;
+  --layout-padding-auth: 152px;
+  --layout-padding-error: 490px;
 
   /* Tags-color */
   --tag-bg-lilac: #eee7f7;
@@ -37,7 +47,12 @@
   --space-2xl: 48px;
 
   /* Typography */
-  --font-sans: system-ui, -apple-system, sans-serif;
+
+  /* Roboto — шрифт основного текста по макету, подключается в index.html */
+  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+
+  /* Jost — шрифт заголовков по макету */
+  --font-heading: 'Jost', var(--font-sans);
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
