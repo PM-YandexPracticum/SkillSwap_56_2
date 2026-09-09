@@ -22,12 +22,19 @@
 }
 
 .fallbackIcon {
+  width: 40%;
+  height: 40%;
   color: var(--color-text-secondary);
 }
 
 .sm {
   width: 32px;
   height: 32px;
+}
+
+.smd {
+  width: 40px;
+  height: 40px;
 }
 
 .md {
@@ -38,4 +45,9 @@
 .lg {
   width: 64px;
   height: 64px;
+}
+
+.xl {
+  width: 100px;
+  height: 100px;
 }
