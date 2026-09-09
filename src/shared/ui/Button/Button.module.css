@@ -71,6 +71,21 @@
   background-color: var(--card-input);
 }
 
+/* Ghost — текстовая кнопка без фона и паддингов */
+
+.button.ghost {
+  min-height: auto;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+}
+
+.button.ghost:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
 /* Sizes */
 
 .md {

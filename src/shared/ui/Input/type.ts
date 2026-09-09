@@ -1,6 +1,6 @@
 import {ReactNode, InputHTMLAttributes }  from 'react';
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {        //onchange  исопльзуется для input checkbox select 
 onChange?: (value: string) => void;// функция обратного вызова при изменении значения инпута
 rightElement?: ReactNode;// справа от инпута (иконка, кнопка)
 leftElement?: ReactNode;// слева от инпута (иконка, кнопка)
