@@ -12,17 +12,13 @@
   display: block;
   width: 24px;
   height: 24px;
-}
-
-.path {
   fill: transparent;
-  stroke: currentcolor;
 }
 
 .liked {
   color: var(--accent);
 }
 
-.liked .path {
+.liked .icon {
   fill: currentcolor;
 }
