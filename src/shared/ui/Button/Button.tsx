@@ -6,6 +6,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 type ButtonSize = 'md' | 'lg'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  //  ButtonHTMLAttributes  ишеи атрибуты которые работают как кнопка и на которые можно клинктуь в дженериках указываем что нам нужна иммено кнопка HTMLButtonElement
   children?: ReactNode
   variant?: ButtonVariant
   size?: ButtonSize
