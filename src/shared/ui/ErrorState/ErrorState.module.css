@@ -1,0 +1,34 @@
+.imageContainer {
+  margin-bottom: 40px;
+  inline-size: 460px;
+  block-size: 304px;
+}
+
+.imageContainer img {
+  height: 100%;
+}
+
+.info {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: var(--font-size-2xl);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--font-size-base);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
