@@ -1,1 +1,0 @@
-export {LikeIcon} from './LikeIcon'
