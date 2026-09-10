@@ -24,7 +24,7 @@ export const CardMain = ({user}: CardMainProps) => {
       <div className={styles['container-information']}>
         <div className={styles.information}>
           <h4 className={styles['title-tag']}>Может научить:</h4>
-          <Tag tone="pink">{user.skillTeach}</Tag>
+          <Tag tone="pink">Игра на барабанах</Tag> 
         </div>
         <div className={styles.information}>
           <h4 className={styles['title-tag']}>Хочет научиться:</h4>
