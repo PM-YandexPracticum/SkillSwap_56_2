@@ -1,3 +1,7 @@
+.root {
+  margin-block: 124px 84px;
+}
+
 .imageContainer {
   margin-bottom: 40px;
   inline-size: 460px;
@@ -10,21 +14,20 @@
 
 .info {
   margin-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .title {
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: var(--font-size-2xl);
+  text-align: center;
 }
 
 .description {
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--font-size-base);
+  text-align: center;
 }
 
 .actions {

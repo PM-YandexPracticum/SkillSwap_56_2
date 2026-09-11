@@ -10,7 +10,7 @@ export type ErrorStateProps = {
 
 export const ErrorState = ({ illustration, title, description, onReport } : ErrorStateProps) => {
   return (
-    <div className={styles.root}>
+    <main className={styles.root}>
       <div className={styles.imageContainer}>
         <img src={illustration} alt=''/>
       </div>
@@ -24,6 +24,6 @@ export const ErrorState = ({ illustration, title, description, onReport } : Erro
           <ButtonLink to='/' fullWidth>На главную</ButtonLink>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
