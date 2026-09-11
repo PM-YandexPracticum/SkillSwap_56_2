@@ -14,6 +14,12 @@ export interface Skill {
 }
 
 // ─── User ────────────────────────────────────────────────
+export interface UserSkill {
+  id: string
+  title: string
+  category: string
+}
+
 export interface User {
   id: string
   name: string
@@ -22,6 +28,10 @@ export interface User {
   birthDate: string
   avatarUrl: string | null
   createdAt: string
+  likesCount: number
+  teachSkill: UserSkill
+  learnSkills: UserSkill[]
+  favorites: string[]
 }
 
 // ─── Request ─────────────────────────────────────────────
