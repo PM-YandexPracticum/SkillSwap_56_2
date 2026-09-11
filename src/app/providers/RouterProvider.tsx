@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { ROUTES } from '@/shared/lib/constants'
+import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { MainLayout } from '@/app/layouts/mainLayout'
+import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
 
 // Lazy-загрузка страниц — каждая страница грузится только при переходе на неё
 const CatalogPage = lazy(() => import('@/pages/CatalogPage'))
@@ -26,7 +28,20 @@ export function AppRouter() {
             <Route path={ROUTES.CREATE} element={<CreateSkillPage />} />
             </Route>
 
-            <Route element={<MainLayout paddingLayout="auth" />}>
+            <Route
+              element={
+                <AuthLayout
+                  current={1}
+                  total={3}
+                  info={{
+                    illustration: lightBulbIllustration,
+                    title: 'Добро пожаловать в SkillSwap!',
+                    description:
+                      'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
+                  }}
+                />
+              }
+            >
               <Route path={ROUTES.LOGIN} element={<LoginPage />} />
               <Route path={ROUTES.REGISTER} element={<LoginPage />} />
             </Route>
