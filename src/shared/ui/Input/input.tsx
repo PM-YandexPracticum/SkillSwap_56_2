@@ -32,7 +32,7 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
     const helperId = `${inputId}-helper`
 
     return (
-      <div className={`${styles.inputWrapper} ${className} `}>
+       <div className={`${styles.inputWrapper} ${className} `}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}
