@@ -18,13 +18,18 @@ export const AuthLayout = ({ current, total, info, onClose }: AuthLayoutProps) =
   <div className={styles.page}>
     <header className={styles.header}>
       <Logo />
-      <Link className={styles.closeLink} to="/" onClick={onClose} aria-label="Закрыть и перейти на главную">
+      <Link
+        className={styles.closeLink}
+        to="/"
+        onClick={onClose}
+        aria-label="Закрыть и перейти на главную"
+      >
         <span>Закрыть</span>
         <CrossIcon className={styles.closeIcon} aria-hidden="true" />
       </Link>
     </header>
 
-    <main className={styles.content}>
+    <div className={styles.content}>
       <Stepper current={current} total={total} />
 
       <section className={styles.cards}>
@@ -35,6 +40,6 @@ export const AuthLayout = ({ current, total, info, onClose }: AuthLayoutProps) =
         {/* добавить варианты правой карточки для регистрации и входа после реализации этих страниц. */}
         <InfoCard {...info} />
       </section>
-    </main>
+    </div>
   </div>
 )
