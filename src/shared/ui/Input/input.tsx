@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './input.module.css'
 import { InputProps } from './type'
+import clsx from 'clsx'
 
 export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   (
@@ -31,7 +32,7 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
     const helperId = `${inputId}-helper`
 
     return (
-      <div className={`${styles.inputWrapper} ${className} `}>
+       <div className={`${styles.inputWrapper} ${className} `}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}
@@ -40,7 +41,11 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
 
         {/* При фокусе внутри срабатывает стилизация :focus-within */}
         <div
-          className={`${styles.inputContainer} ${error ? styles.errorContainer : ''} ${heightTextarea} `}
+          className={clsx(
+            styles.inputContainer,
+            { [styles.errorContainer]: Boolean(error) },
+            heightTextarea,
+          )}
         >
           {leftElement && <div className={styles.leftElement}>{leftElement}</div>}
 
@@ -81,7 +86,7 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
           </span>
         )}
       </div>
-      )
+    )
   },
 )
 
