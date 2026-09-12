@@ -3,75 +3,77 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { ListCitiesFilter } from './ListCitiesFilter'
 
 const cities = [
-  { id: '1', title: 'Москва' },
-  { id: '2', title: 'Санкт-Петербург' },
-  { id: '3', title: 'Новосибирск' },
-  { id: '4', title: 'Екатеринбург' },
-  { id: '5', title: 'Казань' },
-  { id: '6', title: 'Нижний Новгород' },
+  { id: 'moscow', title: 'Москва' },
+  { id: 'spb', title: 'Санкт-Петербург' },
+  { id: 'novosibirsk', title: 'Новосибирск' },
+  { id: 'yekaterinburg', title: 'Екатеринбург' },
+  { id: 'kazan', title: 'Казань' },
+  { id: 'nizhny-novgorod', title: 'Нижний Новгород' },
 ]
 
 const fetchMock = jest.fn()
+const onChange = jest.fn()
+
+beforeEach(() => {
+  Object.defineProperty(globalThis, 'fetch', {
+    writable: true,
+    configurable: true,
+    value: fetchMock,
+  })
+
+  fetchMock.mockResolvedValue({ ok: true, json: async () => cities })
+  onChange.mockClear()
+})
+
+afterEach(() => {
+  fetchMock.mockReset()
+})
 
 describe('ListCitiesFilter', () => {
-  beforeEach(() => {
-    Object.defineProperty(globalThis, 'fetch', {
-      writable: true,
-      configurable: true,
-      value: fetchMock,
-    })
-
-    fetchMock.mockResolvedValue({
-      ok: true,
-      json: async () => cities,
-    })
-  })
-
-  afterEach(() => {
-    fetchMock.mockReset()
-  })
-
-  test('показывает первые пять городов', async () => {
-    render(<ListCitiesFilter />)
+  test('загружает города и показывает первые пять', async () => {
+    render(<ListCitiesFilter value={[]} onChange={onChange} />)
 
     expect(await screen.findByRole('checkbox', { name: 'Москва' })).toBeInTheDocument()
-
-    expect(screen.getByRole('checkbox', { name: 'Санкт-Петербург' })).toBeInTheDocument()
-
-    expect(screen.getByRole('checkbox', { name: 'Новосибирск' })).toBeInTheDocument()
-
-    expect(screen.getByRole('checkbox', { name: 'Екатеринбург' })).toBeInTheDocument()
-
     expect(screen.getByRole('checkbox', { name: 'Казань' })).toBeInTheDocument()
-
     expect(screen.queryByRole('checkbox', { name: 'Нижний Новгород' })).not.toBeInTheDocument()
   })
 
-  test('показывает остальные города после нажатия на кнопку', async () => {
-    render(<ListCitiesFilter />)
+  test('показывает остальные города по кнопке', async () => {
+    render(<ListCitiesFilter value={[]} onChange={onChange} />)
 
     await screen.findByRole('checkbox', { name: 'Москва' })
-
-    const button = screen.getByRole('button', {
-      name: 'Все города',
-    })
-
-    fireEvent.click(button)
+    fireEvent.click(screen.getByRole('button', { name: 'Все города' }))
 
     expect(screen.getByRole('checkbox', { name: 'Нижний Новгород' })).toBeInTheDocument()
   })
 
-  test('позволяет выбрать город', async () => {
-    render(<ListCitiesFilter />)
+  test('отдаёт выбор наверх идентификаторами', async () => {
+    render(<ListCitiesFilter value={[]} onChange={onChange} />)
 
-    const checkbox = await screen.findByRole('checkbox', {
-      name: 'Москва',
-    })
+    fireEvent.click(await screen.findByRole('checkbox', { name: 'Москва' }))
 
-    expect(checkbox).not.toBeChecked()
+    expect(onChange).toHaveBeenCalledWith(['moscow'])
+  })
 
-    fireEvent.click(checkbox)
+  test('отражает выбор, пришедший снаружи', async () => {
+    render(<ListCitiesFilter value={['moscow']} onChange={onChange} />)
 
-    expect(checkbox).toBeChecked()
+    expect(await screen.findByRole('checkbox', { name: 'Москва' })).toBeChecked()
+    expect(screen.getByRole('checkbox', { name: 'Казань' })).not.toBeChecked()
+  })
+
+  test('сообщает об ошибке загрузки', async () => {
+    fetchMock.mockResolvedValue({ ok: false })
+
+    render(<ListCitiesFilter value={[]} onChange={onChange} />)
+
+    expect(await screen.findByText('Не удалось загрузить города')).toBeInTheDocument()
+  })
+
+  test('не ходит в сеть, когда список передан пропсом', () => {
+    render(<ListCitiesFilter value={[]} onChange={onChange} items={cities} />)
+
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(screen.getByRole('checkbox', { name: 'Москва' })).toBeInTheDocument()
   })
 })
