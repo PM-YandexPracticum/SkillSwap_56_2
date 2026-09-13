@@ -13,7 +13,31 @@ export interface Skill {
   createdAt: string
 }
 
+// Категории и навыки из public/db/skills.json — дерево для фильтров и форм
+export interface SkillOption {
+  id: string
+  title: string
+}
+
+export interface SkillCategory {
+  id: string
+  title: string
+  skills: SkillOption[]
+}
+
+// ─── City ────────────────────────────────────────────────
+export interface City {
+  id: string
+  title: string
+}
+
 // ─── User ────────────────────────────────────────────────
+export interface UserSkill {
+  id: string
+  title: string
+  category: string
+}
+
 export interface User {
   id: string
   name: string
@@ -22,6 +46,10 @@ export interface User {
   birthDate: string
   avatarUrl: string | null
   createdAt: string
+  likesCount: number
+  teachSkill: UserSkill
+  learnSkills: UserSkill[]
+  favorites: string[]
 }
 
 // ─── Request ─────────────────────────────────────────────
