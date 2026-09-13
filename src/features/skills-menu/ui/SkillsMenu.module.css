@@ -1,0 +1,45 @@
+.wrapper {
+  white-space: nowrap;
+   flex-shrink: 0; 
+  
+   
+}
+
+
+.skillsMenu{
+  display: grid;
+grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 40px;
+  position: absolute; 
+  top:94px;
+  left: 36px;
+  width: 1136px;
+  min-height: 1040px;
+  padding:60px;
+  border-radius: 12px;
+  background-color: #FFF;
+  border: 1px  solid #69735D;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;           
+  pointer-events: none;
+  transition: 
+    opacity 0.7s ease, 
+    visibility 0.7s ease, 
+    transform 0.7s ease; 
+    transform: translateY(-16px);
+
+
+
+
+
+}
+
+
+
+.skillsMenu.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+   transform: translateY(0);
+}
