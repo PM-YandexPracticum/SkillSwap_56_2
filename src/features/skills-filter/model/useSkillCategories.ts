@@ -3,27 +3,25 @@ import { useEffect, useState } from 'react'
 import { fetchSkillCategories } from '@/api/skills'
 import type { SkillCategory } from '@/shared/types'
 
-/** Готовый список отдаётся как есть — копия в состоянии разошлась бы с пропсом */
-export const useSkillCategories = (items?: SkillCategory[]) => {
-  const [loaded, setLoaded] = useState<SkillCategory[]>([])
-  const [status, setStatus] = useState<string | undefined>(items ? undefined : 'Загрузка…')
+export const useSkillCategories = () => {
+  const [categories, setCategories] = useState<SkillCategory[]>([])
+  const [status, setStatus] = useState<string | undefined>('Загрузка…')
 
   useEffect(() => {
-    if (items) return
-
     const controller = new AbortController()
 
     fetchSkillCategories(controller.signal)
       .then((data) => {
-        setLoaded(data)
+        setCategories(data)
         setStatus(undefined)
       })
       .catch(() => {
+        // Отмену запускаем сами при размонтировании — это не ошибка загрузки
         if (!controller.signal.aborted) setStatus('Не удалось загрузить навыки')
       })
 
     return () => controller.abort()
-  }, [items])
+  }, [])
 
-  return { categories: items ?? loaded, status }
+  return { categories, status }
 }

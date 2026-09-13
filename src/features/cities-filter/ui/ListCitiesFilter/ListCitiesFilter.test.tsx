@@ -69,11 +69,4 @@ describe('ListCitiesFilter', () => {
 
     expect(await screen.findByText('Не удалось загрузить города')).toBeInTheDocument()
   })
-
-  test('не ходит в сеть, когда список передан пропсом', () => {
-    render(<ListCitiesFilter value={[]} onChange={onChange} items={cities} />)
-
-    expect(fetchMock).not.toHaveBeenCalled()
-    expect(screen.getByRole('checkbox', { name: 'Москва' })).toBeInTheDocument()
-  })
 })

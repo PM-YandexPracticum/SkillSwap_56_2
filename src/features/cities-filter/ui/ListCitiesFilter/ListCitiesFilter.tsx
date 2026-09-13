@@ -2,18 +2,14 @@ import { forwardRef } from 'react'
 
 import { useCities } from '../../model/useCities'
 import { FilterList, type FilterFieldProps } from '@/shared/ui/FilterList'
-import type { City } from '@/shared/types'
 
-export type ListCitiesFilterProps = FilterFieldProps & {
-  /** Готовый список — без него фильтр загрузит города сам */
-  items?: City[]
-}
+export type ListCitiesFilterProps = FilterFieldProps
 
 const VISIBLE_CITIES_COUNT = 5
 
 export const ListCitiesFilter = forwardRef<HTMLInputElement, ListCitiesFilterProps>(
-  ({ items, ...field }, ref) => {
-    const { cities, status } = useCities(items)
+  (field, ref) => {
+    const { cities, status } = useCities()
 
     return (
       <FilterList
