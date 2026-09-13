@@ -61,7 +61,7 @@ describe('ListSkillsFilter', () => {
   })
 
   test('категория в промежуточном состоянии, когда выбрана часть навыков', async () => {
-    render(<ListSkillsFilter value={['marketing']} onChange={onChange} items={categories} />)
+    render(<ListSkillsFilter value={['marketing']} onChange={onChange} />)
 
     const category = await screen.findByRole('checkbox', { name: 'Бизнес и карьера' })
 
@@ -78,7 +78,9 @@ describe('ListSkillsFilter', () => {
   })
 
   test('не рисует «Все категории», пока прятать нечего', async () => {
-    render(<ListSkillsFilter value={[]} onChange={onChange} items={categories} />)
+    render(<ListSkillsFilter value={[]} onChange={onChange} />)
+
+    await screen.findByRole('checkbox', { name: 'Бизнес и карьера' })
 
     expect(screen.queryByRole('button', { name: 'Все категории' })).not.toBeInTheDocument()
   })
