@@ -71,12 +71,12 @@ export const SkillsMenu = () => {
         Все навыки
       </ArrowButton>
 
-      <div  data-testid='menu' className={clsx(styles.skillsMenu, isOpen && styles.open)}>
+      <div data-testid="menu" className={clsx(styles.skillsMenu, isOpen && styles.open)}>
         {skills.map((category) => (
           <CardAreaSkill
             key={category.id}
             title={category.title}
-            skills={category.skills}
+            skills={category.skills.map((item) => item.title)}
             bgColor={bgMap[category.id]}
             icon={<img src={iconMap[category.id]} alt={category.title} />}
           />
