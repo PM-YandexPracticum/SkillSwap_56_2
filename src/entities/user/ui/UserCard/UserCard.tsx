@@ -1,6 +1,6 @@
 import { UserPreview } from '@/entities/user/ui/UserPreview'
 import styles from './UserCard.module.css'
-import { useParams } from 'react-router-dom'
+//import { useParams } from 'react-router-dom'
 import { fetchUsers } from '@/api/users'
 import { User } from '@/shared/types'
 import { useState, useEffect } from 'react'
@@ -35,7 +35,7 @@ export const UserCard = () => {
       <div className={styles.profile}>
         <UserPreview user={user}></UserPreview>
         <p className={styles.description}>
-          Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое
+          Привет! Люблю ритм, кофе по&nbsp;утрам и&nbsp;людей, которые не&nbsp;боятся пробовать новое
         </p>
       </div>
       <div className={styles.information}>
