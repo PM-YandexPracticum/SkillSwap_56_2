@@ -44,7 +44,7 @@ export const CardMain = ({ user, isLiked = false, onLikeToggle }: CardMainProps)
                 {skill.title}
               </Tag>
             ))}
-            {hiddenLearnSkillsCount > 0 && <Tag>+{hiddenLearnSkillsCount}</Tag>}
+            {hiddenLearnSkillsCount > 0 && <Tag>{`+${hiddenLearnSkillsCount}`}</Tag>}
           </div>
         </div>
       </div>
