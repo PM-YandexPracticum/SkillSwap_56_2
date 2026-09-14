@@ -1,0 +1,223 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-sans);
+}
+
+.label {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.inputContainer {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px 11px 16px;
+  border: 1px solid #69735d;
+  border-radius: 12px;
+  background: var(--card-input);
+}
+
+.inputContainer:focus-within {
+  border-color: var(--color-primary-pressed);
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.errorContainer {
+  border-color: var(--color-error);
+}
+
+.errorContainer:focus-within {
+  border-color: var(--color-error);
+  outline-color: var(--color-error);
+}
+
+.input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 24px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-disabled-text);
+}
+
+.input:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.calendarButton {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.calendarButton:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.calendarButton:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.calendarButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.errorText {
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.popover {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 8px);
+  left: 0;
+  width: max-content;
+  min-width: 300px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--card-input);
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.calendar {
+  --rdp-accent-color: var(--color-primary-pressed);
+  --rdp-accent-background-color: var(--button-hover);
+
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+.months,
+.month {
+  width: 100%;
+}
+
+.monthCaption {
+  min-height: 36px;
+}
+
+.dropdowns {
+  display: flex;
+  gap: 8px;
+}
+
+.dropdownRoot {
+  position: relative;
+}
+
+.dropdown {
+  min-height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--card-input);
+  color: var(--text);
+  padding: 4px 28px 4px 8px;
+  font: inherit;
+}
+
+.nav {
+  gap: 4px;
+}
+
+.navButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.navButton:hover {
+  background: var(--color-bg-secondary);
+}
+
+.monthGrid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.weekdays,
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 36px);
+}
+
+.weekday {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.weeks {
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: inherit;
+  font: inherit;
+}
+
+.dayButton:hover {
+  background: var(--color-bg-secondary);
+}
+
+.selected .dayButton {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.today .dayButton {
+  outline: 1px solid var(--color-primary-pressed);
+}
+
+.outside {
+  color: var(--color-disabled-text);
+  opacity: 0.6;
+}
+
+.disabled {
+  color: var(--color-disabled-text);
+  opacity: 0.45;
+}

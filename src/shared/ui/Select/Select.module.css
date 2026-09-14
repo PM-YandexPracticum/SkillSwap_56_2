@@ -1,0 +1,124 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-sans);
+}
+
+.label {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.trigger {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
+  border: 1px solid #69735d;
+  border-radius: 12px;
+  background: var(--card-input);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  outline: none;
+}
+
+.trigger[data-placeholder] {
+  color: var(--color-disabled-text);
+}
+
+.trigger:focus-visible,
+.trigger[data-state='open'] {
+  border-color: var(--color-primary-pressed);
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.trigger:disabled {
+  border-color: var(--color-disabled);
+  background: var(--color-bg-secondary);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.errorTrigger {
+  border-color: var(--color-error);
+}
+
+.errorTrigger:focus-visible,
+.errorTrigger[data-state='open'] {
+  border-color: var(--color-error);
+  outline-color: var(--color-error);
+}
+
+.icon {
+  display: flex;
+  flex: 0 0 auto;
+  color: var(--text);
+  transition: transform 0.15s ease;
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.trigger[data-state='open'] .icon {
+  transform: rotate(180deg);
+}
+
+.content {
+  z-index: 1000;
+  min-width: var(--radix-select-trigger-width);
+  max-height: min(320px, var(--radix-select-content-available-height));
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--card-input);
+  box-shadow: var(--shadow-md);
+}
+
+.viewport {
+  padding: 6px;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.item[data-highlighted] {
+  background: var(--button-hover);
+}
+
+.item[data-state='checked'] {
+  background: #eef6e5;
+}
+
+.item[data-disabled] {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.errorText {
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}
