@@ -15,11 +15,16 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 const ServerErrorPage = lazy(() => import('@/pages/ServerErrorPage'))
 
+// Временная страница для ревью обёрток над библиотеками для форм — удалить вместе с веткой
+const FormsPlaygroundPage = lazy(() => import('@/pages/FormsPlaygroundPage'))
+
 export function AppRouter() {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Загрузка...</div>}>
         <Routes>
+          <Route path="/playground/forms" element={<FormsPlaygroundPage />} />
+
           <Route element={<MainLayout />}>
             <Route path={ROUTES.HOME} element={<CatalogPage />} />
             <Route path={ROUTES.SKILL} element={<SkillPage />} />

@@ -23,7 +23,7 @@
   width: 100%;
   min-height: 48px;
   gap: 10px;
-  border: 1px solid #69735d;
+  border: 1px solid var(--color-input-border);
   background-color: #fff;
   border-radius: 12px;
   padding: 12px 20px;

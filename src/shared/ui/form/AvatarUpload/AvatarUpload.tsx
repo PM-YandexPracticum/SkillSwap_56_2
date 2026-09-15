@@ -1,5 +1,5 @@
 import {
-  useMemo,
+  useEffect,
   useState,
 } from 'react'
 import {
@@ -15,10 +15,14 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 
-import GalleryAddIcon from '../icons/assets/gallery-add.svg?react'
-import styles from './FileUpload.module.css'
+import {
+  RoundImage,
+  type RoundImageSize,
+} from '../../RoundImage'
+import PlusCircleIcon from '../../icons/assets/plus-circle.svg?react'
+import styles from './AvatarUpload.module.css'
 
-export interface FileUploadProps<
+export interface AvatarUploadProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > {
@@ -26,30 +30,28 @@ export interface FileUploadProps<
   control: Control<TFieldValues>
   rules?: ControllerProps<TFieldValues, TName>['rules']
   label?: string
+  alt?: string
   accept?: Accept
-  multiple?: boolean
-  maxFiles?: number
   maxSize?: number
   disabled?: boolean
+  size?: RoundImageSize
   className?: string
-  dropzoneText?: string
-  actionText?: string
 }
 
-interface FileUploadFieldProps {
+interface AvatarUploadFieldProps {
   value: unknown
-  onChange: (files: File[]) => void
+  onChange: (
+    value: File | null,
+  ) => void
   onBlur: () => void
   error?: string
   label?: string
-  accept?: Accept
-  multiple: boolean
-  maxFiles: number
+  alt: string
+  accept: Accept
   maxSize?: number
   disabled: boolean
+  size: RoundImageSize
   className: string
-  dropzoneText: string
-  actionText: string
 }
 
 const getRejectionMessage = (
@@ -66,71 +68,76 @@ const getRejectionMessage = (
     firstError.code ===
     'file-too-large'
   ) {
-    return 'Файл слишком большой'
+    return 'Изображение слишком большое'
   }
 
   if (
     firstError.code ===
     'file-invalid-type'
   ) {
-    return 'Неподдерживаемый формат файла'
-  }
-
-  if (
-    firstError.code ===
-    'too-many-files'
-  ) {
-    return 'Выбрано слишком много файлов'
+    return 'Выберите изображение поддерживаемого формата'
   }
 
   return firstError.message
 }
 
-const FileUploadField = ({
+const AvatarUploadField = ({
   value,
   onChange,
   onBlur,
   error,
   label,
+  alt,
   accept,
-  multiple,
-  maxFiles,
   maxSize,
   disabled,
+  size,
   className,
-  dropzoneText,
-  actionText,
-}: FileUploadFieldProps) => {
+}: AvatarUploadFieldProps) => {
+  const [
+    previewUrl,
+    setPreviewUrl,
+  ] = useState<string | undefined>(
+    typeof value === 'string'
+      ? value
+      : undefined,
+  )
+
   const [dropError, setDropError] =
     useState<string>()
 
-  const files = useMemo(
-    () =>
-      Array.isArray(value)
-        ? value.filter(
-            (
-              item,
-            ): item is File =>
-              item instanceof File,
-          )
-        : [],
-    [value],
-  )
+  useEffect(() => {
+    if (typeof value === 'string') {
+      setPreviewUrl(value)
+      return undefined
+    }
+
+    if (!(value instanceof File)) {
+      setPreviewUrl(undefined)
+      return undefined
+    }
+
+    const objectUrl =
+      URL.createObjectURL(value)
+
+    setPreviewUrl(objectUrl)
+
+    return () =>
+      URL.revokeObjectURL(
+        objectUrl,
+      )
+  }, [value])
 
   const {
     getRootProps,
     getInputProps,
     isDragActive,
-    open,
   } = useDropzone({
     accept,
-    multiple,
-    maxFiles: multiple
-      ? maxFiles
-      : 1,
+    multiple: false,
+    maxFiles: 1,
     maxSize,
     disabled,
-    noClick: true,
 
     onDrop: (
       acceptedFiles: File[],
@@ -144,30 +151,25 @@ const FileUploadField = ({
             fileRejections,
           ),
         )
-      } else {
-        setDropError(undefined)
+
+        return
       }
 
-      if (
-        acceptedFiles.length > 0
-      ) {
-        onChange(
-          multiple
-            ? acceptedFiles.slice(
-                0,
-                maxFiles,
-              )
-            : acceptedFiles.slice(
-                0,
-                1,
-              ),
-        )
+      const file =
+        acceptedFiles[0]
+
+      if (file) {
+        setDropError(undefined)
+        onChange(file)
       }
     },
   })
 
   const displayedError =
     dropError || error
+
+  const accessibleLabel =
+    label || 'Загрузить аватар'
 
   return (
     <div
@@ -191,6 +193,12 @@ const FileUploadField = ({
               : ''
           }`.trim(),
 
+          role: 'button',
+          tabIndex: disabled ? -1 : 0,
+
+          'aria-label':
+            accessibleLabel,
+
           'aria-invalid':
             Boolean(displayedError),
         })}
@@ -201,49 +209,19 @@ const FileUploadField = ({
           })}
         />
 
+        <RoundImage
+          src={previewUrl}
+          alt={alt}
+          size={size}
+        />
+
         <span
-          className={
-            styles.dropzoneText
-          }
+          className={styles.addIcon}
+          aria-hidden="true"
         >
-          {isDragActive
-            ? 'Отпустите файлы здесь'
-            : dropzoneText}
+          <PlusCircleIcon />
         </span>
-
-        <button
-          type="button"
-          className={
-            styles.actionButton
-          }
-          disabled={disabled}
-          onClick={open}
-        >
-          <GalleryAddIcon
-            aria-hidden="true"
-          />
-
-          <span>{actionText}</span>
-        </button>
       </div>
-
-      {files.length > 0 && (
-        <ul
-          className={styles.fileList}
-          aria-label="Выбранные файлы"
-        >
-          {files.map((file) => (
-            <li
-              key={`${file.name}-${file.lastModified}`}
-              className={
-                styles.fileItem
-              }
-            >
-              {file.name}
-            </li>
-          ))}
-        </ul>
-      )}
 
       {displayedError && (
         <span
@@ -256,7 +234,13 @@ const FileUploadField = ({
   )
 }
 
-export const FileUpload = <
+const DEFAULT_ACCEPT: Accept = {
+  'image/jpeg': [],
+  'image/png': [],
+  'image/webp': [],
+}
+
+export const AvatarUpload = <
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >({
@@ -264,16 +248,13 @@ export const FileUpload = <
   control,
   rules,
   label,
-  accept,
-  multiple = true,
-  maxFiles = 10,
+  alt = 'Аватар пользователя',
+  accept = DEFAULT_ACCEPT,
   maxSize,
   disabled = false,
+  size = 'lg',
   className = '',
-  dropzoneText =
-    'Перетащите или выберите изображения навыка',
-  actionText = 'Выбрать изображения',
-}: FileUploadProps<
+}: AvatarUploadProps<
   TFieldValues,
   TName
 >) => (
@@ -285,7 +266,7 @@ export const FileUpload = <
       field,
       fieldState,
     }) => (
-      <FileUploadField
+      <AvatarUploadField
         value={field.value}
         onChange={field.onChange}
         onBlur={field.onBlur}
@@ -293,14 +274,12 @@ export const FileUpload = <
           fieldState.error?.message
         }
         label={label}
+        alt={alt}
         accept={accept}
-        multiple={multiple}
-        maxFiles={maxFiles}
         maxSize={maxSize}
         disabled={disabled}
+        size={size}
         className={className}
-        dropzoneText={dropzoneText}
-        actionText={actionText}
       />
     )}
   />

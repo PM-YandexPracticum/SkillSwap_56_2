@@ -20,7 +20,7 @@
   justify-content: center;
   gap: 6px;
   padding: 16px;
-  border: 1px dashed #b8beaf;
+  border: 1px dashed var(--color-dropzone-border);
   border-radius: 12px;
   background: var(--card-input);
   transition:
@@ -30,7 +30,7 @@
 
 .dragActive {
   border-color: var(--color-primary-pressed);
-  background: #f4f9ee;
+  background: var(--color-accent-subtle);
 }
 
 .errorDropzone {
@@ -55,7 +55,7 @@
 }
 
 .actionButton:hover:not(:disabled) {
-  color: #3f6f1c;
+  color: var(--color-primary-dark);
 }
 
 .actionButton:focus-visible {

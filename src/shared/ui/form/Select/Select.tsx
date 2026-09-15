@@ -8,7 +8,7 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 
-import ChevronDownIcon from '../icons/assets/chevron-down.svg?react'
+import ChevronDownIcon from '../../icons/assets/chevron-down.svg?react'
 import styles from './Select.module.css'
 
 export interface SelectOption {
@@ -32,10 +32,7 @@ export interface SelectProps<
   contentClassName?: string
 }
 
-export const Select = <
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
->({
+export const Select = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
   name,
   control,
   rules,
@@ -55,11 +52,13 @@ export const Select = <
       control={control}
       rules={rules}
       render={({ field, fieldState }) => {
+        // Пустая строка, а не undefined: с undefined Radix переключается в
+        // неуправляемый режим и держит старое значение после reset() формы
         const value =
           typeof field.value === 'string'
             ? field.value
             : field.value == null
-              ? undefined
+              ? ''
               : String(field.value)
 
         return (
@@ -70,11 +69,7 @@ export const Select = <
               </label>
             )}
 
-            <RadixSelect.Root
-              value={value || undefined}
-              onValueChange={field.onChange}
-              disabled={disabled}
-            >
+            <RadixSelect.Root value={value} onValueChange={field.onChange} disabled={disabled}>
               <RadixSelect.Trigger
                 id={generatedId}
                 ref={field.ref}
@@ -107,9 +102,7 @@ export const Select = <
                         disabled={option.disabled}
                         className={styles.item}
                       >
-                        <RadixSelect.ItemText>
-                          {option.label}
-                        </RadixSelect.ItemText>
+                        <RadixSelect.ItemText>{option.label}</RadixSelect.ItemText>
                       </RadixSelect.Item>
                     ))}
                   </RadixSelect.Viewport>

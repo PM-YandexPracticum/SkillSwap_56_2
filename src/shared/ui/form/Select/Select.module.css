@@ -21,7 +21,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 11px 16px;
-  border: 1px solid #69735d;
+  border: 1px solid var(--color-input-border);
   border-radius: 12px;
   background: var(--card-input);
   color: var(--text);
@@ -109,7 +109,7 @@
 }
 
 .item[data-state='checked'] {
-  background: #eef6e5;
+  background: var(--color-accent-selected);
 }
 
 .item[data-disabled] {

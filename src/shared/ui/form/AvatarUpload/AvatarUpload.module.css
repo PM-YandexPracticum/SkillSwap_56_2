@@ -31,7 +31,7 @@
 .dropzone:hover,
 .dragActive {
   border-color: var(--accent);
-  background: #f8fbf4;
+  background: var(--color-accent-subtle);
 }
 
 .dropzone:focus-visible {

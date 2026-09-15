@@ -20,7 +20,7 @@
   align-items: center;
   gap: 8px;
   padding: 11px 12px 11px 16px;
-  border: 1px solid #69735d;
+  border: 1px solid var(--color-input-border);
   border-radius: 12px;
   background: var(--card-input);
 }
@@ -92,17 +92,21 @@
   line-height: 16px;
 }
 
+/* ── Поповер с календарём ── */
 .popover {
   position: absolute;
   z-index: 1000;
   top: calc(100% + 8px);
   left: 0;
+  display: flex;
   width: max-content;
-  min-width: 300px;
+  min-width: 340px;
+  flex-direction: column;
+  gap: 16px;
   border: 1px solid var(--color-border);
   border-radius: 16px;
   background: var(--card-input);
-  padding: 16px;
+  padding: 24px;
   box-shadow: var(--shadow-md);
 }
 
@@ -120,41 +124,68 @@
   width: 100%;
 }
 
+/* ── Шапка: только выпадающие списки месяца и года, стрелок навигации нет ── */
 .monthCaption {
+  display: flex;
   min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
 }
 
 .dropdowns {
-  display: flex;
-  gap: 8px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 40px;
 }
 
 .dropdownRoot {
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
+/* Нативный select держим прозрачным поверх подписи: вид наш, клавиатура и клик — браузерные.
+   Стили библиотеки сюда не достают, потому что классы переопределены через classNames */
 .dropdown {
-  min-height: 34px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--card-input);
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.captionLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
   color: var(--text);
-  padding: 4px 28px 4px 8px;
-  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: capitalize;
+  white-space: nowrap;
 }
 
-.nav {
-  gap: 4px;
+.dropdown:focus-visible ~ .captionLabel {
+  border-radius: 4px;
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 4px;
 }
 
-.navButton {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-}
-
-.navButton:hover {
-  background: var(--color-bg-secondary);
+.chevron {
+  width: 16px;
+  height: 16px;
+  fill: var(--text);
 }
 
 .monthGrid {
@@ -165,7 +196,7 @@
 .weekdays,
 .week {
   display: grid;
-  grid-template-columns: repeat(7, 36px);
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .weekday {
@@ -173,9 +204,10 @@
   height: 32px;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary);
-  font-size: 12px;
+  color: var(--color-primary-pressed);
+  font-size: 14px;
   font-weight: 400;
+  text-transform: capitalize;
 }
 
 .weeks {
@@ -185,15 +217,14 @@
 
 .day {
   display: flex;
-  width: 36px;
-  height: 36px;
+  height: 40px;
   align-items: center;
   justify-content: center;
 }
 
 .dayButton {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   color: inherit;
   font: inherit;
@@ -220,4 +251,14 @@
 .disabled {
   color: var(--color-disabled-text);
   opacity: 0.45;
+}
+
+/* ── Подтверждение выбора: в форму дата уходит только по «Выбрать» ── */
+.footer {
+  display: flex;
+  gap: 8px;
+}
+
+.footerButton {
+  flex: 1;
 }
