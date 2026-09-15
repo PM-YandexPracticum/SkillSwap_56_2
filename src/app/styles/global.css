@@ -21,6 +21,18 @@
   --color-disabled-text: #9ca197;
   --color-radio-checked: #508826;
 
+  /* Формы: границы полей, подложки и затемнение модалки */
+  --color-input-border: #69735d;
+  --color-dropzone-border: #b8beaf;
+
+  /* Светлая подложка под hover и drag-over */
+  --color-accent-subtle: #f4f9ee;
+
+  /* Подложка выбранного пункта списка */
+  --color-accent-selected: #eef6e5;
+  --color-primary-dark: #3f6f1c;
+  --color-overlay: rgb(37 48 23 / 42%);
+
   /* Layout */
   
   /* вынесено в root, так как можно переиспользовать не только в mainlayout, но и в header, footer */
@@ -67,6 +79,7 @@
   /* Shadows */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
   --shadow-md: 0 4px 6px rgb(0 0 0 / 7%);
+  --shadow-lg: 0 16px 48px rgb(0 0 0 / 18%);
 }
 
 /* Тёмная тема — добавить поддержку через data-theme="dark" */

@@ -1,0 +1,72 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-sans);
+}
+
+.label {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.dropzone {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--card-input);
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.dropzone:hover,
+.dragActive {
+  border-color: var(--accent);
+  background: var(--color-accent-subtle);
+}
+
+.dropzone:focus-visible {
+  border-color: var(--color-primary-pressed);
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.errorDropzone {
+  border-color: var(--color-error);
+}
+
+.addIcon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--card-input);
+  border-radius: 50%;
+  background: var(--card-input);
+  color: var(--color-primary-pressed);
+}
+
+.addIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.errorText {
+  max-width: 180px;
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}
