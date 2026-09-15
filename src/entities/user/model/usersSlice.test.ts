@@ -1,8 +1,14 @@
-import usersReducer, { loadUsers, showMore } from './usersSlice'
+import { configureStore } from '@reduxjs/toolkit'
+
+import usersReducer, { loadUsers, showMore, INITIAL_VISIBLE } from './usersSlice'
 import type { UsersState } from './usersSlice'
+import { fetchUsers } from '@/api/users'
 import * as selectors from './selectors'
 import type { RootState } from '@/store'
 import type { User } from '@/shared/types'
+
+jest.mock('@/api/users')
+const fetchUsersMock = fetchUsers as jest.MockedFunction<typeof fetchUsers>
 
 const mockUsers = [
   {
@@ -114,6 +120,7 @@ const mockUsers = [
 const createInitialState = (): UsersState => ({
   users: [] as User[],
   status: 'idle',
+  error: null,
   visible: 6,
 })
 
@@ -150,26 +157,67 @@ describe('usersSlice', () => {
       expect(newState.users[0].name).toBe('Иван')
     })
 
-    test('rejected — устанавливает status: failed', () => {
+    test('rejected — устанавливает status: failed и сообщение об ошибке', () => {
       const action = loadUsers.rejected(new Error('Error message'), 'request-id', undefined)
       const state = usersReducer(createInitialState(), action)
       expect(state.status).toBe('failed')
+      expect(state.error).toBe('Error message')
+    })
+
+    test('pending — сбрасывает прошлую ошибку', () => {
+      const failed = {
+        ...createInitialState(),
+        status: 'failed' as const,
+        error: 'Сеть недоступна',
+      }
+      const state = usersReducer(failed, loadUsers.pending('request-id'))
+      expect(state.error).toBeNull()
+    })
+
+    test('fulfilled — сбрасывает visible на первую страницу', () => {
+      const scrolled = { ...createInitialState(), visible: 24 }
+      const state = usersReducer(scrolled, loadUsers.fulfilled(mockUsers, 'request-id', undefined))
+      expect(state.visible).toBe(INITIAL_VISIBLE)
     })
   })
 
   describe('showMore', () => {
+    const loaded = (visible: number): UsersState => ({
+      users: [...mockUsers, ...mockUsers, ...mockUsers].map((user, index) => ({
+        ...user,
+        id: `user-${index + 1}`,
+      })),
+      status: 'succeeded',
+      error: null,
+      visible,
+    })
+
     test('увеличивает visible на 6', () => {
-      const state = { ...createInitialState(), visible: 6 }
-      const action = showMore()
-      const newState = usersReducer(state, action)
+      const newState = usersReducer(loaded(6), showMore())
       expect(newState.visible).toBe(12)
     })
 
     test('может вызываться многократно', () => {
-      let state = { ...createInitialState(), visible: 6 }
+      let state = loaded(6)
       state = usersReducer(state, showMore())
       state = usersReducer(state, showMore())
       expect(state.visible).toBe(18)
+    })
+
+    test('не уходит выше количества пользователей', () => {
+      const state = { ...loaded(6), users: mockUsers } // 8 пользователей
+      const newState = usersReducer(state, showMore())
+      expect(newState.visible).toBe(8)
+    })
+
+    test('не делает ничего, когда показаны все', () => {
+      const state = { ...loaded(6), users: mockUsers, visible: 8 }
+      expect(usersReducer(state, showMore()).visible).toBe(8)
+    })
+
+    test('не обнуляет visible, пока пользователи не загружены', () => {
+      const state = createInitialState() // users: []
+      expect(usersReducer(state, showMore()).visible).toBe(INITIAL_VISIBLE)
     })
   })
 })
@@ -178,6 +226,7 @@ describe('selectors', () => {
   const usersState = {
     users: mockUsers,
     status: 'succeeded' as const,
+    error: null,
     visible: 6,
   }
 
@@ -244,6 +293,7 @@ describe('selectors', () => {
         users: {
           users: mockUsers.slice(0, 3),
           status: 'succeeded',
+          error: null,
           visible: 6,
         },
       }
@@ -264,6 +314,7 @@ describe('selectors', () => {
         users: {
           users: mockUsers,
           status: 'succeeded',
+          error: null,
           visible: 8,
         },
       }
@@ -275,6 +326,7 @@ describe('selectors', () => {
         users: {
           users: mockUsers,
           status: 'succeeded',
+          error: null,
           visible: 8,
         },
       }
@@ -286,6 +338,7 @@ describe('selectors', () => {
         users: {
           users: mockUsers,
           status: 'succeeded',
+          error: null,
           visible: 6,
         },
       }
@@ -297,5 +350,66 @@ describe('selectors', () => {
       const result2 = selectors.selectHasMore(rootState)
       expect(result1).toBe(result2)
     })
+  })
+})
+
+describe('loadUsers — интеграция со стором', () => {
+  const makeStore = () => configureStore({ reducer: { users: usersReducer } })
+
+  beforeEach(() => {
+    fetchUsersMock.mockReset()
+  })
+
+  test('кладёт сообщение об ошибке в стейт', async () => {
+    const store = makeStore()
+    fetchUsersMock.mockRejectedValueOnce(new Error('Сеть недоступна'))
+
+    await store.dispatch(loadUsers())
+
+    expect(store.getState().users.status).toBe('failed')
+    expect(store.getState().users.error).toBe('Сеть недоступна')
+  })
+
+  test('после ошибки повторная загрузка проходит', async () => {
+    const store = makeStore()
+    fetchUsersMock.mockRejectedValueOnce(new Error('Сеть недоступна'))
+    await store.dispatch(loadUsers())
+    expect(store.getState().users.status).toBe('failed')
+
+    fetchUsersMock.mockResolvedValueOnce(mockUsers)
+    await store.dispatch(loadUsers())
+
+    expect(store.getState().users.status).toBe('succeeded')
+    expect(store.getState().users.error).toBeNull()
+    expect(store.getState().users.users).toHaveLength(8)
+    expect(fetchUsersMock).toHaveBeenCalledTimes(2)
+  })
+
+  test('параллельные вызовы (StrictMode) делают один запрос', async () => {
+    const store = makeStore()
+    fetchUsersMock.mockResolvedValue(mockUsers)
+
+    await Promise.all([store.dispatch(loadUsers()), store.dispatch(loadUsers())])
+
+    expect(fetchUsersMock).toHaveBeenCalledTimes(1)
+    expect(store.getState().users.status).toBe('succeeded')
+  })
+
+  test('повторный вызов после succeeded не ходит в сеть', async () => {
+    const store = makeStore()
+    fetchUsersMock.mockResolvedValue(mockUsers)
+
+    await store.dispatch(loadUsers())
+    await store.dispatch(loadUsers())
+
+    expect(fetchUsersMock).toHaveBeenCalledTimes(1)
+  })
+
+  test('unwrap() не бросает ConditionError на повторном вызове', async () => {
+    const store = makeStore()
+    fetchUsersMock.mockResolvedValue(mockUsers)
+
+    await store.dispatch(loadUsers())
+    await expect(store.dispatch(loadUsers()).unwrap()).resolves.toHaveLength(8)
   })
 })
