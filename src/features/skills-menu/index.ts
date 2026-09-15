@@ -1,2 +1,1 @@
-export { SkillsMenu } from "@/features/skills-menu/ui/SkillsMenu";
-
+export { SkillsMenu } from './ui/SkillsMenu'

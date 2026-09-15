@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import type { User } from '@/entities/user/model/types'
+import { SkillsMenu } from '@/features/skills-menu'
 import { ROUTES } from '@/shared/lib/constants'
 import { ButtonLink } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
@@ -10,8 +11,7 @@ import NotificationIcon from '@/shared/ui/icons/assets/notification.svg?react'
 import SearchIcon from '@/shared/ui/icons/assets/search.svg?react'
 import { Logo } from '@/shared/ui/Logo'
 import { RoundImage } from '@/shared/ui/RoundImage'
-import{SkillsMenu} from '@/features/skills-menu/ui/SkillsMenu' //!
- 
+
 import styles from './Header.module.css'
 
 interface HeaderProps {
@@ -31,7 +31,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
           <Link to={`${ROUTES.HOME}#about`} className={styles.navLink}>
             О проекте
           </Link>
-          <SkillsMenu />{/*!*/}
+          <SkillsMenu />
         </nav>
 
         <form className={styles.search} role="search">
