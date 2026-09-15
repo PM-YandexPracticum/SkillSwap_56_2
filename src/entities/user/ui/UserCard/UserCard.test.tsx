@@ -25,7 +25,10 @@ describe('UserCard', () => {
           title: 'Музыка и звук',
           category: 'Творчество и искусство',
         },
-        learnSkills: [],
+        learnSkills: [
+          { id: 'english', title: 'Английский', category: 'Иностранные языки' },
+          { id: 'time-management', title: 'Тайм-менеджмент', category: 'Бизнес и карьера' },
+        ],
         favorites: [],
       },
     ])
@@ -45,5 +48,13 @@ describe('UserCard', () => {
         'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
       ),
     ).toBeInTheDocument()
+  })
+
+  test('рендерит навыки пользователя из данных', async () => {
+    render(<UserCard />)
+
+    expect(await screen.findByText('Музыка и звук')).toBeInTheDocument()
+    expect(screen.getByText('Английский')).toBeInTheDocument()
+    expect(screen.getByText('Тайм-менеджмент')).toBeInTheDocument()
   })
 })

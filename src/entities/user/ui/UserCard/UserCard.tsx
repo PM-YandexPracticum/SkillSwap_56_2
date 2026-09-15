@@ -1,4 +1,5 @@
 import { UserPreview } from '@/entities/user/ui/UserPreview'
+import { getSkillTone } from '@/entities/skill/lib'
 import styles from './UserCard.module.css'
 //import { useParams } from 'react-router-dom'
 import { fetchUsers } from '@/api/users'
@@ -40,13 +41,16 @@ export const UserCard = () => {
       </div>
       <div className={styles.information}>
         <h4 className={styles['title-tag']}>Может научить:</h4>
-        <Tag tone="yellow">Английский язык</Tag>
+        <Tag tone={getSkillTone(user.teachSkill.category)}>{user.teachSkill.title}</Tag>
       </div>
       <div className={styles.information}>
         <h4 className={styles['title-tag']}>Хочет научиться:</h4>
         <div className={styles['container-tag']}>
-          <Tag tone="blue">Тайм менеджмент</Tag>
-          <Tag tone="mint">Медитация</Tag>
+          {user.learnSkills.map((skill) => (
+            <Tag key={skill.id} tone={getSkillTone(skill.category)}>
+              {skill.title}
+            </Tag>
+          ))}
         </div>
       </div>
     </div>
