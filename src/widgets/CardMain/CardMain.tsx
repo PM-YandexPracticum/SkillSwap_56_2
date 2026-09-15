@@ -1,5 +1,5 @@
 import { getSkillTone } from '@/entities/skill/lib'
-import { UserPreview } from '@/entities/user/ui/UserPreview'
+import { UserPreview } from '@/entities/user'
 import { ROUTES } from '@/shared/lib/constants'
 import type { User } from '@/shared/types'
 import { ButtonLink } from '@/shared/ui/Button'
