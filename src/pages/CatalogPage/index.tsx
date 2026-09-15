@@ -18,11 +18,6 @@ export default function CatalogPage() {
       <div>
         <h1>CatalogPage</h1>
         <p>Страница в разработке</p>
-
-        {/* Временный вывод состояния для проверки, что onChange пробрасывается наверх */}
-        <pre style={{ marginTop: '16px', fontSize: '12px' }}>
-          {JSON.stringify(filters, null, 2)}
-        </pre>
       </div>
     </main>
   )
