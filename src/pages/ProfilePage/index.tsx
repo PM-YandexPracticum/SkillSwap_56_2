@@ -1,10 +1,11 @@
-// TODO: реализовать страницу ProfilePage
+import { Sidebar } from "@/shared/ui/Sidebar";
+import { Outlet } from "react-router-dom";
 
 export default function ProfilePage() {
-  return (
-    <main>
-      <h1>ProfilePage</h1>
-      <p>Страница в разработке</p>
-    </main>
-  )
+ return (
+  <main>
+    <Sidebar />
+    <Outlet />
+  </main>
+ )
 }
