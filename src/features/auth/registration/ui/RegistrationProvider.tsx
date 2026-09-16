@@ -39,6 +39,7 @@ interface RegistrationFlowContextValue {
   nextStep: () => Promise<void>
   previousStep: () => void
   finishRegistration: () => Promise<void>
+  clearDraft: () => void
 }
 
 const RegistrationFlowContext =
@@ -272,6 +273,7 @@ export const RegistrationProvider = ({
       nextStep,
       previousStep,
       finishRegistration,
+      clearDraft: clearRegistrationDraft,
     }
 
   return (

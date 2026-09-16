@@ -45,17 +45,34 @@ const STEP_ALIASES: Record<string, number> = {
   [ROUTES.REGISTER_USER_TYPO]: 1,
 }
 
+function normalizePathname(
+  pathname: string,
+): string {
+  const withoutTrailingSlash =
+    pathname.replace(/\/+$/, '')
+
+  return (
+    withoutTrailingSlash || '/'
+  ).toLowerCase()
+}
+
 export function getRegistrationStepIndex(
   pathname: string,
 ): number {
+  const normalizedPathname =
+    normalizePathname(pathname)
+
   const canonicalIndex =
     REGISTRATION_STEPS.findIndex(
-      (step) => step.path === pathname,
+      (step) =>
+        step.path === normalizedPathname,
     )
 
   if (canonicalIndex !== -1) {
     return canonicalIndex
   }
 
-  return STEP_ALIASES[pathname] ?? -1
+  return (
+    STEP_ALIASES[normalizedPathname] ?? -1
+  )
 }

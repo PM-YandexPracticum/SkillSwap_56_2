@@ -47,6 +47,7 @@ export const RegistrationLayout =
   () => {
     const {
       currentStepIndex,
+      clearDraft,
     } = useRegistrationFlow()
 
     const safeStepIndex =
@@ -68,6 +69,7 @@ export const RegistrationLayout =
             safeStepIndex
           ]
         }
+        onClose={clearDraft}
       />
     )
   }
