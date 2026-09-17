@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
-import UserCircleIcon from '../icons/assets/user-circle.svg?react';
-import styles from './RoundImage.module.css';
+import { useEffect, useState } from 'react'
+import type { ReactNode } from 'react'
+import UserCircleIcon from '../icons/assets/user-circle.svg?react'
+import styles from './RoundImage.module.css'
 
-const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ');
+const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ')
 
-export type RoundImageSize = 'sm' | 'smd' | 'md' | 'lg' | 'xl';
+export type RoundImageSize = 'sm' | 'smd' | 'md' | 'lg' | 'xl' | 'xxl'
 
 interface RoundImageProps {
-  src?: string | null;
-  icon?: ReactNode;
-  bgColor?: string;
-  alt: string;
-  size?: RoundImageSize;
-  className?: string;
+  src?: string | null
+  icon?: ReactNode
+  bgColor?: string
+  alt: string
+  size?: RoundImageSize
+  className?: string
 }
 
 export const RoundImage = ({
@@ -22,15 +22,15 @@ export const RoundImage = ({
   bgColor,
   alt,
   size = 'md',
-  className
+  className,
 }: RoundImageProps) => {
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(false)
 
   useEffect(() => {
-    setHasError(false);
-  }, [src]);
+    setHasError(false)
+  }, [src])
 
-  const showImage = src && !hasError;
+  const showImage = src && !hasError
 
   return (
     <div
@@ -38,17 +38,12 @@ export const RoundImage = ({
       style={!showImage ? { backgroundColor: bgColor || 'var(--color-bg-secondary)' } : undefined}
     >
       {showImage ? (
-        <img
-          src={src}
-          alt={alt}
-          className={styles.image}
-          onError={() => setHasError(true)}
-        />
+        <img src={src} alt={alt} className={styles.image} onError={() => setHasError(true)} />
       ) : (
         <div className={styles.iconWrapper}>
           {icon ? icon : <UserCircleIcon className={styles.fallbackIcon} />}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
