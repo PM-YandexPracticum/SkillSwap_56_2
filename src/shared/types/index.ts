@@ -50,7 +50,7 @@ export interface User {
   likesCount: number
   teachSkill: UserSkill
   learnSkills: UserSkill[]
-  favorites: string[]
+   favorites: string[]
   gender?:string
 }
 
