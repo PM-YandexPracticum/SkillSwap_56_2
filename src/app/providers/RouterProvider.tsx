@@ -132,13 +132,44 @@ export function AppRouter() {
             />
 
             <Route
-              path={
-                ROUTES.PROFILE
-              }
-              element={
-                <ProfilePage />
-              }
-            />
+              path={ROUTES.PROFILE}
+              element={<ProfilePage />}
+            >
+              <Route
+                index
+                element={
+                  <Navigate
+                    to={ROUTES.PROFILE_PERSONAL}
+                    replace
+                  />
+                }
+              />
+
+              <Route
+                path={ROUTES.PROFILE_REQUESTS}
+                element={<div>Раздел в разработке</div>}
+              />
+
+              <Route
+                path={ROUTES.PROFILE_EXCHANGES}
+                element={<div>Раздел в разработке</div>}
+              />
+
+              <Route
+                path={ROUTES.PROFILE_FAVORITES}
+                element={<FavoritesPage />}
+              />
+
+              <Route
+                path={ROUTES.PROFILE_SKILLS}
+                element={<div>Раздел в разработке</div>}
+              />
+
+              <Route
+                path={ROUTES.PROFILE_PERSONAL}
+                element={<div>Раздел в разработке</div>}
+              />
+            </Route>
 
             <Route
               path={
