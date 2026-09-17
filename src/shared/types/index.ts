@@ -39,10 +39,11 @@ export interface UserSkill {
 }
 
 export interface User {
-  id: string
+  id: string      
+  cityId: string; 
+  city: string
   name: string
   email: string
-  city: string
   birthDate: string
   avatarUrl: string | null
   createdAt: string
@@ -50,6 +51,7 @@ export interface User {
   teachSkill: UserSkill
   learnSkills: UserSkill[]
   favorites: string[]
+  gender:string
 }
 
 // ─── Request ─────────────────────────────────────────────
