@@ -72,7 +72,7 @@ export const selectRecommended = createSelector(
 }
 
 // проверка для кнопки показать еще (работает и с фильтрами, и без них)
-export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
+  export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
   const visible = selectUsersVisible(state)
   const users = filters ? selectFilteredUsers(state, filters) : selectUsers(state)
   return visible < users.length
