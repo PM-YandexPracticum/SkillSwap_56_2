@@ -36,7 +36,9 @@
       "user-5",
       "user-10",
       "user-14"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "saint-petersburg"
   },
   {
     "id": "user-2",
@@ -68,7 +70,9 @@
       "user-1",
       "user-4",
       "user-9"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "voronezh"
   },
   {
     "id": "user-3",
@@ -106,7 +110,9 @@
       "user-10",
       "user-13",
       "user-22"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-4",
@@ -151,7 +157,9 @@
       "user-10",
       "user-16",
       "user-28"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "moscow"
   },
   {
     "id": "user-5",
@@ -184,7 +192,9 @@
       "user-8",
       "user-18",
       "user-24"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "kazan"
   },
   {
     "id": "user-6",
@@ -222,7 +232,9 @@
       "user-7",
       "user-12",
       "user-27"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "novosibirsk"
   },
   {
     "id": "user-7",
@@ -255,7 +267,9 @@
       "user-9",
       "user-21",
       "user-39"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "yekaterinburg"
   },
   {
     "id": "user-8",
@@ -294,7 +308,9 @@
       "user-24",
       "user-32",
       "user-44"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "krasnodar"
   },
   {
     "id": "user-9",
@@ -327,7 +343,9 @@
       "user-4",
       "user-7",
       "user-21"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "nizhny-novgorod"
   },
   {
     "id": "user-10",
@@ -371,7 +389,9 @@
       "user-16",
       "user-22",
       "user-28"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-11",
@@ -403,7 +423,9 @@
       "user-1",
       "user-7",
       "user-25"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-12",
@@ -441,7 +463,9 @@
       "user-16",
       "user-26",
       "user-33"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "samara"
   },
   {
     "id": "user-13",
@@ -474,7 +498,9 @@
       "user-10",
       "user-22",
       "user-43"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "rostov-on-don"
   },
   {
     "id": "user-14",
@@ -513,7 +539,9 @@
       "user-10",
       "user-16",
       "user-36"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "perm"
   },
   {
     "id": "user-15",
@@ -546,7 +574,9 @@
       "user-21",
       "user-23",
       "user-41"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "ufa"
   },
   {
     "id": "user-16",
@@ -590,7 +620,9 @@
       "user-14",
       "user-28",
       "user-36"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "krasnoyarsk"
   },
   {
     "id": "user-17",
@@ -623,7 +655,9 @@
       "user-7",
       "user-35",
       "user-40"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-18",
@@ -661,7 +695,9 @@
       "user-8",
       "user-30",
       "user-34"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-19",
@@ -694,7 +730,9 @@
       "user-13",
       "user-31",
       "user-43"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-20",
@@ -732,7 +770,9 @@
       "user-8",
       "user-15",
       "user-24"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-21",
@@ -765,7 +805,9 @@
       "user-9",
       "user-27",
       "user-39"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-22",
@@ -804,7 +846,9 @@
       "user-16",
       "user-28",
       "user-40"
-    ]
+    ],
+    "gender": "female",
+    "cityId": "chelyabinsk"
   },
   {
     "id": "user-23",
@@ -837,7 +881,9 @@
       "user-21",
       "user-27",
       "user-45"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-24",
@@ -876,7 +922,9 @@
       "user-32",
       "user-38",
       "user-44"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-25",
@@ -909,7 +957,9 @@
       "user-10",
       "user-11",
       "user-14"
-    ]
+    ],
+    "gender": "male",
+    "cityId": "omsk"
   },
   {
     "id": "user-26",
@@ -947,7 +997,9 @@
       "user-12",
       "user-33",
       "user-37"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-27",
@@ -980,7 +1032,9 @@
       "user-21",
       "user-23",
       "user-45"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-28",
@@ -1024,7 +1078,9 @@
       "user-10",
       "user-16",
       "user-32"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-29",
@@ -1057,7 +1113,9 @@
       "user-9",
       "user-21",
       "user-33"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-30",
@@ -1095,7 +1153,9 @@
       "user-18",
       "user-34",
       "user-36"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-31",
@@ -1128,7 +1188,9 @@
       "user-19",
       "user-35",
       "user-43"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-32",
@@ -1166,7 +1228,9 @@
       "user-24",
       "user-28",
       "user-38"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-33",
@@ -1199,7 +1263,9 @@
       "user-12",
       "user-26",
       "user-29"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-34",
@@ -1231,7 +1297,9 @@
       "user-18",
       "user-20",
       "user-30"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-35",
@@ -1269,7 +1337,9 @@
       "user-17",
       "user-31",
       "user-40"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-36",
@@ -1307,7 +1377,9 @@
       "user-10",
       "user-14",
       "user-16"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-37",
@@ -1340,7 +1412,9 @@
       "user-26",
       "user-38",
       "user-45"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-38",
@@ -1378,7 +1452,9 @@
       "user-24",
       "user-32",
       "user-44"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-39",
@@ -1411,7 +1487,9 @@
       "user-9",
       "user-21",
       "user-27"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-40",
@@ -1454,7 +1532,9 @@
       "user-10",
       "user-22",
       "user-35"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-41",
@@ -1486,7 +1566,9 @@
       "user-15",
       "user-21",
       "user-23"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-42",
@@ -1524,7 +1606,9 @@
       "user-12",
       "user-24",
       "user-26"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-43",
@@ -1557,7 +1641,9 @@
       "user-13",
       "user-19",
       "user-22"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   },
   {
     "id": "user-44",
@@ -1596,7 +1682,9 @@
       "user-28",
       "user-32",
       "user-38"
-    ]
+    ],
+    "gender": "female",
+    "cityId": ""
   },
   {
     "id": "user-45",
@@ -1628,6 +1716,8 @@
       "user-23",
       "user-27",
       "user-37"
-    ]
+    ],
+    "gender": "male",
+    "cityId": ""
   }
 ]
