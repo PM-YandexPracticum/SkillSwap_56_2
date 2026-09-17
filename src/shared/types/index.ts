@@ -40,7 +40,7 @@ export interface UserSkill {
 
 export interface User {
   id: string      
-  cityId: string; 
+  cityId?: string; 
   city: string
   name: string
   email: string
@@ -51,7 +51,7 @@ export interface User {
   teachSkill: UserSkill
   learnSkills: UserSkill[]
   favorites: string[]
-  gender:string
+  gender?:string
 }
 
 // ─── Request ─────────────────────────────────────────────

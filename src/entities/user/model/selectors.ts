@@ -42,7 +42,7 @@ export const selectRecommended = createSelector(
       return false
     }
 // проверка города
-    if (filters.cities.length > 0 && !filters.cities.includes(user.cityId)) {
+    if (filters.cities.length > 0 && !filters.cities.includes(user.cityId ?? '')) {
       return false
     }
 
@@ -71,9 +71,9 @@ export const selectRecommended = createSelector(
   })
 }
 
-// проверка для кнопки показать еще
-export const selectHasMore = (state: RootState, filters: CatalogFilters): boolean => {
+// проверка для кнопки показать еще (работает и с фильтрами, и без них)
+export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
   const visible = selectUsersVisible(state)
-  const filteredUsers = selectFilteredUsers(state, filters)
-  return visible < filteredUsers.length
+  const users = filters ? selectFilteredUsers(state, filters) : selectUsers(state)
+  return visible < users.length
 }

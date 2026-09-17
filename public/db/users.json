@@ -30,14 +30,8 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-2",
-      "user-4",
-      "user-5",
-      "user-10",
-      "user-14"
-    ],
-     "gender": "male",
+    "favorites": ["user-2", "user-4", "user-5", "user-10", "user-14"],
+    "gender": "male",
     "cityId": "saint-petersburg"
   },
   {
@@ -66,11 +60,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-4",
-      "user-9"
-    ],
+    "favorites": ["user-1", "user-4", "user-9"],
     "gender": "male",
     "cityId": "voronezh"
   },
@@ -105,14 +95,9 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-10",
-      "user-13",
-      "user-22"
-    ],
+    "favorites": ["user-1", "user-10", "user-13", "user-22"],
     "gender": "male",
-    "cityId": ""
+     "cityId": ""
   },
   {
     "id": "user-4",
@@ -150,14 +135,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-5",
-      "user-8",
-      "user-10",
-      "user-16",
-      "user-28"
-    ],
+    "favorites": ["user-1", "user-5", "user-8", "user-10", "user-16", "user-28"],
     "gender": "female",
     "cityId": "moscow"
   },
@@ -187,12 +165,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-8",
-      "user-18",
-      "user-24"
-    ],
+    "favorites": ["user-4", "user-8", "user-18", "user-24"],
     "gender": "female",
     "cityId": "kazan"
   },
@@ -227,12 +200,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-7",
-      "user-12",
-      "user-27"
-    ],
+    "favorites": ["user-4", "user-7", "user-12", "user-27"],
     "gender": "female",
     "cityId": "novosibirsk"
   },
@@ -262,12 +230,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-9",
-      "user-21",
-      "user-39"
-    ],
+    "favorites": ["user-1", "user-9", "user-21", "user-39"],
     "gender": "male",
     "cityId": "yekaterinburg"
   },
@@ -302,13 +265,7 @@
         "category": "Дом и уют"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-5",
-      "user-24",
-      "user-32",
-      "user-44"
-    ],
+    "favorites": ["user-4", "user-5", "user-24", "user-32", "user-44"],
     "gender": "female",
     "cityId": "krasnodar"
   },
@@ -338,12 +295,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-4",
-      "user-7",
-      "user-21"
-    ],
+    "favorites": ["user-1", "user-4", "user-7", "user-21"],
     "gender": "male",
     "cityId": "nizhny-novgorod"
   },
@@ -383,13 +335,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-13",
-      "user-16",
-      "user-22",
-      "user-28"
-    ],
+    "favorites": ["user-4", "user-13", "user-16", "user-22", "user-28"],
     "gender": "female",
     "cityId": ""
   },
@@ -419,11 +365,7 @@
         "category": "Дом и уют"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-7",
-      "user-25"
-    ],
+    "favorites": ["user-1", "user-7", "user-25"],
     "gender": "male",
     "cityId": ""
   },
@@ -458,12 +400,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-6",
-      "user-16",
-      "user-26",
-      "user-33"
-    ],
+    "favorites": ["user-6", "user-16", "user-26", "user-33"],
     "gender": "female",
     "cityId": "samara"
   },
@@ -493,12 +430,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-3",
-      "user-10",
-      "user-22",
-      "user-43"
-    ],
+    "favorites": ["user-3", "user-10", "user-22", "user-43"],
     "gender": "male",
     "cityId": "rostov-on-don"
   },
@@ -533,13 +465,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-9",
-      "user-10",
-      "user-16",
-      "user-36"
-    ],
+    "favorites": ["user-4", "user-9", "user-10", "user-16", "user-36"],
     "gender": "female",
     "cityId": "perm"
   },
@@ -569,12 +495,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-5",
-      "user-21",
-      "user-23",
-      "user-41"
-    ],
+    "favorites": ["user-5", "user-21", "user-23", "user-41"],
     "gender": "male",
     "cityId": "ufa"
   },
@@ -614,13 +535,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-10",
-      "user-14",
-      "user-28",
-      "user-36"
-    ],
+    "favorites": ["user-4", "user-10", "user-14", "user-28", "user-36"],
     "gender": "female",
     "cityId": "krasnoyarsk"
   },
@@ -650,12 +565,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-6",
-      "user-7",
-      "user-35",
-      "user-40"
-    ],
+    "favorites": ["user-6", "user-7", "user-35", "user-40"],
     "gender": "male",
     "cityId": ""
   },
@@ -690,12 +600,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-5",
-      "user-8",
-      "user-30",
-      "user-34"
-    ],
+    "favorites": ["user-5", "user-8", "user-30", "user-34"],
     "gender": "female",
     "cityId": ""
   },
@@ -725,12 +630,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-8",
-      "user-13",
-      "user-31",
-      "user-43"
-    ],
+    "favorites": ["user-8", "user-13", "user-31", "user-43"],
     "gender": "male",
     "cityId": ""
   },
@@ -765,12 +665,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-5",
-      "user-8",
-      "user-15",
-      "user-24"
-    ],
+    "favorites": ["user-5", "user-8", "user-15", "user-24"],
     "gender": "female",
     "cityId": ""
   },
@@ -800,12 +695,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-7",
-      "user-9",
-      "user-27",
-      "user-39"
-    ],
+    "favorites": ["user-7", "user-9", "user-27", "user-39"],
     "gender": "male",
     "cityId": ""
   },
@@ -840,13 +730,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-10",
-      "user-13",
-      "user-16",
-      "user-28",
-      "user-40"
-    ],
+    "favorites": ["user-10", "user-13", "user-16", "user-28", "user-40"],
     "gender": "female",
     "cityId": "chelyabinsk"
   },
@@ -876,12 +760,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-15",
-      "user-21",
-      "user-27",
-      "user-45"
-    ],
+    "favorites": ["user-15", "user-21", "user-27", "user-45"],
     "gender": "male",
     "cityId": ""
   },
@@ -916,13 +795,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-5",
-      "user-8",
-      "user-32",
-      "user-38",
-      "user-44"
-    ],
+    "favorites": ["user-5", "user-8", "user-32", "user-38", "user-44"],
     "gender": "female",
     "cityId": ""
   },
@@ -952,12 +825,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-2",
-      "user-10",
-      "user-11",
-      "user-14"
-    ],
+    "favorites": ["user-2", "user-10", "user-11", "user-14"],
     "gender": "male",
     "cityId": "omsk"
   },
@@ -992,12 +860,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-6",
-      "user-12",
-      "user-33",
-      "user-37"
-    ],
+    "favorites": ["user-6", "user-12", "user-33", "user-37"],
     "gender": "female",
     "cityId": ""
   },
@@ -1027,12 +890,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-7",
-      "user-21",
-      "user-23",
-      "user-45"
-    ],
+    "favorites": ["user-7", "user-21", "user-23", "user-45"],
     "gender": "male",
     "cityId": ""
   },
@@ -1072,13 +930,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-8",
-      "user-10",
-      "user-16",
-      "user-32"
-    ],
+    "favorites": ["user-4", "user-8", "user-10", "user-16", "user-32"],
     "gender": "female",
     "cityId": ""
   },
@@ -1108,12 +960,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-1",
-      "user-9",
-      "user-21",
-      "user-33"
-    ],
+    "favorites": ["user-1", "user-9", "user-21", "user-33"],
     "gender": "male",
     "cityId": ""
   },
@@ -1148,12 +995,7 @@
         "category": "Дом и уют"
       }
     ],
-    "favorites": [
-      "user-8",
-      "user-18",
-      "user-34",
-      "user-36"
-    ],
+    "favorites": ["user-8", "user-18", "user-34", "user-36"],
     "gender": "female",
     "cityId": ""
   },
@@ -1183,12 +1025,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-3",
-      "user-19",
-      "user-35",
-      "user-43"
-    ],
+    "favorites": ["user-3", "user-19", "user-35", "user-43"],
     "gender": "male",
     "cityId": ""
   },
@@ -1223,12 +1060,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-8",
-      "user-24",
-      "user-28",
-      "user-38"
-    ],
+    "favorites": ["user-8", "user-24", "user-28", "user-38"],
     "gender": "female",
     "cityId": ""
   },
@@ -1258,12 +1090,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-2",
-      "user-12",
-      "user-26",
-      "user-29"
-    ],
+    "favorites": ["user-2", "user-12", "user-26", "user-29"],
     "gender": "male",
     "cityId": ""
   },
@@ -1293,11 +1120,7 @@
         "category": "Дом и уют"
       }
     ],
-    "favorites": [
-      "user-18",
-      "user-20",
-      "user-30"
-    ],
+    "favorites": ["user-18", "user-20", "user-30"],
     "gender": "female",
     "cityId": ""
   },
@@ -1332,12 +1155,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-3",
-      "user-17",
-      "user-31",
-      "user-40"
-    ],
+    "favorites": ["user-3", "user-17", "user-31", "user-40"],
     "gender": "male",
     "cityId": ""
   },
@@ -1372,12 +1190,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-4",
-      "user-10",
-      "user-14",
-      "user-16"
-    ],
+    "favorites": ["user-4", "user-10", "user-14", "user-16"],
     "gender": "female",
     "cityId": ""
   },
@@ -1407,12 +1220,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-6",
-      "user-26",
-      "user-38",
-      "user-45"
-    ],
+    "favorites": ["user-6", "user-26", "user-38", "user-45"],
     "gender": "male",
     "cityId": ""
   },
@@ -1447,12 +1255,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-8",
-      "user-24",
-      "user-32",
-      "user-44"
-    ],
+    "favorites": ["user-8", "user-24", "user-32", "user-44"],
     "gender": "female",
     "cityId": ""
   },
@@ -1482,12 +1285,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-7",
-      "user-9",
-      "user-21",
-      "user-27"
-    ],
+    "favorites": ["user-7", "user-9", "user-21", "user-27"],
     "gender": "male",
     "cityId": ""
   },
@@ -1527,12 +1325,7 @@
         "category": "Иностранные языки"
       }
     ],
-    "favorites": [
-      "user-3",
-      "user-10",
-      "user-22",
-      "user-35"
-    ],
+    "favorites": ["user-3", "user-10", "user-22", "user-35"],
     "gender": "female",
     "cityId": ""
   },
@@ -1562,11 +1355,7 @@
         "category": "Бизнес и карьера"
       }
     ],
-    "favorites": [
-      "user-15",
-      "user-21",
-      "user-23"
-    ],
+    "favorites": ["user-15", "user-21", "user-23"],
     "gender": "male",
     "cityId": ""
   },
@@ -1601,12 +1390,7 @@
         "category": "Образование и развитие"
       }
     ],
-    "favorites": [
-      "user-6",
-      "user-12",
-      "user-24",
-      "user-26"
-    ],
+    "favorites": ["user-6", "user-12", "user-24", "user-26"],
     "gender": "female",
     "cityId": ""
   },
@@ -1636,12 +1420,7 @@
         "category": "Творчество и искусство"
       }
     ],
-    "favorites": [
-      "user-10",
-      "user-13",
-      "user-19",
-      "user-22"
-    ],
+    "favorites": ["user-10", "user-13", "user-19", "user-22"],
     "gender": "male",
     "cityId": ""
   },
@@ -1676,13 +1455,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-8",
-      "user-24",
-      "user-28",
-      "user-32",
-      "user-38"
-    ],
+    "favorites": ["user-8", "user-24", "user-28", "user-32", "user-38"],
     "gender": "female",
     "cityId": ""
   },
@@ -1712,11 +1485,7 @@
         "category": "Здоровье и лайфстайл"
       }
     ],
-    "favorites": [
-      "user-23",
-      "user-27",
-      "user-37"
-    ],
+    "favorites": ["user-23", "user-27", "user-37"],
     "gender": "male",
     "cityId": ""
   }

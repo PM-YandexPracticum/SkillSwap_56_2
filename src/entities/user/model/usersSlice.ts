@@ -49,7 +49,7 @@ const initialState: UsersState = {
 const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
+   reducers: {
     showMore(state) {
       if (state.visible >= state.users.length) return
       state.visible = Math.min(state.visible + VISIBLE_STEP, state.users.length)
