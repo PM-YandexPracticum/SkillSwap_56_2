@@ -3,7 +3,7 @@ import { FiltersBar, DEFAULT_FILTERS, type CatalogFilters } from '@/widgets/Filt
 
 export default function CatalogPage() {
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
-
+  console.log(filters);
   return (
     <main
       style={{
@@ -11,10 +11,11 @@ export default function CatalogPage() {
         gap: '24px',
         padding: '24px',
         alignItems: 'flex-start',
+        
       }}
     >
       <FiltersBar filters={filters} onChange={setFilters} />
-
+   
       <div>
         <h1>CatalogPage</h1>
         <p>Страница в разработке</p>
