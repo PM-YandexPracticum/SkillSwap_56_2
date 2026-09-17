@@ -76,7 +76,7 @@ describe('тесты селекторов пользователей', () => {
   })
 
   test('фильтрует по городу (cities = [moscow])', () => {
-    const state = {
+     const state = {
       users: {
         users: mockUsers,
         status: 'succeeded',
