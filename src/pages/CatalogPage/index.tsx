@@ -48,7 +48,7 @@ export default function CatalogPage() {
 
         <div className={styles.grid}>
           {visibleUsers.map((user) => (
-            <UserPreview key={user.id} user={user} />
+             <UserPreview key={user.id} user={user} />
           ))}
         </div>
 
