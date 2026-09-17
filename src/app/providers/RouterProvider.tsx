@@ -16,7 +16,7 @@ import { RegistrationProvider } from '@/features/auth/registration'
 
 import { ROUTES } from '@/shared/lib/constants'
 import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
-
+import { Spinner } from '@/shared/ui/Spinner'
 const CatalogPage = lazy(
   () =>
     import(
@@ -97,11 +97,7 @@ const ServerErrorPage = lazy(
 export function AppRouter() {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div>Загрузка...</div>
-        }
-      >
+      <Suspense fallback={<Spinner fullPage />}>
         <Routes>
           <Route
             element={

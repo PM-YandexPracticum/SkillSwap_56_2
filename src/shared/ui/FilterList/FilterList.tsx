@@ -2,7 +2,7 @@ import { forwardRef, useState, type ReactNode } from 'react'
 
 import { ArrowButton } from '../ArrowButton'
 import { Checkbox } from '../Checkbox'
-
+import { Spinner } from '@/shared/ui/Spinner'
 import type { FilterItem } from './types'
 import styles from './FilterList.module.css'
 
@@ -151,9 +151,9 @@ export const FilterList = forwardRef<HTMLInputElement, FilterListProps>(
         <h3 className={styles.title}>{title}</h3>
 
         {status && (
-          <p className={styles.status} role="status">
-            {status}
-          </p>
+          <div className={styles.status} role="status">
+            {status === 'Загрузка…' ? <Spinner size="sm" /> : status}
+          </div>
         )}
 
         <ul className={styles.list}>

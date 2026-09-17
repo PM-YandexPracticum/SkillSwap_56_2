@@ -5,11 +5,13 @@ import type { SkillCategory } from '@/shared/types'
 
 export const useSkillCategories = () => {
   const [categories, setCategories] = useState<SkillCategory[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [status, setStatus] = useState<string | undefined>('Загрузка…')
 
   useEffect(() => {
     const controller = new AbortController()
 
+    setIsLoading(true)
     fetchSkillCategories(controller.signal)
       .then((data) => {
         setCategories(data)
@@ -23,5 +25,5 @@ export const useSkillCategories = () => {
     return () => controller.abort()
   }, [])
 
-  return { categories, status }
+  return { categories, status, isLoading }
 }
