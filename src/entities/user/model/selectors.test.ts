@@ -28,7 +28,7 @@ const mockUsers: User[] = [
     city: 'Санкт-Петербург',
     cityId: 'saint-petersburg',
     gender: 'female',
-    birthDate: '1995-05-05',
+     birthDate: '1995-05-05',
     avatarUrl: null,
     createdAt: '2024-02-01',
     likesCount: 10,
