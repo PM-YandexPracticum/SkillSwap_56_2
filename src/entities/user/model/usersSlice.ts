@@ -54,7 +54,7 @@ const usersSlice = createSlice({
       if (state.visible >= state.users.length) return
       state.visible = Math.min(state.visible + VISIBLE_STEP, state.users.length)
     },
-resetVisible(state){
+ resetVisible(state){
 state.visible=INITIAL_VISIBLE
 
 }
