@@ -32,7 +32,7 @@ export const selectRecommended = createSelector(
 
 // фильтры
 
-export const selectFilteredUsers = (state: RootState, filters: CatalogFilters): User[] => {
+ export const selectFilteredUsers = (state: RootState, filters: CatalogFilters): User[] => {
   const users = selectUsers(state)
 
   return users.filter((user) => {
