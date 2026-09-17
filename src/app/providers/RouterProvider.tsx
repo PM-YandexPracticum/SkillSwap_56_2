@@ -157,7 +157,7 @@ export function AppRouter() {
 
               <Route
                 path={ROUTES.PROFILE_FAVORITES}
-                element={<div>Раздел в разработке</div>}
+                element={<FavoritesPage />}
               />
 
               <Route

@@ -1,11 +1,16 @@
-import { Sidebar } from "@/shared/ui/Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
+
+import { ProfileSidebar } from '@/widgets/ProfileSidebar'
+
+import styles from './ProfilePage.module.css'
 
 export default function ProfilePage() {
- return (
-  <main>
-    <Sidebar />
-    <Outlet />
-  </main>
- )
+  return (
+    <div className={styles.page}>
+      <ProfileSidebar />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+    </div>
+  )
 }
