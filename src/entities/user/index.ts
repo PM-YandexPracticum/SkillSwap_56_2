@@ -2,6 +2,7 @@ export {
   default as usersReducer,
   loadUsers,
   showMore,
+  resetVisible,
   INITIAL_VISIBLE,
   VISIBLE_STEP,
 } from './model/usersSlice'
@@ -15,8 +16,12 @@ export {
   selectPopular,
   selectNew,
   selectRecommended,
+  selectFilteredUsers,
   selectHasMore,
 } from './model/selectors'
+
+export { DEFAULT_FILTERS } from './model/filters'
+export type { CatalogFilters, CatalogFilterType, CatalogFilterGender } from './model/filters'
 
 export type { User, UserSkill, AuthUser } from './model/types'
 
