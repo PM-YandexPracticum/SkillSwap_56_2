@@ -16,9 +16,11 @@ export type SectionCardsProps = {
   allHref?: string
   skeletonCount?: number
   onRetry?: () => void
+  errorMessage?: string
 }
 
 const DEFAULT_SKELETON_COUNT = 3
+const DEFAULT_ERROR_MESSAGE = 'Не удалось загрузить карточки'
 
 export const SectionCards = ({
   title,
@@ -27,6 +29,7 @@ export const SectionCards = ({
   allHref,
   skeletonCount = DEFAULT_SKELETON_COUNT,
   onRetry,
+  errorMessage = DEFAULT_ERROR_MESSAGE,
 }: SectionCardsProps) => {
   const titleId = useId()
   const shouldShowCards = status === 'succeeded' && users.length > 0
@@ -88,10 +91,12 @@ export const SectionCards = ({
 
       {status === 'failed' && (
         <div className={styles.error} role="alert">
-          <p className={styles.message}>Не удалось загрузить карточки</p>
-          <Button variant="secondary" onClick={onRetry} disabled={!onRetry}>
-            Повторить
-          </Button>
+          <p className={styles.message}>{errorMessage}</p>
+          {onRetry && (
+            <Button variant="secondary" onClick={onRetry}>
+              Повторить
+            </Button>
+          )}
         </div>
       )}
     </section>

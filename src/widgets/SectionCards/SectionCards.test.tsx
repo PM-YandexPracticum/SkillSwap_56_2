@@ -83,6 +83,19 @@ describe('SectionCards', () => {
     expect(handleRetry).toHaveBeenCalledTimes(1)
   })
 
+  test('status="failed" без onRetry не показывает кнопку "Повторить"', () => {
+    renderSection({ status: 'failed' })
+
+    expect(screen.getByRole('alert')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Повторить' })).not.toBeInTheDocument()
+  })
+
+  test('status="failed" показывает переданный errorMessage', () => {
+    renderSection({ status: 'failed', errorMessage: 'Сервер недоступен' })
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Сервер недоступен')
+  })
+
   test('показывает кнопку "Смотреть все", когда передан allHref', () => {
     renderSection({ allHref: '/catalog' })
 
