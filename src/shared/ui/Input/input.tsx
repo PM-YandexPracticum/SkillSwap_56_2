@@ -3,7 +3,10 @@ import styles from './input.module.css'
 import { InputProps } from './type'
 import clsx from 'clsx'
 
-export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
+export const Input = React.forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  InputProps
+>(
   (
     {
       label,
@@ -16,23 +19,29 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
       heightTextarea = '',
       id,
       onChange,
+      onValueChange,
       className = '',
       ...rest
     },
     ref,
   ) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      onChange?.(e.target.value)
+    const handleChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+      // 1) Прокидываем событие — это путь react-hook-form
+      onChange?.(e)
+      // 2) Плюс удобный вариант со строкой
+      onValueChange?.(e.target.value)
     }
 
     const generatedId = React.useId()
-    const inputId = id || generatedId // генерирует id для связки разных id
+    const inputId = id || generatedId // генерирует id для связки label и input
 
-    const errorId = `${inputId}-error` // для чтения helper и error  под полями
+    const errorId = `${inputId}-error` // для чтения helper и error под полями
     const helperId = `${inputId}-helper`
 
     return (
-       <div className={`${styles.inputWrapper} ${className} `}>
+      <div className={`${styles.inputWrapper} ${className}`}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
 import type { User } from '@/entities/user/model/types'
+import { SkillsMenu } from '@/features/skills-menu'
 import { ROUTES } from '@/shared/lib/constants'
 import { ButtonLink } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
-import ChevronDownIcon from '@/shared/ui/icons/assets/chevron-down.svg?react'
 import LikeIcon from '@/shared/ui/icons/assets/like.svg?react'
 import MoonIcon from '@/shared/ui/icons/assets/moon.svg?react'
 import NotificationIcon from '@/shared/ui/icons/assets/notification.svg?react'
@@ -31,10 +31,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
           <Link to={`${ROUTES.HOME}#about`} className={styles.navLink}>
             О проекте
           </Link>
-          <Link to={ROUTES.HOME} className={styles.navLink}>
-            <span>Все навыки</span>
-            <ChevronDownIcon className={styles.navIcon} aria-hidden="true" />
-          </Link>
+          <SkillsMenu />
         </nav>
 
         <form className={styles.search} role="search">

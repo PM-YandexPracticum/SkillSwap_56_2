@@ -1,7 +1,7 @@
 .footer {
   margin-top: auto;
   padding-block: 32px;
-  background-color: var(--color-bg);
+  background-color: #fff;
 }
 
 /* Ширину и поля задаёт Container, здесь только сетка: 324 + 24 + 1020 */
