@@ -6,6 +6,9 @@ import {
   resetVisible,
   selectFilteredUsers,
   selectHasMore,
+  selectNew,
+  selectPopular,
+  selectRecommended,
   selectUsersError,
   selectUsersStatus,
   selectUsersVisible,
@@ -13,8 +16,10 @@ import {
   UserPreview,
   type CatalogFilters,
 } from '@/entities/user'
+import { ROUTES } from '@/shared/lib/constants'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { FiltersBar } from '@/widgets/FiltersBar'
+import { SectionCards } from '@/widgets/SectionCards'
 
 import styles from './CatalogPage.module.css'
 
@@ -27,8 +32,17 @@ export default function CatalogPage() {
   const status = useAppSelector(selectUsersStatus)
   const error = useAppSelector(selectUsersError)
   const visible = useAppSelector(selectUsersVisible)
+  const popularUsers = useAppSelector(selectPopular)
+  const newUsers = useAppSelector(selectNew)
+  const recommendedUsers = useAppSelector(selectRecommended)
   const filteredUsers = useAppSelector((state) => selectFilteredUsers(state, filters))
   const hasMore = useAppSelector((state) => selectHasMore(state, filters))
+
+  const isFiltering =
+    filters.type !== DEFAULT_FILTERS.type ||
+    filters.gender !== DEFAULT_FILTERS.gender ||
+    filters.skills.length > 0 ||
+    filters.cities.length > 0
 
   useEffect(() => {
     dispatch(loadUsers())
@@ -45,37 +59,69 @@ export default function CatalogPage() {
   const visibleUsers = filteredUsers.slice(0, visible)
 
   return (
-    <main className={styles.main}>
-      <FiltersBar filters={filters} onChange={setFilters} />
+    <main className={styles.page}>
+      <FiltersBar filters={filters} onChange={setFilters} className={styles.filters} />
 
       <div className={styles.content}>
-        <h1>Каталог пользователей</h1>
+        <h1 className={styles.title}>Каталог пользователей</h1>
 
-        {status === 'loading' && <p>Загрузка...</p>}
+        {isFiltering ? (
+          <>
+            {status === 'loading' && <p>Загрузка...</p>}
 
-        {status === 'failed' && (
-          <div className={styles.error} role="alert">
-            <p>{error ?? DEFAULT_ERROR}</p>
-            <button className={styles.retryButton} onClick={handleRetry}>
-              Повторить
-            </button>
+            {status === 'failed' && (
+              <div className={styles.error} role="alert">
+                <p>{error ?? DEFAULT_ERROR}</p>
+                <button className={styles.retryButton} onClick={handleRetry}>
+                  Повторить
+                </button>
+              </div>
+            )}
+
+            {status === 'succeeded' && filteredUsers.length === 0 && (
+              <p>Пользователи не найдены. Попробуйте изменить фильтры.</p>
+            )}
+
+            <div className={styles.grid}>
+              {visibleUsers.map((user) => (
+                <UserPreview key={user.id} user={user} />
+              ))}
+            </div>
+
+            {status === 'succeeded' && hasMore && (
+              <button className={styles.moreButton} onClick={() => dispatch(showMore())}>
+                Показать ещё
+              </button>
+            )}
+          </>
+        ) : (
+          <div className={styles.sections}>
+            <SectionCards
+              title="Популярное"
+              users={popularUsers}
+              status={status}
+              allHref={ROUTES.HOME}
+              onRetry={handleRetry}
+              errorMessage={error ?? undefined}
+            />
+
+            <SectionCards
+              title="Новое"
+              users={newUsers}
+              status={status}
+              allHref={ROUTES.HOME}
+              onRetry={handleRetry}
+              errorMessage={error ?? undefined}
+            />
+
+            <SectionCards
+              title="Рекомендуем"
+              users={recommendedUsers}
+              status={status}
+              onRetry={handleRetry}
+              errorMessage={error ?? undefined}
+            />
           </div>
-        )}
-
-        {status === 'succeeded' && filteredUsers.length === 0 && (
-          <p>Пользователи не найдены. Попробуйте изменить фильтры.</p>
-        )}
-
-        <div className={styles.grid}>
-          {visibleUsers.map((user) => (
-            <UserPreview key={user.id} user={user} />
-          ))}
-        </div>
-
-        {status === 'succeeded' && hasMore && (
-          <button className={styles.moreButton} onClick={() => dispatch(showMore())}>
-            Показать ещё
-          </button>
         )}
       </div>
     </main>
