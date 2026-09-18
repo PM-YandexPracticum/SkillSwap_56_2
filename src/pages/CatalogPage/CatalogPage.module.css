@@ -1,0 +1,23 @@
+.page {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding-block: 24px 80px;
+}
+
+.sections {
+  display: grid;
+  flex: 1;
+  gap: 64px;
+  min-width: 0;
+}
+
+@media (width <= 900px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .filters {
+    width: 100%;
+  }
+}
