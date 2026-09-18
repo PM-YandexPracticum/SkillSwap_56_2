@@ -49,16 +49,14 @@ const initialState: UsersState = {
 const usersSlice = createSlice({
   name: 'users',
   initialState,
-   reducers: {
+  reducers: {
     showMore(state) {
       if (state.visible >= state.users.length) return
       state.visible = Math.min(state.visible + VISIBLE_STEP, state.users.length)
     },
- resetVisible(state){
-state.visible=INITIAL_VISIBLE
-
-}
-
+    resetVisible(state) {
+      state.visible = INITIAL_VISIBLE
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,5 +77,5 @@ state.visible=INITIAL_VISIBLE
   },
 })
 
-export const { showMore, resetVisible  } = usersSlice.actions
+export const { showMore, resetVisible } = usersSlice.actions
 export default usersSlice.reducer

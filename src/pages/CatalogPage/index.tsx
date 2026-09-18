@@ -1,35 +1,46 @@
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import type { AppDispatch, RootState } from '@/store'
-import { FiltersBar, DEFAULT_FILTERS, type CatalogFilters } from '@/widgets/FiltersBar'
-import { UserPreview } from '@/entities/user/ui/UserPreview'
-import { loadUsers, showMore, resetVisible } from '@/entities/user/model/usersSlice'
+import { useEffect, useState } from 'react'
+
 import {
+  DEFAULT_FILTERS,
+  loadUsers,
+  resetVisible,
   selectFilteredUsers,
-  selectUsersVisible,
   selectHasMore,
+  selectUsersError,
   selectUsersStatus,
-} from '@/entities/user/model/selectors'
+  selectUsersVisible,
+  showMore,
+  UserPreview,
+  type CatalogFilters,
+} from '@/entities/user'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { FiltersBar } from '@/widgets/FiltersBar'
+
 import styles from './CatalogPage.module.css'
 
+const DEFAULT_ERROR = 'Не удалось загрузить пользователей'
+
 export default function CatalogPage() {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
 
-  const status = useSelector(selectUsersStatus)
-  const visible = useSelector(selectUsersVisible)
-  const filteredUsers = useSelector((state: RootState) => selectFilteredUsers(state, filters))
-  const hasMore = useSelector((state: RootState) => selectHasMore(state, filters))
+  const status = useAppSelector(selectUsersStatus)
+  const error = useAppSelector(selectUsersError)
+  const visible = useAppSelector(selectUsersVisible)
+  const filteredUsers = useAppSelector((state) => selectFilteredUsers(state, filters))
+  const hasMore = useAppSelector((state) => selectHasMore(state, filters))
 
-  
   useEffect(() => {
     dispatch(loadUsers())
   }, [dispatch])
 
-  
   useEffect(() => {
     dispatch(resetVisible())
   }, [filters, dispatch])
+
+  const handleRetry = () => {
+    dispatch(loadUsers())
+  }
 
   const visibleUsers = filteredUsers.slice(0, visible)
 
@@ -42,18 +53,27 @@ export default function CatalogPage() {
 
         {status === 'loading' && <p>Загрузка...</p>}
 
-        {status !== 'loading' && filteredUsers.length === 0 && (
+        {status === 'failed' && (
+          <div className={styles.error} role="alert">
+            <p>{error ?? DEFAULT_ERROR}</p>
+            <button className={styles.retryButton} onClick={handleRetry}>
+              Повторить
+            </button>
+          </div>
+        )}
+
+        {status === 'succeeded' && filteredUsers.length === 0 && (
           <p>Пользователи не найдены. Попробуйте изменить фильтры.</p>
         )}
 
         <div className={styles.grid}>
           {visibleUsers.map((user) => (
-             <UserPreview key={user.id} user={user} />
+            <UserPreview key={user.id} user={user} />
           ))}
         </div>
 
-        {hasMore && (
-          <button onClick={() => dispatch(showMore())} className={styles.moreButton}>
+        {status === 'succeeded' && hasMore && (
+          <button className={styles.moreButton} onClick={() => dispatch(showMore())}>
             Показать ещё
           </button>
         )}

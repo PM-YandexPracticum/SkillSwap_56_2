@@ -38,9 +38,11 @@ export interface UserSkill {
   category: string
 }
 
+export type UserGender = 'male' | 'female'
+
 export interface User {
-  id: string      
-  cityId?: string; 
+  id: string
+  cityId: string
   city: string
   name: string
   email: string
@@ -50,8 +52,8 @@ export interface User {
   likesCount: number
   teachSkill: UserSkill
   learnSkills: UserSkill[]
-   favorites: string[]
-  gender?:string
+  favorites: string[]
+  gender: UserGender
 }
 
 // ─── Request ─────────────────────────────────────────────

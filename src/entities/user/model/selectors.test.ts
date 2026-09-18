@@ -2,7 +2,7 @@ import { expect, test, describe } from '@jest/globals'
 import { selectFilteredUsers, selectHasMore } from './selectors'
 import type { RootState } from '@/store'
 import type { User } from '@/shared/types'
-import type { CatalogFilters } from '@/widgets/FiltersBar'
+import type { CatalogFilters } from './filters'
 
 // 1. Тестовые пользователи для проверки
 const mockUsers: User[] = [
@@ -28,7 +28,7 @@ const mockUsers: User[] = [
     city: 'Санкт-Петербург',
     cityId: 'saint-petersburg',
     gender: 'female',
-     birthDate: '1995-05-05',
+    birthDate: '1995-05-05',
     avatarUrl: null,
     createdAt: '2024-02-01',
     likesCount: 10,
@@ -76,7 +76,7 @@ describe('тесты селекторов пользователей', () => {
   })
 
   test('фильтрует по городу (cities = [moscow])', () => {
-     const state = {
+    const state = {
       users: {
         users: mockUsers,
         status: 'succeeded',

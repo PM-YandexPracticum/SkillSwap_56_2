@@ -1,7 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
-import type { RootState } from '@/store'
+
 import type { User } from '@/shared/types'
-import type { CatalogFilters } from '@/widgets/FiltersBar'
+import type { RootState } from '@/store'
+
+import type { CatalogFilters } from './filters'
 
 const selectUsersState = (state: RootState) => state.users
 
@@ -28,38 +30,27 @@ export const selectRecommended = createSelector(
   (users: User[], visible: number) => users.slice(0, visible),
 )
 
-
-
-// фильтры
-
- export const selectFilteredUsers = (state: RootState, filters: CatalogFilters): User[] => {
+export const selectFilteredUsers = (state: RootState, filters: CatalogFilters): User[] => {
   const users = selectUsers(state)
 
   return users.filter((user) => {
-  
-    // провекра пола 
     if (filters.gender !== 'any' && user.gender !== filters.gender) {
       return false
     }
-// проверка города
-    if (filters.cities.length > 0 && !filters.cities.includes(user.cityId ?? '')) {
+
+    if (filters.cities.length > 0 && !filters.cities.includes(user.cityId)) {
       return false
     }
 
-  // провекра  типа
     let userSkillIds: string[] = []
     if (filters.type === 'teach') {
-      userSkillIds = user.teachSkill ? [user.teachSkill.id] : []
+      userSkillIds = [user.teachSkill.id]
     } else if (filters.type === 'learn') {
       userSkillIds = user.learnSkills.map((skill) => skill.id)
     } else {
-      userSkillIds = [
-        ...(user.teachSkill ? [user.teachSkill.id] : []),
-        ...user.learnSkills.map((skill) => skill.id),
-      ]
+      userSkillIds = [user.teachSkill.id, ...user.learnSkills.map((skill) => skill.id)]
     }
 
-// проверка  навыков
     if (filters.skills.length > 0) {
       const hasSkill = filters.skills.some((skillId) => userSkillIds.includes(skillId))
       if (!hasSkill) {
@@ -71,8 +62,7 @@ export const selectRecommended = createSelector(
   })
 }
 
-// проверка для кнопки показать еще (работает и с фильтрами, и без них)
-  export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
+export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
   const visible = selectUsersVisible(state)
   const users = filters ? selectFilteredUsers(state, filters) : selectUsers(state)
   return visible < users.length

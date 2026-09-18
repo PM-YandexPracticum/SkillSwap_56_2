@@ -31,7 +31,7 @@
       }
     ],
     "favorites": ["user-2", "user-4", "user-5", "user-10", "user-14"],
-     "gender": "male",
+    "gender": "male",
     "cityId": "saint-petersburg"
   },
   {
@@ -97,7 +97,7 @@
     ],
     "favorites": ["user-1", "user-10", "user-13", "user-22"],
     "gender": "male",
-     "cityId": ""
+    "cityId": "simferopol"
   },
   {
     "id": "user-4",
@@ -337,7 +337,7 @@
     ],
     "favorites": ["user-4", "user-13", "user-16", "user-22", "user-28"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "sochi"
   },
   {
     "id": "user-11",
@@ -367,7 +367,7 @@
     ],
     "favorites": ["user-1", "user-7", "user-25"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "kaliningrad"
   },
   {
     "id": "user-12",
@@ -567,7 +567,7 @@
     ],
     "favorites": ["user-6", "user-7", "user-35", "user-40"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "tomsk"
   },
   {
     "id": "user-18",
@@ -602,7 +602,7 @@
     ],
     "favorites": ["user-5", "user-8", "user-30", "user-34"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "irkutsk"
   },
   {
     "id": "user-19",
@@ -632,7 +632,7 @@
     ],
     "favorites": ["user-8", "user-13", "user-31", "user-43"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "yaroslavl"
   },
   {
     "id": "user-20",
@@ -667,7 +667,7 @@
     ],
     "favorites": ["user-5", "user-8", "user-15", "user-24"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "tula"
   },
   {
     "id": "user-21",
@@ -697,7 +697,7 @@
     ],
     "favorites": ["user-7", "user-9", "user-27", "user-39"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "tyumen"
   },
   {
     "id": "user-22",
@@ -762,7 +762,7 @@
     ],
     "favorites": ["user-15", "user-21", "user-27", "user-45"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "volgograd"
   },
   {
     "id": "user-24",
@@ -797,7 +797,7 @@
     ],
     "favorites": ["user-5", "user-8", "user-32", "user-38", "user-44"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "saratov"
   },
   {
     "id": "user-25",
@@ -862,7 +862,7 @@
     ],
     "favorites": ["user-6", "user-12", "user-33", "user-37"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "khabarovsk"
   },
   {
     "id": "user-27",
@@ -892,7 +892,7 @@
     ],
     "favorites": ["user-7", "user-21", "user-23", "user-45"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "murmansk"
   },
   {
     "id": "user-28",
@@ -932,7 +932,7 @@
     ],
     "favorites": ["user-4", "user-8", "user-10", "user-16", "user-32"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "arkhangelsk"
   },
   {
     "id": "user-29",
@@ -962,7 +962,7 @@
     ],
     "favorites": ["user-1", "user-9", "user-21", "user-33"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "pskov"
   },
   {
     "id": "user-30",
@@ -997,7 +997,7 @@
     ],
     "favorites": ["user-8", "user-18", "user-34", "user-36"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "tver"
   },
   {
     "id": "user-31",
@@ -1027,7 +1027,7 @@
     ],
     "favorites": ["user-3", "user-19", "user-35", "user-43"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "belgorod"
   },
   {
     "id": "user-32",
@@ -1062,7 +1062,7 @@
     ],
     "favorites": ["user-8", "user-24", "user-28", "user-38"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "kaluga"
   },
   {
     "id": "user-33",
@@ -1092,7 +1092,7 @@
     ],
     "favorites": ["user-2", "user-12", "user-26", "user-29"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "ryazan"
   },
   {
     "id": "user-34",
@@ -1122,7 +1122,7 @@
     ],
     "favorites": ["user-18", "user-20", "user-30"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "vladimir"
   },
   {
     "id": "user-35",
@@ -1157,7 +1157,7 @@
     ],
     "favorites": ["user-3", "user-17", "user-31", "user-40"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "ulyanovsk"
   },
   {
     "id": "user-36",
@@ -1192,7 +1192,7 @@
     ],
     "favorites": ["user-4", "user-10", "user-14", "user-16"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "penza"
   },
   {
     "id": "user-37",
@@ -1222,7 +1222,7 @@
     ],
     "favorites": ["user-6", "user-26", "user-38", "user-45"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "lipetsk"
   },
   {
     "id": "user-38",
@@ -1257,7 +1257,7 @@
     ],
     "favorites": ["user-8", "user-24", "user-32", "user-44"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "smolensk"
   },
   {
     "id": "user-39",
@@ -1287,7 +1287,7 @@
     ],
     "favorites": ["user-7", "user-9", "user-21", "user-27"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "kursk"
   },
   {
     "id": "user-40",
@@ -1327,7 +1327,7 @@
     ],
     "favorites": ["user-3", "user-10", "user-22", "user-35"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "bryansk"
   },
   {
     "id": "user-41",
@@ -1357,7 +1357,7 @@
     ],
     "favorites": ["user-15", "user-21", "user-23"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "astrakhan"
   },
   {
     "id": "user-42",
@@ -1392,7 +1392,7 @@
     ],
     "favorites": ["user-6", "user-12", "user-24", "user-26"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "vologda"
   },
   {
     "id": "user-43",
@@ -1422,7 +1422,7 @@
     ],
     "favorites": ["user-10", "user-13", "user-19", "user-22"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "ivanovo"
   },
   {
     "id": "user-44",
@@ -1457,7 +1457,7 @@
     ],
     "favorites": ["user-8", "user-24", "user-28", "user-32", "user-38"],
     "gender": "female",
-    "cityId": ""
+    "cityId": "kostroma"
   },
   {
     "id": "user-45",
@@ -1487,6 +1487,6 @@
     ],
     "favorites": ["user-23", "user-27", "user-37"],
     "gender": "male",
-    "cityId": ""
+    "cityId": "cheboksary"
   }
 ]
