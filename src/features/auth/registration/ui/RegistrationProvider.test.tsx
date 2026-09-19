@@ -13,6 +13,25 @@ import { REGISTRATION_DEFAULT_VALUES } from '../model/storage'
 import type { RegistrationFormValues } from '../model/types'
 import { RegistrationProvider } from './RegistrationProvider'
 
+
+jest.mock('@/api/cities', () => ({
+  fetchCities: jest.fn().mockResolvedValue([
+    { id: 'moscow', title: 'Москва' },
+  ]),
+}))
+
+jest.mock('@/api/skills', () => ({
+  fetchSkillCategories: jest.fn().mockResolvedValue([
+    {
+      id: 'creativity-art',
+      title: 'Творчество и искусство',
+      skills: [
+        { id: 'music-sound', title: 'Музыка и звук' },
+      ],
+    },
+  ]),
+}))
+
 const STEP_ACCOUNT_HEADING = 'Регистрация: аккаунт'
 const STEP_USER_HEADING = 'Регистрация: о себе'
 const STEP_SKILL_HEADING = 'Регистрация: навыки'
@@ -96,7 +115,10 @@ describe('маршруты и защита от перепрыгивания', (
       confirmPassword: '12345678',
       name: 'Иван',
       birthDate: '01.01.2000',
-      city: 'Москва',
+      gender: '',
+      city: 'moscow',
+      learningCategory: 'creativity-art',
+      learningSubcategory: 'music-sound',
     })
 
     renderRegistration(ROUTES.REGISTER_SKILL)
@@ -132,11 +154,13 @@ describe('валидация текущего шага', () => {
 
     renderRegistration(ROUTES.REGISTER_USER)
 
-    await user.click(screen.getByRole('button', { name: 'Далее' }))
+    await user.click(screen.getByRole('button', { name: 'Продолжить' }))
 
     expect(await screen.findByText('Введите имя')).toBeInTheDocument()
     expect(screen.getByText('Введите дату рождения')).toBeInTheDocument()
-    expect(screen.getByText('Введите город')).toBeInTheDocument()
+    expect(screen.getByText('Выберите город')).toBeInTheDocument()
+    expect(screen.getByText('Выберите категорию')).toBeInTheDocument()
+    expect(screen.getByText('Выберите подкатегорию')).toBeInTheDocument()
     expect(screen.queryByText('Введите email')).not.toBeInTheDocument()
   })
 })
@@ -190,8 +214,26 @@ describe('завершение регистрации', () => {
 
     await user.type(await screen.findByLabelText('Имя'), 'Иван')
     await user.type(screen.getByLabelText('Дата рождения'), '01.01.2000')
-    await user.type(screen.getByLabelText('Город'), 'Москва')
-    await user.click(screen.getByRole('button', { name: 'Далее' }))
+
+    const citySelect = screen.getByRole('combobox', { name: 'Город' })
+    await user.click(citySelect)
+    await user.click(await screen.findByRole('option', { name: 'Москва' }))
+
+    const categorySelect = screen.getByRole('combobox', {
+      name: 'Категория навыка, которому хотите научиться',
+    })
+    await user.click(categorySelect)
+    await user.click(
+      await screen.findByRole('option', { name: 'Творчество и искусство' }),
+    )
+
+    const subcategorySelect = screen.getByRole('combobox', {
+      name: 'Подкатегория навыка, которому хотите научиться',
+    })
+    await user.click(subcategorySelect)
+    await user.click(await screen.findByRole('option', { name: 'Музыка и звук' }))
+
+    await user.click(screen.getByRole('button', { name: 'Продолжить' }))
 
     await user.type(await screen.findByLabelText('Могу научить'), 'Игра на гитаре')
     await user.type(screen.getByLabelText('Хочу научиться'), 'Английский язык')

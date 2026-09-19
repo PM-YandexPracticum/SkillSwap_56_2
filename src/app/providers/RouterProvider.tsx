@@ -15,7 +15,7 @@ import { RegistrationLayout } from '@/app/layouts/RegistrationLayout'
 import { RegistrationProvider } from '@/features/auth/registration'
 
 import { ROUTES } from '@/shared/lib/constants'
-import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
+import LightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg?react'
 
 const CatalogPage = lazy(
   () =>
@@ -189,7 +189,7 @@ export function AppRouter() {
                 total={3}
                 info={{
                   illustration:
-                    lightBulbIllustration,
+                    LightBulbIllustration,
 
                   title:
                     'Добро пожаловать в SkillSwap!',
