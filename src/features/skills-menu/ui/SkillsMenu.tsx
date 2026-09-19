@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 
-import { CardAreaSkill } from '@/entities/skill'
+import { CardAreaSkill, useSkillCategories } from '@/entities/skill'
 import { ArrowButton } from '@/shared/ui/ArrowButton'
 import book from '@/shared/ui/icons/assets/book.svg'
 import briefcase from '@/shared/ui/icons/assets/briefcase.svg'
@@ -9,8 +9,6 @@ import global from '@/shared/ui/icons/assets/global.svg'
 import home from '@/shared/ui/icons/assets/home.svg'
 import lifestyle from '@/shared/ui/icons/assets/lifestyle.svg'
 import palette from '@/shared/ui/icons/assets/palette.svg'
-
-import { useSkillCategories } from '../model/useSkillCategories'
 
 import styles from './SkillsMenu.module.css'
 
