@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import type { User } from '@/shared/types'
 import type { RootState } from '@/store'
 
+import { byCreatedAtDesc, byLikesDesc } from '../lib/comparators'
 import type { CatalogFilters } from './filters'
 
 const selectUsersState = (state: RootState) => state.users
@@ -16,13 +17,11 @@ export const selectUsersError = createSelector([selectUsersState], (state) => st
 export const selectUsersVisible = createSelector([selectUsersState], (state) => state.visible)
 
 export const selectPopular = createSelector([selectUsers], (users: User[]) =>
-  [...users].sort((a, b) => b.likesCount - a.likesCount).slice(0, 3),
+  [...users].sort(byLikesDesc).slice(0, 3),
 )
 
 export const selectNew = createSelector([selectUsers], (users: User[]) =>
-  [...users]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 3),
+  [...users].sort(byCreatedAtDesc).slice(0, 3),
 )
 
 export const selectRecommended = createSelector(

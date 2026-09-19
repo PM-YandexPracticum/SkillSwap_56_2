@@ -246,7 +246,7 @@ describe('selectors', () => {
     visible: 6,
   }
 
-  const rootState = { users: usersState }
+  const rootState: RootState = { users: usersState, favorites: { ids: [] } }
 
   describe('selectUsers', () => {
     test('возвращает массив пользователей', () => {
@@ -312,6 +312,7 @@ describe('selectors', () => {
           error: null,
           visible: 6,
         },
+        favorites: { ids: [] },
       }
       const result = selectors.selectRecommended(partialState)
       expect(result).toHaveLength(3)
@@ -333,6 +334,7 @@ describe('selectors', () => {
           error: null,
           visible: 8,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(false)
     })
@@ -345,6 +347,7 @@ describe('selectors', () => {
           error: null,
           visible: 8,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(false)
     })
@@ -357,6 +360,7 @@ describe('selectors', () => {
           error: null,
           visible: 6,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(true)
     })
@@ -370,7 +374,12 @@ describe('selectors', () => {
 })
 
 describe('loadUsers — интеграция со стором', () => {
-  const makeStore = () => configureStore({ reducer: { users: usersReducer } })
+  const favoritesStub = (state = { ids: [] as string[] }) => state
+
+  const makeStore = () =>
+    configureStore({
+      reducer: { users: usersReducer, favorites: favoritesStub },
+    })
 
   beforeEach(() => {
     fetchUsersMock.mockReset()

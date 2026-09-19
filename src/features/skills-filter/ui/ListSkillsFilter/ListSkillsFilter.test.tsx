@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
+import { resetSkillCategoriesCache } from '@/entities/skill'
+
 import { ListSkillsFilter } from './ListSkillsFilter'
 
 const categories = [
@@ -22,6 +24,8 @@ const fetchMock = jest.fn()
 const onChange = jest.fn()
 
 beforeEach(() => {
+  resetSkillCategoriesCache()
+
   Object.defineProperty(globalThis, 'fetch', {
     writable: true,
     configurable: true,

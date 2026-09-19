@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import { useCities } from '../../model/useCities'
+import { useCities } from '@/entities/city'
 import { FilterList, type FilterFieldProps } from '@/shared/ui/FilterList'
 
 export type ListCitiesFilterProps = FilterFieldProps

@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
+import { resetCitiesCache } from '@/entities/city'
+
 import { ListCitiesFilter } from './ListCitiesFilter'
 
 const cities = [
@@ -15,6 +17,8 @@ const fetchMock = jest.fn()
 const onChange = jest.fn()
 
 beforeEach(() => {
+  resetCitiesCache()
+
   Object.defineProperty(globalThis, 'fetch', {
     writable: true,
     configurable: true,
