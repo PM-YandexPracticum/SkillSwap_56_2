@@ -1,4 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom'
 
@@ -12,6 +16,56 @@ import type { AuthUser } from '@/shared/types'
 import { REGISTRATION_DEFAULT_VALUES } from '../model/storage'
 import type { RegistrationFormValues } from '../model/types'
 import { RegistrationProvider } from './RegistrationProvider'
+
+jest.mock(
+  '@/api/skills',
+  () => ({
+    fetchSkillCategories:
+      jest
+        .fn()
+        .mockResolvedValue([
+          {
+            id: 'creativity-art',
+            title:
+              'Творчество и искусство',
+
+            skills: [
+              {
+                id: 'music-sound',
+                title:
+                  'Музыка и звук',
+              },
+              {
+                id: 'photography',
+                title:
+                  'Фотография',
+              },
+            ],
+          },
+
+          {
+            id:
+              'foreign-languages',
+
+            title:
+              'Иностранные языки',
+
+            skills: [
+              {
+                id: 'english',
+                title:
+                  'Английский',
+              },
+              {
+                id: 'french',
+                title:
+                  'Французский',
+              },
+            ],
+          },
+        ]),
+  }),
+)
 
 const STEP_ACCOUNT_HEADING = 'Регистрация: аккаунт'
 const STEP_USER_HEADING = 'Регистрация: о себе'
@@ -179,6 +233,347 @@ describe('сохранение данных', () => {
   })
 })
 
+describe(
+  'третий шаг регистрации',
+  () => {
+    const validPreviousSteps = {
+      email:
+        'user@example.com',
+
+      password:
+        '12345678',
+
+      confirmPassword:
+        '12345678',
+
+      name: 'Иван',
+
+      birthDate:
+        '01.01.2000',
+
+      city: 'Москва',
+    }
+
+    test(
+      'подкатегории зависят от категории, а смена категории очищает подкатегорию',
+      async () => {
+        const user =
+          userEvent.setup()
+
+        seedDraft(
+          validPreviousSteps,
+        )
+
+        renderRegistration(
+          ROUTES.REGISTER_SKILL,
+        )
+
+        const categorySelect =
+          await screen.findByRole(
+            'combobox',
+            {
+              name:
+                'Категория навыка, которому хотите научиться',
+            },
+          )
+
+        await waitFor(() => {
+          expect(
+            categorySelect,
+          ).toBeEnabled()
+        })
+
+        await user.click(
+          categorySelect,
+        )
+
+        await user.click(
+          screen.getByRole(
+            'option',
+            {
+              name:
+                'Творчество и искусство',
+            },
+          ),
+        )
+
+        const subcategorySelect =
+          screen.getByRole(
+            'combobox',
+            {
+              name:
+                'Подкатегория',
+            },
+          )
+
+        await user.click(
+          subcategorySelect,
+        )
+
+        expect(
+          screen.getByRole(
+            'option',
+            {
+              name:
+                'Музыка и звук',
+            },
+          ),
+        ).toBeInTheDocument()
+
+        expect(
+          screen.queryByRole(
+            'option',
+            {
+              name:
+                'Английский',
+            },
+          ),
+        ).not.toBeInTheDocument()
+
+        await user.click(
+          screen.getByRole(
+            'option',
+            {
+              name:
+                'Музыка и звук',
+            },
+          ),
+        )
+
+        expect(
+          subcategorySelect,
+        ).toHaveTextContent(
+          'Музыка и звук',
+        )
+
+        /*
+         * Меняем категорию.
+         */
+        await user.click(
+          categorySelect,
+        )
+
+        await user.click(
+          screen.getByRole(
+            'option',
+            {
+              name:
+                'Иностранные языки',
+            },
+          ),
+        )
+
+        await waitFor(() => {
+          expect(
+            subcategorySelect,
+          ).toHaveTextContent(
+            'Выберите подкатегорию навыка',
+          )
+        })
+
+        await user.click(
+          subcategorySelect,
+        )
+
+        expect(
+          screen.getByRole(
+            'option',
+            {
+              name:
+                'Английский',
+            },
+          ),
+        ).toBeInTheDocument()
+
+        expect(
+          screen.queryByRole(
+            'option',
+            {
+              name:
+                'Музыка и звук',
+            },
+          ),
+        ).not.toBeInTheDocument()
+      },
+    )
+
+    test(
+      'Назад возвращает на второй экран и сохраняет данные третьего шага',
+      async () => {
+        const user =
+          userEvent.setup()
+
+        seedDraft(
+          validPreviousSteps,
+        )
+
+        renderRegistration(
+          ROUTES.REGISTER_SKILL,
+        )
+
+        await user.type(
+          await screen.findByLabelText(
+            'Название навыка',
+          ),
+          'Игра на гитаре',
+        )
+
+        await user.click(
+          screen.getByRole(
+            'button',
+            {
+              name: 'Назад',
+            },
+          ),
+        )
+
+        expect(
+          await screen.findByRole(
+            'heading',
+            {
+              name:
+                STEP_USER_HEADING,
+            },
+          ),
+        ).toBeInTheDocument()
+
+        const savedDraft =
+          JSON.parse(
+            localStorage.getItem(
+              LOCAL_STORAGE_KEYS
+                .REGISTRATION_DRAFT,
+            ) ?? '{}',
+          ) as RegistrationFormValues
+
+        expect(
+          savedDraft.skillName,
+        ).toBe(
+          'Игра на гитаре',
+        )
+      },
+    )
+
+    test(
+      'пустые обязательные поля не завершают регистрацию',
+      async () => {
+        const user =
+          userEvent.setup()
+
+        seedDraft(
+          validPreviousSteps,
+        )
+
+        renderRegistration(
+          ROUTES.REGISTER_SKILL,
+        )
+
+        await user.click(
+          await screen.findByRole(
+            'button',
+            {
+              name:
+                'Продолжить',
+            },
+          ),
+        )
+
+        expect(
+          screen.getByRole(
+            'heading',
+            {
+              name:
+                STEP_SKILL_HEADING,
+            },
+          ),
+        ).toBeInTheDocument()
+
+        expect(
+          await screen.findByText(
+            'Введите название навыка',
+          ),
+        ).toBeInTheDocument()
+
+const categorySelect =
+  screen.getByRole(
+    'combobox',
+    {
+      name:
+        'Категория навыка, которому хотите научиться',
+    },
+  )
+
+expect(
+  categorySelect,
+).toHaveAttribute(
+  'aria-invalid',
+  'true',
+)
+
+const categoryErrorId =
+  categorySelect.getAttribute(
+    'aria-describedby',
+  )
+
+expect(
+  categoryErrorId,
+).toBeTruthy()
+
+expect(
+  document.getElementById(
+    categoryErrorId as string,
+  ),
+).toHaveTextContent(
+  'Выберите категорию навыка',
+)
+
+        const subcategorySelect =
+  screen.getByRole(
+    'combobox',
+    {
+      name: 'Подкатегория',
+    },
+  )
+
+expect(
+  subcategorySelect,
+).toHaveAttribute(
+  'aria-invalid',
+  'true',
+)
+
+const subcategoryErrorId =
+  subcategorySelect.getAttribute(
+    'aria-describedby',
+  )
+
+expect(
+  subcategoryErrorId,
+).toBeTruthy()
+
+expect(
+  document.getElementById(
+    subcategoryErrorId as string,
+  ),
+).toHaveTextContent(
+  'Выберите подкатегорию навыка',
+)
+
+        expect(
+          screen.getByText(
+            'Добавьте описание навыка',
+          ),
+        ).toBeInTheDocument()
+
+        expect(
+          screen.getByText(
+            'Добавьте хотя бы одно изображение',
+          ),
+        ).toBeInTheDocument()
+      },
+    )
+  },
+)
+
 describe('завершение регистрации', () => {
   test('сохраняет пользователя, чистит черновик и ведёт на главную', async () => {
     const user = userEvent.setup()
@@ -193,9 +588,104 @@ describe('завершение регистрации', () => {
     await user.type(screen.getByLabelText('Город'), 'Москва')
     await user.click(screen.getByRole('button', { name: 'Далее' }))
 
-    await user.type(await screen.findByLabelText('Могу научить'), 'Игра на гитаре')
-    await user.type(screen.getByLabelText('Хочу научиться'), 'Английский язык')
-    await user.click(screen.getByRole('button', { name: 'Завершить регистрацию' }))
+   await user.type(
+  await screen.findByLabelText(
+    'Название навыка',
+  ),
+  'Игра на гитаре',
+)
+
+const categorySelect =
+  screen.getByRole(
+    'combobox',
+    {
+      name:
+        'Категория навыка, которому хотите научиться',
+    },
+  )
+
+await waitFor(() => {
+  expect(
+    categorySelect,
+  ).toBeEnabled()
+})
+
+await user.click(
+  categorySelect,
+)
+
+await user.click(
+  screen.getByRole(
+    'option',
+    {
+      name:
+        'Творчество и искусство',
+    },
+  ),
+)
+
+const subcategorySelect =
+  screen.getByRole(
+    'combobox',
+    {
+      name:
+        'Подкатегория',
+    },
+  )
+
+await user.click(
+  subcategorySelect,
+)
+
+await user.click(
+  screen.getByRole(
+    'option',
+    {
+      name:
+        'Музыка и звук',
+    },
+  ),
+)
+
+await user.type(
+  screen.getByLabelText(
+    'Описание',
+  ),
+  'Научу базовым аккордам и ритму',
+)
+
+const fileInput =
+  document.querySelector(
+    'input[type="file"]',
+  ) as HTMLInputElement
+
+await user.upload(
+  fileInput,
+  new File(
+    ['image'],
+    'guitar.png',
+    {
+      type: 'image/png',
+    },
+  ),
+)
+
+/*
+ * Проверяем отправку с клавиатуры.
+ */
+const continueButton =
+  screen.getByRole(
+    'button',
+    {
+      name: 'Продолжить',
+    },
+  )
+
+continueButton.focus()
+
+await user.keyboard(
+  '{Enter}',
+)
 
     expect(await screen.findByText('Главная страница')).toBeInTheDocument()
 

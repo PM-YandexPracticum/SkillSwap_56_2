@@ -28,13 +28,16 @@ export const REGISTRATION_STEPS = [
   },
 
   {
-    path: ROUTES.REGISTER_SKILL,
-    fields: [
-      'teachSkill',
-      'learnSkill',
-    ] as const,
-    schema: skillStepSchema,
-  },
+  path: ROUTES.REGISTER_SKILL,
+  fields: [
+    'skillName',
+    'skillCategory',
+    'skillSubcategory',
+    'skillDescription',
+    'skillImages',
+  ] as const,
+  schema: skillStepSchema,
+},
 ] as const
 
 const STEP_ALIASES: Record<string, number> = {

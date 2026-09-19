@@ -1,27 +1,187 @@
-import { useFormContext } from 'react-hook-form'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import {
+  useFormContext,
+  useWatch,
+} from 'react-hook-form'
 
+import { fetchSkillCategories } from '@/api/skills'
 import {
   useRegistrationFlow,
   type RegistrationFormValues,
 } from '@/features/auth/registration'
 import { Button } from '@/shared/ui/Button'
+import { Input } from '@/shared/ui/Input'
+import {
+  FileUpload,
+  Select,
+} from '@/shared/ui/form'
+import type { SkillCategory } from '@/shared/types'
+
+import styles from './RegisterSkillPage.module.css'
 
 export default function RegisterSkillPage() {
   const {
     register,
-    formState: {
-      errors,
-    },
-  } =
-    useFormContext<RegistrationFormValues>()
+    control,
+    setValue,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext<RegistrationFormValues>()
 
   const {
     finishRegistration,
     previousStep,
   } = useRegistrationFlow()
 
+  const [categories, setCategories] =
+    useState<SkillCategory[]>([])
+
+  const [isLoading, setIsLoading] =
+    useState(true)
+
+  const [loadError, setLoadError] =
+    useState('')
+
+  const selectedCategory = useWatch({
+    control,
+    name: 'skillCategory',
+  })
+
+  /*
+   * Нужен, чтобы при первом открытии страницы
+   * не затереть подкатегорию из сохранённого
+   * черновика.
+   */
+  const previousCategoryRef =
+    useRef(selectedCategory)
+
+  /*
+   * Загружаем категории исключительно
+   * через API проекта.
+   */
+  useEffect(() => {
+    const controller =
+      new AbortController()
+
+    const loadCategories =
+      async () => {
+        try {
+          setIsLoading(true)
+          setLoadError('')
+
+          const data =
+            await fetchSkillCategories(
+              controller.signal,
+            )
+
+          setCategories(data)
+        } catch {
+          if (
+            !controller.signal.aborted
+          ) {
+            setLoadError(
+              'Не удалось загрузить категории навыков',
+            )
+          }
+        } finally {
+          if (
+            !controller.signal.aborted
+          ) {
+            setIsLoading(false)
+          }
+        }
+      }
+
+    void loadCategories()
+
+    return () =>
+      controller.abort()
+  }, [])
+
+  /*
+   * Если пользователь сменил категорию,
+   * старая подкатегория больше невалидна.
+   *
+   * Поэтому очищаем её через RHF.
+   */
+  useEffect(() => {
+    if (
+      previousCategoryRef.current ===
+      selectedCategory
+    ) {
+      return
+    }
+
+    previousCategoryRef.current =
+      selectedCategory
+
+    setValue(
+      'skillSubcategory',
+      '',
+      {
+        shouldDirty: true,
+        shouldValidate: false,
+      },
+    )
+
+    clearErrors(
+      'skillSubcategory',
+    )
+  }, [
+    selectedCategory,
+    setValue,
+    clearErrors,
+  ])
+
+  /*
+   * Категории для нашего существующего Select.
+   */
+  const categoryOptions =
+    useMemo(
+      () =>
+        categories.map(
+          (category) => ({
+            value: category.id,
+            label: category.title,
+          }),
+        ),
+      [categories],
+    )
+
+  /*
+   * Подкатегории берём только
+   * из выбранной категории.
+   */
+  const subcategoryOptions =
+    useMemo(() => {
+      const category =
+        categories.find(
+          (item) =>
+            item.id ===
+            selectedCategory,
+        )
+
+      return (
+        category?.skills.map(
+          (skill) => ({
+            value: skill.id,
+            label: skill.title,
+          }),
+        ) ?? []
+      )
+    }, [
+      categories,
+      selectedCategory,
+    ])
+
   return (
     <form
+      className={styles.form}
       noValidate
       onSubmit={(event) => {
         event.preventDefault()
@@ -29,63 +189,127 @@ export default function RegisterSkillPage() {
         void finishRegistration()
       }}
     >
-      <h1>
+      <h1
+        className={
+          styles.visuallyHidden
+        }
+      >
         Регистрация: навыки
       </h1>
 
-      <label htmlFor="register-teach-skill">
-        Могу научить
-      </label>
-
-      <input
-        id="register-teach-skill"
-        {...register(
-          'teachSkill',
-        )}
-      />
-
-      {errors.teachSkill
-        ?.message && (
-        <p role="alert">
-          {
-            errors.teachSkill
-              .message
-          }
-        </p>
-      )}
-
-      <label htmlFor="register-learn-skill">
-        Хочу научиться
-      </label>
-
-      <input
-        id="register-learn-skill"
-        {...register(
-          'learnSkill',
-        )}
-      />
-
-      {errors.learnSkill
-        ?.message && (
-        <p role="alert">
-          {
-            errors.learnSkill
-              .message
-          }
-        </p>
-      )}
-
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={previousStep}
+      <div
+        className={styles.fields}
       >
-        Назад
-      </Button>
+        <Input
+          label="Название навыка"
+          placeholder="Введите название вашего навыка"
+          error={
+            errors.skillName
+              ?.message
+          }
+          {...register(
+            'skillName',
+          )}
+        />
 
-      <Button type="submit">
-        Завершить регистрацию
-      </Button>
+        <Select
+          name="skillCategory"
+          control={control}
+          label="Категория навыка, которому хотите научиться"
+          placeholder={
+            isLoading
+              ? 'Загрузка категорий...'
+              : 'Выберите категорию навыка'
+          }
+          options={
+            categoryOptions
+          }
+          disabled={
+            isLoading ||
+            Boolean(loadError)
+          }
+        />
+
+        <Select
+          name="skillSubcategory"
+          control={control}
+          label="Подкатегория"
+          placeholder="Выберите подкатегорию навыка"
+          options={
+            subcategoryOptions
+          }
+          disabled={
+            isLoading ||
+            !selectedCategory ||
+            Boolean(loadError)
+          }
+        />
+
+        {loadError && (
+          <p
+            className={
+              styles.loadError
+            }
+            role="alert"
+          >
+            {loadError}
+          </p>
+        )}
+
+        <Input
+          label="Описание"
+          placeholder="Коротко опишите, чему можете научить"
+          multiline
+          rows={3}
+          heightTextarea={
+            styles.description
+          }
+          error={
+            errors.skillDescription
+              ?.message
+          }
+          {...register(
+            'skillDescription',
+          )}
+        />
+
+        <FileUpload
+          name="skillImages"
+          control={control}
+          accept={{
+            'image/jpeg': [],
+            'image/png': [],
+            'image/webp': [],
+          }}
+          maxFiles={5}
+          dropzoneText="Перетащите или выберите изображения навыка"
+          actionText="Выбрать изображения"
+        />
+      </div>
+
+      <div
+        className={
+          styles.actions
+        }
+      >
+        <Button
+          type="button"
+          variant="secondary"
+          fullWidth
+          onClick={
+            previousStep
+          }
+        >
+          Назад
+        </Button>
+
+        <Button
+          type="submit"
+          fullWidth
+        >
+          Продолжить
+        </Button>
+      </div>
     </form>
   )
 }

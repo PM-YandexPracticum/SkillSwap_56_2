@@ -32,15 +32,15 @@ const STEP_INFO = [
   },
 
   {
-    illustration:
-      schoolBoardIllustration,
+  illustration:
+    schoolBoardIllustration,
 
-    title:
-      'Расскажите о навыках',
+  title:
+    'Укажите, чем вы готовы поделиться',
 
-    description:
-      'Укажите, чему вы можете научить и чему хотите научиться сами.',
-  },
+  description:
+    'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
+},
 ] as const
 
 export const RegistrationLayout =

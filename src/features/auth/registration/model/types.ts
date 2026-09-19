@@ -7,6 +7,9 @@ export interface RegistrationFormValues {
   birthDate: string
   city: string
 
-  teachSkill: string
-  learnSkill: string
+  skillName: string
+  skillCategory: string
+  skillSubcategory: string
+  skillDescription: string
+  skillImages: File[]
 }

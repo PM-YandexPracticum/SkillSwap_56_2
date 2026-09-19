@@ -40,17 +40,33 @@ export const userStepSchema = yup.object({
 })
 
 export const skillStepSchema = yup.object({
-  teachSkill: yup
+  skillName: yup
     .string()
     .trim()
-    .required(
-      'Укажите навык, которому можете научить',
-    ),
+    .required('Введите название навыка'),
 
-  learnSkill: yup
+  skillCategory: yup
     .string()
     .trim()
+    .required('Выберите категорию навыка'),
+
+  skillSubcategory: yup
+    .string()
+    .trim()
+    .required('Выберите подкатегорию навыка'),
+
+  skillDescription: yup
+    .string()
+    .trim()
+    .required('Добавьте описание навыка'),
+
+  skillImages: yup
+    .array()
+    .min(
+      1,
+      'Добавьте хотя бы одно изображение',
+    )
     .required(
-      'Укажите навык, которому хотите научиться',
+      'Добавьте хотя бы одно изображение',
     ),
 })

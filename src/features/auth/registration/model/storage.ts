@@ -11,8 +11,11 @@ export const REGISTRATION_DEFAULT_VALUES: RegistrationFormValues = {
   birthDate: '',
   city: '',
 
-  teachSkill: '',
-  learnSkill: '',
+  skillName: '',
+  skillCategory: '',
+  skillSubcategory: '',
+  skillDescription: '',
+  skillImages: [],
 }
 
 export function loadRegistrationDraft(): RegistrationFormValues {
@@ -34,6 +37,10 @@ export function loadRegistrationDraft(): RegistrationFormValues {
     return {
       ...REGISTRATION_DEFAULT_VALUES,
       ...draft,
+
+      // File нельзя восстановить из localStorage
+      // как настоящий объект File после F5.
+      skillImages: [],
     }
   } catch {
     return {
@@ -47,7 +54,13 @@ export function saveRegistrationDraft(
 ): void {
   localStorage.setItem(
     LOCAL_STORAGE_KEYS.REGISTRATION_DRAFT,
-    JSON.stringify(values),
+    JSON.stringify({
+      ...values,
+
+      // Остальные данные третьего шага сохраняются.
+      // Сами File в localStorage не сериализуем.
+      skillImages: [],
+    }),
   )
 }
 
