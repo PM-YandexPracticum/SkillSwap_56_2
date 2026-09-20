@@ -1,8 +1,6 @@
-import { useState } from 'react'
-
 import { Button } from '@/shared/ui/Button'
+import { ButtonLike } from '@/shared/ui/ButtonLike'
 import { Gallery, type GalleryImage } from '@/shared/ui/Gallery'
-import LikeIcon from '@/shared/ui/icons/assets/like.svg?react'
 import MoreIcon from '@/shared/ui/icons/assets/more-square.svg?react'
 import ShareIcon from '@/shared/ui/icons/assets/share.svg?react'
 
@@ -14,6 +12,8 @@ export interface CardSkillOfferProps {
   subcategory: string
   description: string
   images: GalleryImage[]
+  isLiked?: boolean
+  onLikeToggle?: () => void
   className?: string
 }
 
@@ -23,23 +23,20 @@ export const CardSkillOffer = ({
   subcategory,
   description,
   images,
+  isLiked = false,
+  onLikeToggle,
   className = '',
 }: CardSkillOfferProps) => {
-  const [isLiked, setIsLiked] = useState(false)
   const cardClassName = [styles.card, className].filter(Boolean).join(' ')
 
   return (
     <article className={cardClassName}>
       <div className={styles.actions}>
-        <button
-          className={`${styles.actionButton} ${isLiked ? styles.actionButtonActive : ''}`}
-          type="button"
-          aria-label={isLiked ? 'Убрать из избранного' : 'Добавить в избранное'}
-          aria-pressed={isLiked}
-          onClick={() => setIsLiked((value) => !value)}
-        >
-          <LikeIcon className={styles.likeIcon} aria-hidden="true" />
-        </button>
+        <ButtonLike
+          isLiked={isLiked}
+          label={isLiked ? 'Убрать из избранного' : 'Добавить в избранное'}
+          onClick={() => onLikeToggle?.()}
+        />
         <button className={styles.actionButton} type="button" aria-label="Поделиться">
           <ShareIcon aria-hidden="true" />
         </button>

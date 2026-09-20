@@ -38,18 +38,6 @@
   outline-offset: 2px;
 }
 
-.likeIcon path {
-  fill: transparent;
-}
-
-.actionButtonActive {
-  color: var(--accent);
-}
-
-.actionButtonActive .likeIcon path {
-  fill: currentcolor;
-}
-
 .content {
   display: grid;
   grid-template-columns: minmax(0, 450px) minmax(420px, 500px);
