@@ -1,56 +1,128 @@
 .page {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: var(--space-xl, 32px);
+  padding: var(--space-xl, 32px);
+  max-width: var(--layout-width, 1440px);
+  margin: 0 auto;
+}
+
+.mainRow {
+  display: flex;
+  gap: var(--space-xl, 32px);
   align-items: flex-start;
-  padding-block: 24px 80px;
+}
+
+.sidebar {
+  width: 324px;
+  flex-shrink: 0;
+}
+
+.sidebarCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 24px);
+  width: 324px;
+  flex-shrink: 0;
+  padding: var(--space-lg, 24px);
+  background-color: var(--card-input, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius-lg, 12px);
+}
+
+.sidebarTitleInside {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl, 1.5rem);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.filtersTransparent {
+  width: 100% !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 .content {
-  display: grid;
+  display: flex;
   flex: 1;
-  gap: 32px;
+  flex-direction: column;
+  gap: var(--space-lg, 24px);
   min-width: 0;
 }
 
-.sections {
-  display: grid;
-  gap: 64px;
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
+  margin: 0;
   font-family: var(--font-heading);
+  font-size: var(--font-size-2xl, 1.5rem);
   font-weight: 500;
-  font-size: 32px;
-  line-height: 40px;
   color: var(--text);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg, 24px);
 }
 
-.moreButton,
-.retryButton {
-  justify-self: start;
-  padding: 10px 20px;
+.moreButton {
+  align-self: center;
+  padding: 12px 24px;
+  font-weight: 500;
+  background-color: var(--card-input, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
 }
 
 .error {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+  padding: 24px;
 }
 
-@media (width <= 900px) {
-  .page {
+.retryButton {
+  padding: 8px 16px;
+  background-color: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+@media (width <= 1200px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 768px) {
+  .mainRow {
     flex-direction: column;
+    gap: 16px;
   }
 
-  .filters {
+  .sidebar,
+  .sidebarCard {
     width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
   }
 }

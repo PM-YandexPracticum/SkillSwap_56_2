@@ -1,13 +1,5 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom'
-import {
-  lazy,
-  Suspense,
-} from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 
 import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { MainLayout } from '@/app/layouts/mainLayout'
@@ -15,170 +7,59 @@ import { RegistrationLayout } from '@/app/layouts/RegistrationLayout'
 import { RegistrationProvider } from '@/features/auth/registration'
 
 import { ROUTES } from '@/shared/lib/constants'
-import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
+import LightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg?react'
 
-const CatalogPage = lazy(
-  () =>
-    import(
-      '@/pages/CatalogPage'
-    ),
-)
+const CatalogPage = lazy(() => import('@/pages/CatalogPage'))
 
-const SkillPage = lazy(
-  () =>
-    import(
-      '@/pages/SkillPage'
-    ),
-)
+const SkillPage = lazy(() => import('@/pages/SkillPage'))
 
-const ProfilePage = lazy(
-  () =>
-    import(
-      '@/pages/ProfilePage'
-    ),
-)
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'))
 
-const FavoritesPage = lazy(
-  () =>
-    import(
-      '@/pages/FavoritesPage'
-    ),
-)
+const ProfilePersonalPage = lazy(() => import('@/pages/ProfilePersonalPage'))
 
-const CreateSkillPage = lazy(
-  () =>
-    import(
-      '@/pages/CreateSkillPage'
-    ),
-)
+const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'))
 
-const LoginPage = lazy(
-  () =>
-    import(
-      '@/pages/LoginPage'
-    ),
-)
+const CreateSkillPage = lazy(() => import('@/pages/CreateSkillPage'))
 
-const RegisterAccountPage = lazy(
-  () =>
-    import(
-      '@/pages/RegisterAccountPage'
-    ),
-)
+const LoginPage = lazy(() => import('@/pages/LoginPage'))
 
-const RegisterUserPage = lazy(
-  () =>
-    import(
-      '@/pages/RegisterUserPage'
-    ),
-)
+const RegisterAccountPage = lazy(() => import('@/pages/RegisterAccountPage'))
 
-const RegisterSkillPage = lazy(
-  () =>
-    import(
-      '@/pages/RegisterSkillPage'
-    ),
-)
+const RegisterUserPage = lazy(() => import('@/pages/RegisterUserPage'))
 
-const NotFoundPage = lazy(
-  () =>
-    import(
-      '@/pages/NotFoundPage'
-    ),
-)
+const RegisterSkillPage = lazy(() => import('@/pages/RegisterSkillPage'))
 
-const ServerErrorPage = lazy(
-  () =>
-    import(
-      '@/pages/ServerErrorPage'
-    ),
-)
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+
+const ServerErrorPage = lazy(() => import('@/pages/ServerErrorPage'))
 
 export function AppRouter() {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div>Загрузка...</div>
-        }
-      >
+      <Suspense fallback={<div>Загрузка...</div>}>
         <Routes>
-          <Route
-            element={
-              <MainLayout />
-            }
-          >
-            <Route
-              path={ROUTES.HOME}
-              element={
-                <CatalogPage />
-              }
-            />
+          <Route element={<MainLayout />}>
+            <Route path={ROUTES.HOME} element={<CatalogPage />} />
 
-            <Route
-              path={ROUTES.SKILL}
-              element={
-                <SkillPage />
-              }
-            />
+            <Route path={ROUTES.SKILL} element={<SkillPage />} />
 
-            <Route
-              path={
-                ROUTES.FAVORITES
-              }
-              element={
-                <FavoritesPage />
-              }
-            />
+            <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
 
-            <Route
-              path={ROUTES.PROFILE}
-              element={<ProfilePage />}
-            >
-              <Route
-                index
-                element={
-                  <Navigate
-                    to={ROUTES.PROFILE_PERSONAL}
-                    replace
-                  />
-                }
-              />
+            <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
+              <Route index element={<Navigate to={ROUTES.PROFILE_PERSONAL} replace />} />
 
-              <Route
-                path={ROUTES.PROFILE_REQUESTS}
-                element={<div>Раздел в разработке</div>}
-              />
+              <Route path={ROUTES.PROFILE_REQUESTS} element={<div>Раздел в разработке</div>} />
 
-              <Route
-                path={ROUTES.PROFILE_EXCHANGES}
-                element={<div>Раздел в разработке</div>}
-              />
+              <Route path={ROUTES.PROFILE_EXCHANGES} element={<div>Раздел в разработке</div>} />
 
-              <Route
-                path={ROUTES.PROFILE_FAVORITES}
-                element={<FavoritesPage />}
-              />
+              <Route path={ROUTES.PROFILE_FAVORITES} element={<FavoritesPage />} />
 
-              <Route
-                path={ROUTES.PROFILE_SKILLS}
-                element={<div>Раздел в разработке</div>}
-              />
+              <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
 
-              <Route
-                path={ROUTES.PROFILE_PERSONAL}
-                element={<div>Раздел в разработке</div>}
-              />
+              <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
             </Route>
 
-            <Route
-              path={
-                ROUTES.CREATE
-              }
-              element={
-                <CreateSkillPage />
-              }
-            />
+            <Route path={ROUTES.CREATE} element={<CreateSkillPage />} />
           </Route>
 
           {/* Страница входа */}
@@ -188,11 +69,9 @@ export function AppRouter() {
                 current={1}
                 total={3}
                 info={{
-                  illustration:
-                    lightBulbIllustration,
+                  illustration: LightBulbIllustration,
 
-                  title:
-                    'Добро пожаловать в SkillSwap!',
+                  title: 'Добро пожаловать в SkillSwap!',
 
                   description:
                     'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
@@ -200,158 +79,54 @@ export function AppRouter() {
               />
             }
           >
-            <Route
-              path={
-                ROUTES.LOGIN
-              }
-              element={
-                <LoginPage />
-              }
-            />
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           </Route>
 
           {/* Регистрация */}
-          <Route
-            element={
-              <RegistrationProvider />
-            }
-          >
+          <Route element={<RegistrationProvider />}>
             {/* /register → первый шаг */}
             <Route
-              path={
-                ROUTES.REGISTER
-              }
-              element={
-                <Navigate
-                  to={
-                    ROUTES.REGISTER_ACCOUNT
-                  }
-                  replace
-                />
-              }
+              path={ROUTES.REGISTER}
+              element={<Navigate to={ROUTES.REGISTER_ACCOUNT} replace />}
             />
 
             {/* Алиасы для acceptance */}
             <Route
-              path={
-                ROUTES.REGISTER_STEP_1
-              }
-              element={
-                <Navigate
-                  to={
-                    ROUTES.REGISTER_ACCOUNT
-                  }
-                  replace
-                />
-              }
+              path={ROUTES.REGISTER_STEP_1}
+              element={<Navigate to={ROUTES.REGISTER_ACCOUNT} replace />}
             />
 
             <Route
-              path={
-                ROUTES.REGISTER_STEP_2
-              }
-              element={
-                <Navigate
-                  to={
-                    ROUTES.REGISTER_USER
-                  }
-                  replace
-                />
-              }
+              path={ROUTES.REGISTER_STEP_2}
+              element={<Navigate to={ROUTES.REGISTER_USER} replace />}
             />
 
             <Route
-              path={
-                ROUTES.REGISTER_STEP_3
-              }
-              element={
-                <Navigate
-                  to={
-                    ROUTES.REGISTER_SKILL
-                  }
-                  replace
-                />
-              }
+              path={ROUTES.REGISTER_STEP_3}
+              element={<Navigate to={ROUTES.REGISTER_SKILL} replace />}
             />
 
             {/* В ТЗ есть /rigister/user */}
             <Route
-              path={
-                ROUTES.REGISTER_USER_TYPO
-              }
-              element={
-                <Navigate
-                  to={
-                    ROUTES.REGISTER_USER
-                  }
-                  replace
-                />
-              }
+              path={ROUTES.REGISTER_USER_TYPO}
+              element={<Navigate to={ROUTES.REGISTER_USER} replace />}
             />
 
-            <Route
-              element={
-                <RegistrationLayout />
-              }
-            >
-              <Route
-                path={
-                  ROUTES.REGISTER_ACCOUNT
-                }
-                element={
-                  <RegisterAccountPage />
-                }
-              />
+            <Route element={<RegistrationLayout />}>
+              <Route path={ROUTES.REGISTER_ACCOUNT} element={<RegisterAccountPage />} />
 
-              <Route
-                path={
-                  ROUTES.REGISTER_USER
-                }
-                element={
-                  <RegisterUserPage />
-                }
-              />
+              <Route path={ROUTES.REGISTER_USER} element={<RegisterUserPage />} />
 
-              <Route
-                path={
-                  ROUTES.REGISTER_SKILL
-                }
-                element={
-                  <RegisterSkillPage />
-                }
-              />
+              <Route path={ROUTES.REGISTER_SKILL} element={<RegisterSkillPage />} />
             </Route>
           </Route>
 
-          <Route
-            element={
-              <MainLayout paddingLayout="error" />
-            }
-          >
-            <Route
-              path={
-                ROUTES.NOT_FOUND_ERROR
-              }
-              element={
-                <NotFoundPage />
-              }
-            />
+          <Route element={<MainLayout paddingLayout="error" />}>
+            <Route path={ROUTES.NOT_FOUND_ERROR} element={<NotFoundPage />} />
 
-            <Route
-              path={
-                ROUTES.SERVER_ERROR
-              }
-              element={
-                <ServerErrorPage />
-              }
-            />
+            <Route path={ROUTES.SERVER_ERROR} element={<ServerErrorPage />} />
 
-            <Route
-              path="*"
-              element={
-                <NotFoundPage />
-              }
-            />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>

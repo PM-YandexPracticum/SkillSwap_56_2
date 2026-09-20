@@ -1,2 +1,5 @@
 export { InfoCard } from './InfoCard'
-export type { InfoCardProps } from './InfoCard'
+export type {
+  InfoCardIllustration,
+  InfoCardProps,
+} from './InfoCard'

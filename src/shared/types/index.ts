@@ -32,6 +32,8 @@ export interface City {
 }
 
 // ─── User ────────────────────────────────────────────────
+export type Gender = 'male' | 'female'
+
 export interface UserSkill {
   id: string
   title: string
@@ -75,4 +77,9 @@ export interface AuthUser {
   name: string
   email: string
   token: string
+  birthDate?: string
+  gender?: Gender
+  city?: string
+  about?: string
+  avatarUrl?: string | null
 }

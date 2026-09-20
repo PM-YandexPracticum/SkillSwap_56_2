@@ -4,14 +4,14 @@ import {
   useRegistrationFlow,
 } from '@/features/auth/registration'
 
-import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
-import schoolBoardIllustration from '@/shared/ui/icons/assets/school-board.svg'
-import userInfoIllustration from '@/shared/ui/icons/assets/user-info.svg'
+import LightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg?react'
+import SchoolBoardIllustration from '@/shared/ui/icons/assets/school-board.svg?react'
+import UserInfoIllustration from '@/shared/ui/icons/assets/user-info.svg?react'
 
 const STEP_INFO = [
   {
     illustration:
-      lightBulbIllustration,
+      LightBulbIllustration,
 
     title:
       'Добро пожаловать в SkillSwap!',
@@ -22,25 +22,25 @@ const STEP_INFO = [
 
   {
     illustration:
-      userInfoIllustration,
+      UserInfoIllustration,
 
     title:
-      'Расскажите о себе',
+      'Расскажите немного о себе',
 
     description:
-      'Добавьте основную информацию, чтобы другим было проще вас узнать.',
+      'Это поможет другим людям лучше вас узнать, чтобы выбрать для обмена',
   },
 
   {
-  illustration:
-    schoolBoardIllustration,
+    illustration:
+      SchoolBoardIllustration,
 
-  title:
-    'Укажите, чем вы готовы поделиться',
+    title:
+      'Укажите, чем вы готовы поделиться',
 
-  description:
-    'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
-},
+    description:
+      'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
+  },
 ] as const
 
 export const RegistrationLayout =

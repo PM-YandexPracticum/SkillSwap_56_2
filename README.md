@@ -31,7 +31,8 @@ src/
 ├── app/
 │   ├── providers/        # StoreProvider, RouterProvider
 │   └── styles/           # global.css с CSS-переменными
-├── entities/             # Доменные модели: Skill, User, Request
+├── entities/             # Доменные модели: Skill, User, Request, City
+│   ├── city/
 │   ├── skill/
 │   ├── user/
 │   └── request/

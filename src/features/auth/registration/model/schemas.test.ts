@@ -9,7 +9,10 @@ const validAccount = {
 const validUser = {
   name: 'Иван',
   birthDate: '01.01.2000',
-  city: 'Москва',
+  gender: '',
+  city: 'moscow',
+  learningCategory: 'creativity-art',
+  learningSubcategory: 'music-sound',
 }
 
 const validSkill = {
@@ -83,9 +86,35 @@ describe('userStepSchema', () => {
 
   test('отклоняет пустые дату рождения и город', async () => {
     await expect(
-      userStepSchema.validate({ name: 'Иван', birthDate: '', city: '' }),
+      userStepSchema.validate({
+        name: 'Иван',
+        birthDate: '',
+        gender: '',
+        city: '',
+        learningCategory: '',
+        learningSubcategory: '',
+      }),
     ).rejects.toThrow()
   })
+
+  test('отклоняет дату рождения из будущего', async () => {
+    await expect(
+      userStepSchema.validate({
+        ...validUser,
+        birthDate: '01.01.2999',
+      }),
+    ).rejects.toThrow('Дата рождения не может быть в будущем')
+  })
+
+  test('отклоняет несуществующую дату', async () => {
+    await expect(
+      userStepSchema.validate({
+        ...validUser,
+        birthDate: '31.02.2000',
+      }),
+    ).rejects.toThrow('Введите корректную дату рождения')
+  })
+
 })
 
 describe('skillStepSchema', () => {

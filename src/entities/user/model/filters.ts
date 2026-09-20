@@ -20,3 +20,27 @@ export const DEFAULT_FILTERS: CatalogFilters = {
   gender: 'any',
   cities: [],
 }
+
+export const FILTER_TYPE_LABELS: Record<CatalogFilterType, string> = {
+  all: 'Всё',
+  learn: 'Хочу научиться',
+  teach: 'Могу научить',
+}
+
+export const FILTER_GENDER_LABELS: Record<CatalogFilterGender, string> = {
+  any: 'Не имеет значения',
+  male: 'Мужской',
+  female: 'Женский',
+}
+
+/** Сколько фильтров отличается от значений по умолчанию */
+export const countActiveFilters = (filters: CatalogFilters): number => {
+  let count = filters.skills.length + filters.cities.length
+
+  if (filters.type !== DEFAULT_FILTERS.type) count += 1
+  if (filters.gender !== DEFAULT_FILTERS.gender) count += 1
+
+  return count
+}
+
+export const isFiltersActive = (filters: CatalogFilters): boolean => countActiveFilters(filters) > 0
