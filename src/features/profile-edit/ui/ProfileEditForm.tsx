@@ -6,7 +6,7 @@ import EditIcon from '@/shared/ui/icons/assets/edit.svg?react'
 import GalleryEditIcon from '@/shared/ui/icons/assets/gallery-edit.svg?react'
 
 import { getAuthUser, updateAuthUser } from '@/features/auth/model/authUtils'
-import { useCities } from '@/features/cities-filter/model/useCities'
+import { useCities } from '@/entities/city'
 import { toDisplayDate, toIsoDate } from '@/shared/lib/helpers'
 import { Input } from '@/shared/ui/Input'
 import { Select } from '@/shared/ui/form/Select'

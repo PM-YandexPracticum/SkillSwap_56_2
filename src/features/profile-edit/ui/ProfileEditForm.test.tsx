@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { getAuthUser, updateAuthUser } from '@/features/auth/model/authUtils'
-import { useCities } from '@/features/cities-filter/model/useCities'
+import { useCities } from '@/entities/city'
 
 import { ProfileEditForm } from './ProfileEditForm'
 
 jest.mock('@/features/auth/model/authUtils')
-jest.mock('@/features/cities-filter/model/useCities')
+jest.mock('@/entities/city')
 
 const getAuthUserMock = getAuthUser as jest.MockedFunction<typeof getAuthUser>
 const updateAuthUserMock = updateAuthUser as jest.MockedFunction<typeof updateAuthUser>
