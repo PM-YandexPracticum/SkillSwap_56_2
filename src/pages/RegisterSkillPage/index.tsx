@@ -215,7 +215,7 @@ export default function RegisterSkillPage() {
         <Select
           name="skillCategory"
           control={control}
-          label="Категория навыка, которому хотите научиться"
+          label="Категория навыка, которому можете научить"
           placeholder={
             isLoading
               ? 'Загрузка категорий...'
