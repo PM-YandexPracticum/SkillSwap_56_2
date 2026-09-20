@@ -1,0 +1,3 @@
+export {
+  RegistrationLayout,
+} from './RegistrationLayout'

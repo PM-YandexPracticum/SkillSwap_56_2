@@ -32,17 +32,22 @@ export interface City {
 }
 
 // ─── User ────────────────────────────────────────────────
+export type Gender = 'male' | 'female'
+
 export interface UserSkill {
   id: string
   title: string
   category: string
 }
 
+export type UserGender = 'male' | 'female'
+
 export interface User {
   id: string
+  cityId: string
+  city: string
   name: string
   email: string
-  city: string
   birthDate: string
   avatarUrl: string | null
   createdAt: string
@@ -50,6 +55,7 @@ export interface User {
   teachSkill: UserSkill
   learnSkills: UserSkill[]
   favorites: string[]
+  gender: UserGender
 }
 
 // ─── Request ─────────────────────────────────────────────
@@ -71,4 +77,9 @@ export interface AuthUser {
   name: string
   email: string
   token: string
+  birthDate?: string
+  gender?: Gender
+  city?: string
+  about?: string
+  avatarUrl?: string | null
 }

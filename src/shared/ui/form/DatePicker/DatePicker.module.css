@@ -1,0 +1,264 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-sans);
+}
+
+.label {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.inputContainer {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px 11px 16px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 12px;
+  background: var(--card-input);
+}
+
+.inputContainer:focus-within {
+  border-color: var(--color-primary-pressed);
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.errorContainer {
+  border-color: var(--color-error);
+}
+
+.errorContainer:focus-within {
+  border-color: var(--color-error);
+  outline-color: var(--color-error);
+}
+
+.input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 24px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-disabled-text);
+}
+
+.input:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.calendarButton {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.calendarButton:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.calendarButton:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.calendarButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.errorText {
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* ── Поповер с календарём ── */
+.popover {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 8px);
+  left: 0;
+  display: flex;
+  width: max-content;
+  min-width: 340px;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--card-input);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.calendar {
+  --rdp-accent-color: var(--color-primary-pressed);
+  --rdp-accent-background-color: var(--button-hover);
+
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+.months,
+.month {
+  width: 100%;
+}
+
+/* ── Шапка: только выпадающие списки месяца и года, стрелок навигации нет ── */
+.monthCaption {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.dropdowns {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.dropdownRoot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Нативный select держим прозрачным поверх подписи: вид наш, клавиатура и клик — браузерные.
+   Стили библиотеки сюда не достают, потому что классы переопределены через classNames */
+.dropdown {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.captionLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.dropdown:focus-visible ~ .captionLabel {
+  border-radius: 4px;
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 4px;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  fill: var(--text);
+}
+
+.monthGrid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.weekdays,
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekday {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-pressed);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.weeks {
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: inherit;
+  font: inherit;
+}
+
+.dayButton:hover {
+  background: var(--color-bg-secondary);
+}
+
+.selected .dayButton {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.today .dayButton {
+  outline: 1px solid var(--color-primary-pressed);
+}
+
+.outside {
+  color: var(--color-disabled-text);
+  opacity: 0.6;
+}
+
+.disabled {
+  color: var(--color-disabled-text);
+  opacity: 0.45;
+}
+
+/* ── Подтверждение выбора: в форму дата уходит только по «Выбрать» ── */
+.footer {
+  display: flex;
+  gap: 8px;
+}
+
+.footerButton {
+  flex: 1;
+}
