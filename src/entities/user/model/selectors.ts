@@ -1,6 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit'
-import type { RootState } from '@/store'
+
 import type { User } from '@/shared/types'
+import type { RootState } from '@/store'
+
+import { byCreatedAtDesc, byLikesDesc } from '../lib/comparators'
+import type { CatalogFilters } from './filters'
 
 const selectUsersState = (state: RootState) => state.users
 
@@ -13,13 +17,11 @@ export const selectUsersError = createSelector([selectUsersState], (state) => st
 export const selectUsersVisible = createSelector([selectUsersState], (state) => state.visible)
 
 export const selectPopular = createSelector([selectUsers], (users: User[]) =>
-  [...users].sort((a, b) => b.likesCount - a.likesCount).slice(0, 3),
+  [...users].sort(byLikesDesc).slice(0, 3),
 )
 
 export const selectNew = createSelector([selectUsers], (users: User[]) =>
-  [...users]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 3),
+  [...users].sort(byCreatedAtDesc).slice(0, 3),
 )
 
 export const selectRecommended = createSelector(
@@ -27,7 +29,40 @@ export const selectRecommended = createSelector(
   (users: User[], visible: number) => users.slice(0, visible),
 )
 
-export const selectHasMore = createSelector(
-  [selectUsersVisible, selectUsers],
-  (visible: number, users: User[]) => visible < users.length,
-)
+export const selectFilteredUsers = (state: RootState, filters: CatalogFilters): User[] => {
+  const users = selectUsers(state)
+
+  return users.filter((user) => {
+    if (filters.gender !== 'any' && user.gender !== filters.gender) {
+      return false
+    }
+
+    if (filters.cities.length > 0 && !filters.cities.includes(user.cityId)) {
+      return false
+    }
+
+    let userSkillIds: string[] = []
+    if (filters.type === 'teach') {
+      userSkillIds = [user.teachSkill.id]
+    } else if (filters.type === 'learn') {
+      userSkillIds = user.learnSkills.map((skill) => skill.id)
+    } else {
+      userSkillIds = [user.teachSkill.id, ...user.learnSkills.map((skill) => skill.id)]
+    }
+
+    if (filters.skills.length > 0) {
+      const hasSkill = filters.skills.some((skillId) => userSkillIds.includes(skillId))
+      if (!hasSkill) {
+        return false
+      }
+    }
+
+    return true
+  })
+}
+
+export const selectHasMore = (state: RootState, filters?: CatalogFilters): boolean => {
+  const visible = selectUsersVisible(state)
+  const users = filters ? selectFilteredUsers(state, filters) : selectUsers(state)
+  return visible < users.length
+}

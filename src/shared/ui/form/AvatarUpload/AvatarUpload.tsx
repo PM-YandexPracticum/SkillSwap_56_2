@@ -1,12 +1,5 @@
-import {
-  useEffect,
-  useState,
-} from 'react'
-import {
-  useDropzone,
-  type Accept,
-  type FileRejection,
-} from 'react-dropzone'
+import { useEffect, useState, type ReactNode } from 'react'
+import { useDropzone, type Accept, type FileRejection } from 'react-dropzone'
 import {
   Controller,
   type Control,
@@ -15,10 +8,7 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 
-import {
-  RoundImage,
-  type RoundImageSize,
-} from '../../RoundImage'
+import { RoundImage, type RoundImageSize } from '../../RoundImage'
 import PlusCircleIcon from '../../icons/assets/plus-circle.svg?react'
 import styles from './AvatarUpload.module.css'
 
@@ -36,13 +26,12 @@ export interface AvatarUploadProps<
   disabled?: boolean
   size?: RoundImageSize
   className?: string
+  icon?: ReactNode
 }
 
 interface AvatarUploadFieldProps {
   value: unknown
-  onChange: (
-    value: File | null,
-  ) => void
+  onChange: (value: File | null) => void
   onBlur: () => void
   error?: string
   label?: string
@@ -52,29 +41,21 @@ interface AvatarUploadFieldProps {
   disabled: boolean
   size: RoundImageSize
   className: string
+  icon?: ReactNode
 }
 
-const getRejectionMessage = (
-  rejections: FileRejection[],
-) => {
-  const firstError =
-    rejections[0]?.errors[0]
+const getRejectionMessage = (rejections: FileRejection[]) => {
+  const firstError = rejections[0]?.errors[0]
 
   if (!firstError) {
     return undefined
   }
 
-  if (
-    firstError.code ===
-    'file-too-large'
-  ) {
+  if (firstError.code === 'file-too-large') {
     return 'Изображение слишком большое'
   }
 
-  if (
-    firstError.code ===
-    'file-invalid-type'
-  ) {
+  if (firstError.code === 'file-invalid-type') {
     return 'Выберите изображение поддерживаемого формата'
   }
 
@@ -93,18 +74,13 @@ const AvatarUploadField = ({
   disabled,
   size,
   className,
+  icon,
 }: AvatarUploadFieldProps) => {
-  const [
-    previewUrl,
-    setPreviewUrl,
-  ] = useState<string | undefined>(
-    typeof value === 'string'
-      ? value
-      : undefined,
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(
+    typeof value === 'string' ? value : undefined,
   )
 
-  const [dropError, setDropError] =
-    useState<string>()
+  const [dropError, setDropError] = useState<string>()
 
   useEffect(() => {
     if (typeof value === 'string') {
@@ -117,46 +93,28 @@ const AvatarUploadField = ({
       return undefined
     }
 
-    const objectUrl =
-      URL.createObjectURL(value)
+    const objectUrl = URL.createObjectURL(value)
 
     setPreviewUrl(objectUrl)
 
-    return () =>
-      URL.revokeObjectURL(
-        objectUrl,
-      )
+    return () => URL.revokeObjectURL(objectUrl)
   }, [value])
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
     multiple: false,
     maxFiles: 1,
     maxSize,
     disabled,
 
-    onDrop: (
-      acceptedFiles: File[],
-      fileRejections: FileRejection[],
-    ) => {
-      if (
-        fileRejections.length > 0
-      ) {
-        setDropError(
-          getRejectionMessage(
-            fileRejections,
-          ),
-        )
+    onDrop: (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      if (fileRejections.length > 0) {
+        setDropError(getRejectionMessage(fileRejections))
 
         return
       }
 
-      const file =
-        acceptedFiles[0]
+      const file = acceptedFiles[0]
 
       if (file) {
         setDropError(undefined)
@@ -165,42 +123,26 @@ const AvatarUploadField = ({
     },
   })
 
-  const displayedError =
-    dropError || error
+  const displayedError = dropError || error
 
-  const accessibleLabel =
-    label || 'Загрузить аватар'
+  const accessibleLabel = label || 'Загрузить аватар'
 
   return (
-    <div
-      className={`${styles.wrapper} ${className}`.trim()}
-    >
-      {label && (
-        <span className={styles.label}>
-          {label}
-        </span>
-      )}
+    <div className={`${styles.wrapper} ${className}`.trim()}>
+      {label && <span className={styles.label}>{label}</span>}
 
       <div
         {...getRootProps({
-          className: `${styles.dropzone} ${
-            isDragActive
-              ? styles.dragActive
-              : ''
-          } ${
-            displayedError
-              ? styles.errorDropzone
-              : ''
+          className: `${styles.dropzone} ${isDragActive ? styles.dragActive : ''} ${
+            displayedError ? styles.errorDropzone : ''
           }`.trim(),
 
           role: 'button',
           tabIndex: disabled ? -1 : 0,
 
-          'aria-label':
-            accessibleLabel,
+          'aria-label': accessibleLabel,
 
-          'aria-invalid':
-            Boolean(displayedError),
+          'aria-invalid': Boolean(displayedError),
         })}
       >
         <input
@@ -208,28 +150,13 @@ const AvatarUploadField = ({
             onBlur,
           })}
         />
-
-        <RoundImage
-          src={previewUrl}
-          alt={alt}
-          size={size}
-        />
-
-        <span
-          className={styles.addIcon}
-          aria-hidden="true"
-        >
-          <PlusCircleIcon />
+        <RoundImage src={previewUrl} alt={alt} size={size} />
+        <span className={styles.addIcon} aria-hidden="true">
+          {icon ?? <PlusCircleIcon />}
         </span>
       </div>
 
-      {displayedError && (
-        <span
-          className={styles.errorText}
-        >
-          {displayedError}
-        </span>
-      )}
+      {displayedError && <span className={styles.errorText}>{displayedError}</span>}
     </div>
   )
 }
@@ -254,25 +181,18 @@ export const AvatarUpload = <
   disabled = false,
   size = 'lg',
   className = '',
-}: AvatarUploadProps<
-  TFieldValues,
-  TName
->) => (
+  icon,
+}: AvatarUploadProps<TFieldValues, TName>) => (
   <Controller
     name={name}
     control={control}
     rules={rules}
-    render={({
-      field,
-      fieldState,
-    }) => (
+    render={({ field, fieldState }) => (
       <AvatarUploadField
         value={field.value}
         onChange={field.onChange}
         onBlur={field.onBlur}
-        error={
-          fieldState.error?.message
-        }
+        error={fieldState.error?.message}
         label={label}
         alt={alt}
         accept={accept}
@@ -280,6 +200,7 @@ export const AvatarUpload = <
         disabled={disabled}
         size={size}
         className={className}
+        icon={icon}
       />
     )}
   />
