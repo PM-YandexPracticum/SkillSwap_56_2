@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 
@@ -7,6 +7,7 @@ import GalleryEditIcon from '@/shared/ui/icons/assets/gallery-edit.svg?react'
 
 import { getAuthUser, updateAuthUser } from '@/features/auth/model/authUtils'
 import { useCities } from '@/features/cities-filter/model/useCities'
+import { toDisplayDate, toIsoDate } from '@/shared/lib/helpers'
 import { Input } from '@/shared/ui/Input'
 import { Select } from '@/shared/ui/form/Select'
 import { DatePicker } from '@/shared/ui/form/DatePicker'
@@ -45,7 +46,7 @@ const fileToDataUrl = (file: File): Promise<string> =>
   })
 
 export const ProfileEditForm = () => {
-  const user = getAuthUser()
+  const [user] = useState(getAuthUser)
 
   const { cities, status: citiesStatus } = useCities()
 
@@ -69,13 +70,19 @@ export const ProfileEditForm = () => {
     defaultValues: {
       email: user?.email ?? '',
       name: user?.name ?? '',
-      birthDate: user?.birthDate ?? '',
+      birthDate: toDisplayDate(user?.birthDate ?? ''),
       gender: user?.gender,
       city: user?.city ?? '',
       about: user?.about ?? '',
       avatar: user?.avatarUrl ?? null,
     },
   })
+
+  useEffect(() => {
+    if (isDirty) {
+      setSuccessMessage('')
+    }
+  }, [isDirty])
 
   const onSubmit = async (values: ProfileFormValues) => {
     try {
@@ -88,7 +95,7 @@ export const ProfileEditForm = () => {
       const updatedUser = updateAuthUser({
         email: values.email,
         name: values.name,
-        birthDate: values.birthDate,
+        birthDate: toIsoDate(values.birthDate),
         gender: values.gender,
         city: values.city,
         about: values.about,
@@ -199,6 +206,7 @@ export const ProfileEditForm = () => {
             name="avatar"
             control={control}
             size="xxl"
+            maxSize={1024 * 1024}
             alt={user?.name ?? 'Аватар пользователя'}
             icon={<GalleryEditIcon />}
           />

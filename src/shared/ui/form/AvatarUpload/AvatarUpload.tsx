@@ -1,4 +1,4 @@
-import { useEffect, useState, ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { useDropzone, type Accept, type FileRejection } from 'react-dropzone'
 import {
   Controller,
@@ -150,7 +150,6 @@ const AvatarUploadField = ({
             onBlur,
           })}
         />
-        ]
         <RoundImage src={previewUrl} alt={alt} size={size} />
         <span className={styles.addIcon} aria-hidden="true">
           {icon ?? <PlusCircleIcon />}

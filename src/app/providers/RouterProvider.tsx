@@ -5,7 +5,6 @@ import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { MainLayout } from '@/app/layouts/mainLayout'
 import { RegistrationLayout } from '@/app/layouts/RegistrationLayout'
 import { RegistrationProvider } from '@/features/auth/registration'
-import { ProfileEditForm } from '@/features/profile-edit'
 
 import { ROUTES } from '@/shared/lib/constants'
 import lightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg'
@@ -15,6 +14,8 @@ const CatalogPage = lazy(() => import('@/pages/CatalogPage'))
 const SkillPage = lazy(() => import('@/pages/SkillPage'))
 
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'))
+
+const ProfilePersonalPage = lazy(() => import('@/pages/ProfilePersonalPage'))
 
 const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'))
 
@@ -55,7 +56,7 @@ export function AppRouter() {
 
               <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
 
-              <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfileEditForm />} />
+              <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
             </Route>
 
             <Route path={ROUTES.CREATE} element={<CreateSkillPage />} />
