@@ -10,12 +10,14 @@ import type { User } from '@/shared/types'
 jest.mock('@/api/users')
 const fetchUsersMock = fetchUsers as jest.MockedFunction<typeof fetchUsers>
 
-const mockUsers = [
+const mockUsers: User[] = [
   {
     id: 'user-1',
     name: 'Иван',
     email: 'ivan@example.com',
     city: 'Санкт-Петербург',
+    cityId: 'saint-petersburg',
+    gender: 'male',
     birthDate: '1992-02-12',
     avatarUrl: 'https://randomuser.me/api/portraits/men/12.jpg',
     createdAt: '2024-01-10T10:00:00.000Z',
@@ -29,6 +31,8 @@ const mockUsers = [
     name: 'Анна',
     email: 'anna@example.com',
     city: 'Москва',
+    cityId: 'moscow',
+    gender: 'female',
     birthDate: '1994-11-21',
     avatarUrl: 'https://randomuser.me/api/portraits/women/21.jpg',
     createdAt: '2024-04-02T08:40:00.000Z',
@@ -42,6 +46,8 @@ const mockUsers = [
     name: 'Мария',
     email: 'maria@example.com',
     city: 'Казань',
+    cityId: 'kazan',
+    gender: 'female',
     birthDate: '1990-05-08',
     avatarUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
     createdAt: '2024-04-18T14:05:00.000Z',
@@ -55,6 +61,8 @@ const mockUsers = [
     name: 'Олег',
     email: 'oleg@example.com',
     city: 'Новосибирск',
+    cityId: 'novosibirsk',
+    gender: 'male',
     birthDate: '2005-03-04',
     avatarUrl: null,
     createdAt: '2024-03-20T09:15:00.000Z',
@@ -68,6 +76,8 @@ const mockUsers = [
     name: 'Дмитрий',
     email: 'dmitry@example.com',
     city: 'Екатеринбург',
+    cityId: 'yekaterinburg',
+    gender: 'male',
     birthDate: '1991-01-30',
     avatarUrl: 'https://randomuser.me/api/portraits/men/52.jpg',
     createdAt: '2024-05-12T16:45:00.000Z',
@@ -81,6 +91,8 @@ const mockUsers = [
     name: 'Елена',
     email: 'elena@example.com',
     city: 'Краснодар',
+    cityId: 'krasnodar',
+    gender: 'female',
     birthDate: '1988-09-15',
     avatarUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
     createdAt: '2024-06-03T09:00:00.000Z',
@@ -94,6 +106,8 @@ const mockUsers = [
     name: 'София',
     email: 'sofia@example.com',
     city: 'Нижний Новгород',
+    cityId: 'nizhny-novgorod',
+    gender: 'female',
     birthDate: '2001-06-03',
     avatarUrl: 'https://randomuser.me/api/portraits/women/65.jpg',
     createdAt: '2024-07-08T18:25:00.000Z',
@@ -107,6 +121,8 @@ const mockUsers = [
     name: 'Павел',
     email: 'pavel@example.com',
     city: 'Сочи',
+    cityId: 'sochi',
+    gender: 'male',
     birthDate: '1987-12-19',
     avatarUrl: 'https://randomuser.me/api/portraits/men/68.jpg',
     createdAt: '2024-08-04T10:15:00.000Z',
@@ -230,7 +246,7 @@ describe('selectors', () => {
     visible: 6,
   }
 
-  const rootState = { users: usersState }
+  const rootState: RootState = { users: usersState, favorites: { ids: [] } }
 
   describe('selectUsers', () => {
     test('возвращает массив пользователей', () => {
@@ -296,6 +312,7 @@ describe('selectors', () => {
           error: null,
           visible: 6,
         },
+        favorites: { ids: [] },
       }
       const result = selectors.selectRecommended(partialState)
       expect(result).toHaveLength(3)
@@ -317,6 +334,7 @@ describe('selectors', () => {
           error: null,
           visible: 8,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(false)
     })
@@ -329,6 +347,7 @@ describe('selectors', () => {
           error: null,
           visible: 8,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(false)
     })
@@ -341,6 +360,7 @@ describe('selectors', () => {
           error: null,
           visible: 6,
         },
+        favorites: { ids: [] },
       }
       expect(selectors.selectHasMore(state)).toBe(true)
     })
@@ -354,7 +374,12 @@ describe('selectors', () => {
 })
 
 describe('loadUsers — интеграция со стором', () => {
-  const makeStore = () => configureStore({ reducer: { users: usersReducer } })
+  const favoritesStub = (state = { ids: [] as string[] }) => state
+
+  const makeStore = () =>
+    configureStore({
+      reducer: { users: usersReducer, favorites: favoritesStub },
+    })
 
   beforeEach(() => {
     fetchUsersMock.mockReset()

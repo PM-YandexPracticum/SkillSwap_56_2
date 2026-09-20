@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from 'react'
 
-import { useSkillCategories } from '../../model/useSkillCategories'
+import { useSkillCategories } from '@/entities/skill'
 import { FilterList, type FilterFieldProps, type FilterItem } from '@/shared/ui/FilterList'
 
 export type ListSkillsFilterProps = FilterFieldProps & {

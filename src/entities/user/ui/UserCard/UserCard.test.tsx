@@ -16,6 +16,8 @@ describe('UserCard', () => {
         name: 'Иван',
         email: 'ivan@example.com',
         city: 'Санкт-Петербург',
+        cityId: 'saint-petersburg',
+        gender: 'male',
         birthDate: '1992-02-12',
         avatarUrl: null,
         createdAt: '2024-01-10T10:00:00.000Z',
