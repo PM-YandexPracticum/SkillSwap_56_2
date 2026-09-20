@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Controller, type Control, useFormContext, useWatch } from 'react-hook-form'
 
-import { fetchCities } from '@/api/cities'
-import { fetchSkillCategories } from '@/api/skills'
+import { useCities } from '@/entities/city'
+import { useSkillCategories } from '@/entities/skill'
 import { useRegistrationFlow, type RegistrationFormValues } from '@/features/auth/registration'
-import type { City, SkillCategory } from '@/shared/types'
+import type { City } from '@/shared/types'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { AvatarUpload, DatePicker, Select, type SelectOption } from '@/shared/ui/form'
 import ChevronDownIcon from '@/shared/ui/icons/assets/chevron-down.svg?react'
 import CrossIcon from '@/shared/ui/icons/assets/cross.svg?react'
 import styles from '@/pages/RegisterUserPage/RegisterUserPage.module.css'
+
+const LOADING_STATUS = 'Загрузка…'
 
 const GENDER_OPTIONS: SelectOption[] = [
   {
@@ -218,10 +220,12 @@ export default function RegisterUserPage() {
 
   const { nextStep, previousStep } = useRegistrationFlow()
 
-  const [cities, setCities] = useState<City[]>([])
-  const [categories, setCategories] = useState<SkillCategory[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [loadError, setLoadError] = useState<string>()
+  const { cities, status: citiesStatus } = useCities()
+  const { categories, status: categoriesStatus } = useSkillCategories()
+
+  const optionsStatuses = [citiesStatus, categoriesStatus]
+  const isLoading = optionsStatuses.some((status) => status === LOADING_STATUS)
+  const loadError = optionsStatuses.find((status) => status && status !== LOADING_STATUS)
 
   const selectedCategory = useWatch({
     control,
@@ -229,39 +233,6 @@ export default function RegisterUserPage() {
   })
 
   const previousCategoryRef = useRef(selectedCategory)
-
-  useEffect(() => {
-    const controller = new AbortController()
-
-    const loadOptions = async () => {
-      try {
-        setIsLoading(true)
-        setLoadError(undefined)
-
-        const [nextCities, nextCategories] = await Promise.all([
-          fetchCities(controller.signal),
-          fetchSkillCategories(controller.signal),
-        ])
-
-        setCities(nextCities)
-        setCategories(nextCategories)
-      } catch (error) {
-        if (error instanceof DOMException && error.name === 'AbortError') {
-          return
-        }
-
-        setLoadError('Не удалось загрузить списки. Попробуйте обновить страницу.')
-      } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    void loadOptions()
-
-    return () => controller.abort()
-  }, [])
 
   useEffect(() => {
     if (previousCategoryRef.current !== selectedCategory) {
