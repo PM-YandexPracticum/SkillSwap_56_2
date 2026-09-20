@@ -13,11 +13,8 @@ import { REGISTRATION_DEFAULT_VALUES } from '../model/storage'
 import type { RegistrationFormValues } from '../model/types'
 import { RegistrationProvider } from './RegistrationProvider'
 
-
 jest.mock('@/api/cities', () => ({
-  fetchCities: jest.fn().mockResolvedValue([
-    { id: 'moscow', title: 'Москва' },
-  ]),
+  fetchCities: jest.fn().mockResolvedValue([{ id: 'moscow', title: 'Москва' }]),
 }))
 
 jest.mock('@/api/skills', () => ({
@@ -25,9 +22,7 @@ jest.mock('@/api/skills', () => ({
     {
       id: 'creativity-art',
       title: 'Творчество и искусство',
-      skills: [
-        { id: 'music-sound', title: 'Музыка и звук' },
-      ],
+      skills: [{ id: 'music-sound', title: 'Музыка и звук' }],
     },
   ]),
 }))
@@ -159,8 +154,16 @@ describe('валидация текущего шага', () => {
     expect(await screen.findByText('Введите имя')).toBeInTheDocument()
     expect(screen.getByText('Введите дату рождения')).toBeInTheDocument()
     expect(screen.getByText('Выберите город')).toBeInTheDocument()
-    expect(screen.getByText('Выберите категорию')).toBeInTheDocument()
-    expect(screen.getByText('Выберите подкатегорию')).toBeInTheDocument()
+    const categorySelect = screen.getByRole('combobox', {
+      name: 'Категория навыка, которому хотите научиться',
+    })
+
+    const subcategorySelect = screen.getByRole('combobox', {
+      name: 'Подкатегория навыка, которому хотите научиться',
+    })
+
+    expect(categorySelect).toHaveAttribute('aria-invalid', 'true')
+    expect(subcategorySelect).toHaveAttribute('aria-invalid', 'true')
     expect(screen.queryByText('Введите email')).not.toBeInTheDocument()
   })
 })
@@ -223,9 +226,7 @@ describe('завершение регистрации', () => {
       name: 'Категория навыка, которому хотите научиться',
     })
     await user.click(categorySelect)
-    await user.click(
-      await screen.findByRole('option', { name: 'Творчество и искусство' }),
-    )
+    await user.click(await screen.findByRole('option', { name: 'Творчество и искусство' }))
 
     const subcategorySelect = screen.getByRole('combobox', {
       name: 'Подкатегория навыка, которому хотите научиться',
