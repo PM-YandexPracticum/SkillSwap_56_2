@@ -1,16 +1,8 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useForm } from 'react-hook-form'
 
-import {
-  Select,
-  type SelectOption,
-} from './Select'
+import { Select, type SelectOption } from './Select'
 
 interface FormValues {
   city: string
@@ -31,26 +23,15 @@ const options: SelectOption[] = [
   },
 ]
 
-const TestForm = ({
-  required = false,
-}: {
-  required?: boolean
-}) => {
-  const {
-    control,
-    handleSubmit,
-  } = useForm<FormValues>({
+const TestForm = ({ required = false }: { required?: boolean }) => {
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       city: '',
     },
   })
 
   return (
-    <form
-      onSubmit={handleSubmit(
-        () => undefined,
-      )}
-    >
+    <form onSubmit={handleSubmit(() => undefined)}>
       <Select
         name="city"
         control={control}
@@ -60,200 +41,148 @@ const TestForm = ({
         rules={
           required
             ? {
-                required:
-                  'Выберите город',
+                required: 'Выберите город',
               }
             : undefined
         }
       />
 
-      <button type="submit">
-        Отправить
-      </button>
+      <button type="submit">Отправить</button>
     </form>
   )
 }
 
 describe('Select', () => {
-  test(
-    'показывает placeholder и выбирает значение по клику',
-    async () => {
-      const user =
-        userEvent.setup()
-
-      render(<TestForm />)
-
-      const trigger =
-        screen.getByRole(
-          'combobox',
-          {
-            name: 'Город',
-          },
-        )
-
-      expect(
-        trigger,
-      ).toHaveTextContent(
-        'Не указан',
-      )
-
-      await user.click(trigger)
-
-      await user.click(
-        screen.getByRole(
-          'option',
-          {
-            name: 'Москва',
-          },
-        ),
-      )
-
-      expect(
-        trigger,
-      ).toHaveTextContent(
-        'Москва',
-      )
-
-      expect(
-        screen.queryByRole(
-          'listbox',
-        ),
-      ).not.toBeInTheDocument()
-    },
-  )
-
-  test(
-    'открывается с клавиатуры, позволяет выбрать стрелками и Enter',
-    async () => {
-      const user =
-        userEvent.setup()
-
-      render(<TestForm />)
-
-      const trigger =
-        screen.getByRole(
-          'combobox',
-          {
-            name: 'Город',
-          },
-        )
-
-      trigger.focus()
-
-      await user.keyboard(
-        '{Enter}',
-      )
-
-      expect(
-        screen.getByRole(
-          'listbox',
-        ),
-      ).toBeInTheDocument()
-
-      await user.keyboard(
-        '{ArrowDown}{Enter}',
-      )
-
-      expect(
-        trigger,
-      ).not.toHaveTextContent(
-        'Не указан',
-      )
-
-      expect(
-        screen.queryByRole(
-          'listbox',
-        ),
-      ).not.toBeInTheDocument()
-    },
-  )
-
-  test(
-  'закрывается по Esc и по клику вне списка',
-  async () => {
+  test('показывает placeholder и выбирает значение по клику', async () => {
     const user = userEvent.setup()
 
     render(<TestForm />)
 
-    const trigger = screen.getByRole(
-      'combobox',
-      {
-        name: 'Город',
-      },
-    )
+    const trigger = screen.getByRole('combobox', {
+      name: 'Город',
+    })
+
+    expect(trigger).toHaveTextContent('Не указан')
 
     await user.click(trigger)
 
-    expect(
-      screen.getByRole('listbox'),
-    ).toBeInTheDocument()
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Москва',
+      }),
+    )
+
+    expect(trigger).toHaveTextContent('Москва')
+
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
+  test('открывается с клавиатуры, позволяет выбрать стрелками и Enter', async () => {
+    const user = userEvent.setup()
+
+    render(<TestForm />)
+
+    const trigger = screen.getByRole('combobox', {
+      name: 'Город',
+    })
+
+    trigger.focus()
+
+    await user.keyboard('{Enter}')
+
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+
+    await user.keyboard('{ArrowDown}{Enter}')
+
+    expect(trigger).not.toHaveTextContent('Не указан')
+
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
+  test('закрывается по Esc и по клику вне списка', async () => {
+    const user = userEvent.setup()
+
+    render(<TestForm />)
+
+    const trigger = screen.getByRole('combobox', {
+      name: 'Город',
+    })
+
+    await user.click(trigger)
+
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
 
     await user.keyboard('{Escape}')
 
-    expect(
-      screen.queryByRole('listbox'),
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
 
     await user.click(trigger)
 
-    expect(
-      screen.getByRole('listbox'),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
 
-    fireEvent.pointerDown(
-      document.body,
-      {
-        button: 0,
-        pointerType: 'mouse',
-      },
-    )
+    fireEvent.pointerDown(document.body, {
+      button: 0,
+      pointerType: 'mouse',
+    })
 
     await waitFor(() => {
-      expect(
-        screen.queryByRole(
-          'listbox',
-        ),
-      ).not.toBeInTheDocument()
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
     })
-  },
-)
+  })
 
-  test(
-    'показывает ошибку RHF',
-    async () => {
-      const user =
-        userEvent.setup()
+  test('показывает ошибку RHF', async () => {
+    const user = userEvent.setup()
 
-      render(
-        <TestForm required />,
+    render(<TestForm required />)
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Отправить',
+      }),
+    )
+
+    expect(await screen.findByText('Выберите город')).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Город',
+      }),
+    ).toHaveAttribute('aria-invalid', 'true')
+  })
+  test('позволяет выбрать пустое значение через emptyOptionLabel', async () => {
+    const user = userEvent.setup()
+
+    const GenderForm = () => {
+      const { control } = useForm<{ gender: string }>({
+        defaultValues: { gender: 'male' },
+      })
+
+      return (
+        <Select
+          name="gender"
+          control={control}
+          label="Пол"
+          placeholder="Не указан"
+          emptyOptionLabel="Не указан"
+          options={[
+            { value: 'male', label: 'Мужской' },
+            { value: 'female', label: 'Женский' },
+          ]}
+        />
       )
+    }
 
-      await user.click(
-        screen.getByRole(
-          'button',
-          {
-            name: 'Отправить',
-          },
-        ),
-      )
+    render(<GenderForm />)
 
-      expect(
-        await screen.findByText(
-          'Выберите город',
-        ),
-      ).toBeInTheDocument()
+    const trigger = screen.getByRole('combobox', {
+      name: 'Пол',
+    })
 
-      expect(
-        screen.getByRole(
-          'combobox',
-          {
-            name: 'Город',
-          },
-        ),
-      ).toHaveAttribute(
-        'aria-invalid',
-        'true',
-      )
-    },
-  )
+    expect(trigger).toHaveTextContent('Мужской')
+
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', { name: 'Не указан' }))
+
+    expect(trigger).toHaveTextContent('Не указан')
+  })
 })

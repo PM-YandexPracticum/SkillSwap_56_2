@@ -11,6 +11,8 @@ import {
 import ChevronDownIcon from '../../icons/assets/chevron-down.svg?react'
 import styles from './Select.module.css'
 
+const EMPTY_OPTION_VALUE = '__select_empty_option__'
+
 export interface SelectOption {
   value: string
   label: string
@@ -27,9 +29,13 @@ export interface SelectProps<
   options: SelectOption[]
   label?: string
   placeholder?: string
+  emptyOptionLabel?: string
   disabled?: boolean
   className?: string
   contentClassName?: string
+  side?: RadixSelect.SelectContentProps['side']
+  sideOffset?: number
+  avoidCollisions?: boolean
 }
 
 export const Select = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
@@ -39,9 +45,13 @@ export const Select = <TFieldValues extends FieldValues, TName extends FieldPath
   options,
   label,
   placeholder = 'Выберите значение',
+  emptyOptionLabel,
   disabled = false,
   className = '',
   contentClassName = '',
+  side,
+  sideOffset = 4,
+  avoidCollisions = true,
 }: SelectProps<TFieldValues, TName>) => {
   const generatedId = React.useId()
   const errorId = `${generatedId}-error`
@@ -61,6 +71,10 @@ export const Select = <TFieldValues extends FieldValues, TName extends FieldPath
               ? ''
               : String(field.value)
 
+        const handleValueChange = (nextValue: string) => {
+          field.onChange(nextValue === EMPTY_OPTION_VALUE ? '' : nextValue)
+        }
+
         return (
           <div className={`${styles.wrapper} ${className}`.trim()}>
             {label && (
@@ -69,7 +83,7 @@ export const Select = <TFieldValues extends FieldValues, TName extends FieldPath
               </label>
             )}
 
-            <RadixSelect.Root value={value} onValueChange={field.onChange} disabled={disabled}>
+            <RadixSelect.Root value={value} onValueChange={handleValueChange} disabled={disabled}>
               <RadixSelect.Trigger
                 id={generatedId}
                 ref={field.ref}
@@ -91,10 +105,18 @@ export const Select = <TFieldValues extends FieldValues, TName extends FieldPath
                 <RadixSelect.Content
                   className={`${styles.content} ${contentClassName}`.trim()}
                   position="popper"
-                  sideOffset={4}
+                  side={side}
+                  sideOffset={sideOffset}
+                  avoidCollisions={avoidCollisions}
                   collisionPadding={8}
                 >
                   <RadixSelect.Viewport className={styles.viewport}>
+                    {emptyOptionLabel && (
+                      <RadixSelect.Item value={EMPTY_OPTION_VALUE} className={styles.item}>
+                        <RadixSelect.ItemText>{emptyOptionLabel}</RadixSelect.ItemText>
+                      </RadixSelect.Item>
+                    )}
+
                     {options.map((option) => (
                       <RadixSelect.Item
                         key={option.value}

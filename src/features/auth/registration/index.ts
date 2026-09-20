@@ -9,4 +9,5 @@ export {
 
 export type {
   RegistrationFormValues,
+  RegistrationGender,
 } from './model/types'

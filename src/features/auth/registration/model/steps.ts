@@ -20,9 +20,13 @@ export const REGISTRATION_STEPS = [
   {
     path: ROUTES.REGISTER_USER,
     fields: [
+      'avatar',
       'name',
       'birthDate',
+      'gender',
       'city',
+      'learningCategory',
+      'learningSubcategory',
     ] as const,
     schema: userStepSchema,
   },

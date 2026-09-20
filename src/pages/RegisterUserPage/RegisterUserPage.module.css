@@ -1,0 +1,250 @@
+.form {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 40px 60px 32px;
+  color: var(--text);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.avatar {
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* В макете активное поле сохраняет обычную нейтральную рамку без зелёного focus-ring. */
+.form .plainFocusField > div:focus-within {
+  border-color: var(--color-input-border);
+  outline: none;
+}
+
+.form .plainFocusField > div:has([aria-invalid='true']):focus-within {
+  border-color: var(--color-error);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cityField {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-sans);
+}
+
+.fieldLabel {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.cityCombobox {
+  position: relative;
+  width: 100%;
+}
+
+.cityInputContainer {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 12px;
+  background: var(--card-input);
+}
+
+.cityInputContainer:focus-within,
+.cityInputOpen {
+  border-color: var(--color-input-border);
+  outline: none;
+}
+
+.cityInputOpen {
+  border-radius: 12px 12px 0 0;
+}
+
+.cityInputError {
+  border-color: var(--color-error);
+}
+
+.cityInputError:focus-within,
+.cityInputError.cityInputOpen {
+  border-color: var(--color-error);
+  outline: none;
+}
+
+.cityInput {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+
+.cityInput::placeholder {
+  color: var(--color-disabled-text);
+}
+
+.cityInput:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.cityIconButton {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  place-items: center;
+}
+
+.cityIconButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cityList {
+  position: absolute;
+  z-index: 1100;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 100%;
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid var(--color-input-border);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  background: var(--card-input);
+  box-shadow: var(--shadow-md);
+}
+
+.cityOption {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cityOption:hover,
+.cityOption:focus-visible,
+.cityOption[aria-selected='true'] {
+  background: var(--button-hover);
+  outline: none;
+}
+
+.cityEmpty {
+  padding: 10px 16px;
+  color: var(--color-disabled-text);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.cityChevron {
+  transition: transform 0.2s ease;
+}
+
+.cityChevronOpen {
+  transform: rotate(180deg);
+}
+
+.fieldError,
+.loadError {
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Select на этом экране: trigger и выпадающий список выглядят как единый контрол. */
+.form .registrationSelect > button:focus-visible,
+.form .registrationSelect > button[data-state='open'] {
+  border-color: var(--color-input-border);
+  outline: none;
+}
+
+.form .registrationSelect > button[aria-invalid='true']:focus-visible,
+.form .registrationSelect > button[aria-invalid='true'][data-state='open'] {
+  border-color: var(--color-error);
+}
+
+.form .registrationSelect > button[data-state='open'] {
+  border-radius: 12px 12px 0 0;
+}
+
+.registrationSelectContent {
+  width: var(--radix-select-trigger-width);
+  border: 1px solid var(--color-input-border);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+
+.checklistSelectContent [role='option'] {
+  gap: 10px;
+}
+
+.checklistSelectContent [role='option']::before {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  border: 1px solid var(--text);
+  border-radius: 5px;
+  content: '';
+}
+
+.checklistSelectContent [role='option'][data-state='checked']::before {
+  border-color: var(--accent);
+  background: linear-gradient(var(--accent), var(--accent)) center / 10px 10px no-repeat;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+@media (width <= 520px) {
+  .form {
+    padding: 32px 24px;
+  }
+
+  .row,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
