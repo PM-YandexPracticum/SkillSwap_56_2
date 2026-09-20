@@ -13,6 +13,9 @@ export interface RegistrationFormValues {
   learningCategory: string
   learningSubcategory: string
 
-  teachSkill: string
-  learnSkill: string
+  skillName: string
+  skillCategory: string
+  skillSubcategory: string
+  skillDescription: string
+  skillImages: File[]
 }

@@ -16,8 +16,27 @@ const validUser = {
 }
 
 const validSkill = {
-  teachSkill: 'Игра на гитаре',
-  learnSkill: 'Английский язык',
+  skillName:
+    'Игра на гитаре',
+
+  skillCategory:
+    'creativity-art',
+
+  skillSubcategory:
+    'music-sound',
+
+  skillDescription:
+    'Научу базовым аккордам и ритму',
+
+  skillImages: [
+    new File(
+      ['image'],
+      'guitar.png',
+      {
+        type: 'image/png',
+      },
+    ),
+  ],
 }
 
 describe('accountStepSchema', () => {
@@ -103,7 +122,32 @@ describe('skillStepSchema', () => {
     await expect(skillStepSchema.validate(validSkill)).resolves.toEqual(validSkill)
   })
 
-  test('отклоняет пустые навыки', async () => {
-    await expect(skillStepSchema.validate({ teachSkill: '   ', learnSkill: '' })).rejects.toThrow()
-  })
+  test(
+  'отклоняет пустые обязательные поля',
+  async () => {
+    await expect(
+      skillStepSchema.validate({
+        skillName: '   ',
+        skillCategory: '',
+        skillSubcategory: '',
+        skillDescription: '',
+        skillImages: [],
+      }),
+    ).rejects.toThrow()
+  },
+)
+
+test(
+  'требует хотя бы одно изображение',
+  async () => {
+    await expect(
+      skillStepSchema.validate({
+        ...validSkill,
+        skillImages: [],
+      }),
+    ).rejects.toThrow(
+      'Добавьте хотя бы одно изображение',
+    )
+  },
+)
 })
