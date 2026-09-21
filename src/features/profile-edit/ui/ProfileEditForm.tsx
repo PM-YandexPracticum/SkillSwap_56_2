@@ -8,6 +8,7 @@ import GalleryEditIcon from '@/shared/ui/icons/assets/gallery-edit.svg?react'
 import { getAuthUser, updateAuthUser } from '@/features/auth/model/authUtils'
 import { useCities } from '@/entities/city'
 import { toDisplayDate, toIsoDate } from '@/shared/lib/helpers'
+import { fileToDataUrl } from '@/shared/lib/fileToDataUrl'
 import { Input } from '@/shared/ui/Input'
 import { Select } from '@/shared/ui/form/Select'
 import { DatePicker } from '@/shared/ui/form/DatePicker'
@@ -29,21 +30,6 @@ const genderOptions = [
     label: 'Женский',
   },
 ]
-
-const fileToDataUrl = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader()
-
-    reader.onload = () => {
-      resolve(reader.result as string)
-    }
-
-    reader.onerror = () => {
-      reject(new Error('Не удалось загрузить изображение'))
-    }
-
-    reader.readAsDataURL(file)
-  })
 
 export const ProfileEditForm = () => {
   const [user] = useState(getAuthUser)
