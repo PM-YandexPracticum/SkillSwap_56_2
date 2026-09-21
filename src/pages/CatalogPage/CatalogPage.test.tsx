@@ -3,9 +3,10 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
+import { act } from 'react-dom/test-utils'
 
 import { resetCitiesCache } from '@/entities/city'
-import { usersReducer, type User } from '@/entities/user'
+import { showMore, usersReducer, type User } from '@/entities/user'
 import { resetSkillCategoriesCache } from '@/entities/skill'
 import { favoritesReducer } from '@/features/favorites'
 
@@ -50,7 +51,7 @@ const makeStore = () =>
     reducer: { users: usersReducer, favorites: favoritesReducer },
   })
 
-const renderPage = (store = makeStore()) =>
+const renderPage = (store = makeStore()) => {
   render(
     <Provider store={store}>
       <MemoryRouter>
@@ -58,6 +59,8 @@ const renderPage = (store = makeStore()) =>
       </MemoryRouter>
     </Provider>,
   )
+  return { store }
+}
 
 const getCardNames = () =>
   screen.getAllByRole('link', { name: 'Подробнее' }).map((link) => {
@@ -93,7 +96,7 @@ describe('CatalogPage', () => {
   })
 
   test('выбор типа фильтра включает сетку с чипсом и пагинацией', async () => {
-    renderPage()
+    const { store } = renderPage()
 
     await screen.findByRole('heading', { name: 'Популярное' })
     await userEvent.click(screen.getByRole('radio', { name: 'Могу научить' }))
@@ -103,9 +106,11 @@ describe('CatalogPage', () => {
     expect(screen.getByRole('heading', { name: 'Подходящие предложения: 8' })).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: 'Подробнее' })).toHaveLength(6)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Показать ещё' }))
+    // Бесконечная прокрутка — dispatch showMore
+    await screen.findByText('Фильтры (1)')
+    act(() => store.dispatch(showMore()))
 
-    expect(screen.getAllByRole('link', { name: 'Подробнее' })).toHaveLength(8)
+    expect(await screen.findAllByRole('link', { name: 'Подробнее' })).toHaveLength(8)
   })
 
   test('снятие чипса возвращает подборки', async () => {
@@ -153,5 +158,61 @@ describe('CatalogPage', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Повторить' }))
 
     expect(await screen.findAllByRole('link', { name: 'Подробнее' })).toHaveLength(6)
+  })
+
+  test('бесконечная прокрутка в фильтрах увеличивает количество карточек', async () => {
+    const { store } = renderPage()
+
+    await screen.findByRole('heading', { name: 'Популярное' })
+    await userEvent.click(screen.getByRole('radio', { name: 'Могу научить' }))
+    await screen.findByText('Фильтры (1)')
+
+    expect(screen.getAllByRole('link', { name: 'Подробнее' })).toHaveLength(6)
+
+    // Второй вызов showMore — показываем все 8
+    act(() => store.dispatch(showMore()))
+
+    expect(await screen.findAllByRole('link', { name: 'Подробнее' })).toHaveLength(8)
+  })
+
+  test('без фильтров показывает три секции', async () => {
+    renderPage()
+
+    expect(await screen.findByRole('heading', { name: 'Популярное' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Новое' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Рекомендуем' })).toBeInTheDocument()
+  })
+
+  test('кнопка "Смотреть все" в Popular раскрывает список до всех популярных', async () => {
+    renderPage()
+
+    // Сначала 3 карточки в Popular
+    const popularSection = await screen.findByRole('heading', { name: 'Популярное' })
+    expect(popularSection).toBeInTheDocument()
+    const popularCards = popularSection.parentElement!.parentElement!.querySelectorAll('a')
+    expect(popularCards).toHaveLength(3)
+
+    // Клик по "Смотреть все"
+    await userEvent.click(screen.getAllByRole('button', { name: 'Смотреть все' })[0])
+
+    // Теперь 8 карточек (все популярные)
+    const allPopularCards = popularSection.parentElement!.parentElement!.querySelectorAll('a')
+    expect(allPopularCards).toHaveLength(8)
+  })
+
+  test('повторный клик сворачивает до 3 карточек', async () => {
+    renderPage()
+
+    const popularSection = await screen.findByRole('heading', { name: 'Популярное' })
+
+    // Клик по "Смотреть все" — раскрываем
+    await userEvent.click(screen.getAllByRole('button', { name: 'Смотреть все' })[0])
+    let allPopularCards = popularSection.parentElement!.parentElement!.querySelectorAll('a')
+    expect(allPopularCards).toHaveLength(8)
+
+    // Повторный клик — сворачиваем
+    await userEvent.click(screen.getAllByRole('button', { name: 'Смотреть все' })[0])
+    allPopularCards = popularSection.parentElement!.parentElement!.querySelectorAll('a')
+    expect(allPopularCards).toHaveLength(3)
   })
 })

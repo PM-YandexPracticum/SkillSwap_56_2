@@ -98,15 +98,31 @@ describe('SectionCards', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('Сервер недоступен')
   })
 
-  test('показывает кнопку "Смотреть все", когда передан allHref', () => {
-    renderSection({ allHref: '/catalog' })
+  test('показывает кнопку "Смотреть все", когда передан onSeeAll', () => {
+    const onSeeAll = jest.fn()
+    renderSection({ onSeeAll })
 
-    expect(screen.getByRole('link', { name: 'Смотреть все' })).toHaveAttribute('href', '/catalog')
+    expect(screen.getByRole('button', { name: 'Смотреть все' })).toBeInTheDocument()
   })
 
-  test('не показывает кнопку "Смотреть все", когда allHref не передан', () => {
+  test('не показывает кнопку "Смотреть все", когда onSeeAll не передан', () => {
     renderSection()
 
-    expect(screen.queryByRole('link', { name: 'Смотреть все' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Смотреть все' })).not.toBeInTheDocument()
+  })
+
+  test('при клике на "Смотреть все" вызывает onSeeAll', async () => {
+    const onSeeAll = jest.fn()
+    renderSection({ onSeeAll })
+
+    await userEvent.click(screen.getByRole('button', { name: 'Смотреть все' }))
+
+    expect(onSeeAll).toHaveBeenCalledTimes(1)
+  })
+
+  test('показывает 3 карточки когда onSeeAll не нажата', () => {
+    renderSection()
+
+    expect(screen.getAllByRole('link', { name: 'Подробнее' })).toHaveLength(3)
   })
 })

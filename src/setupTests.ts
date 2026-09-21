@@ -16,6 +16,26 @@ if (!window.ResizeObserver) {
     }
 }
 
+if (!window.IntersectionObserver) {
+  window.IntersectionObserver = class IntersectionObserver {
+    root = null
+    rootMargin = ''
+    thresholds = []
+
+    constructor(_callback: () => void) {}
+
+    observe() {}
+
+    disconnect() {}
+
+    takeRecords() {
+      return []
+    }
+
+    unobserve() {}
+  } as typeof IntersectionObserver
+}
+
 Object.defineProperties(
   HTMLElement.prototype,
   {

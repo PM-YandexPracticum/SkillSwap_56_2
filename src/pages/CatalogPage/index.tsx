@@ -8,7 +8,9 @@ import {
   selectFilteredUsers,
   selectHasMore,
   selectNew,
+  selectNewAll,
   selectPopular,
+  selectPopularAll,
   selectRecommended,
   selectUsersError,
   selectUsersStatus,
@@ -19,11 +21,11 @@ import {
 import { ActiveFilters } from '@/features/active-filters'
 import { useFavorites } from '@/features/favorites'
 import { DEFAULT_SORT, SortSelect, sortUsers, type SortOption } from '@/features/sort-users'
-import { ROUTES } from '@/shared/lib/constants'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { CardMain } from '@/widgets/CardMain'
 import { FiltersBar } from '@/widgets/FiltersBar'
 import { SectionCards } from '@/widgets/SectionCards'
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 
 import styles from './CatalogPage.module.css'
 
@@ -33,6 +35,7 @@ export default function CatalogPage() {
   const dispatch = useAppDispatch()
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT)
+  const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { isFavorite, toggleFavorite } = useFavorites()
 
   const status = useAppSelector(selectUsersStatus)
@@ -40,6 +43,8 @@ export default function CatalogPage() {
   const visible = useAppSelector(selectUsersVisible)
   const popularUsers = useAppSelector(selectPopular)
   const newUsers = useAppSelector(selectNew)
+  const popularAll = useAppSelector(selectPopularAll)
+  const newAll = useAppSelector(selectNewAll)
   const recommendedUsers = useAppSelector(selectRecommended)
   const filteredUsers = useAppSelector((state) => selectFilteredUsers(state, filters))
   const hasMore = useAppSelector((state) => selectHasMore(state, filters))
@@ -62,6 +67,20 @@ export default function CatalogPage() {
   const handleRetry = () => {
     dispatch(loadUsers())
   }
+
+  const handleSeeAll = (section: string) => {
+    if (expandedSection === section) {
+      setExpandedSection(null)
+    } else {
+      setExpandedSection(section)
+    }
+  }
+
+  const filteredSentinelRef = useInfiniteScroll({
+    onLoadMore: () => dispatch(showMore()),
+    hasMore: !!hasMore,
+    isEnabled: isFiltering && !!hasMore,
+  })
 
   return (
     <main className={styles.page}>
@@ -113,28 +132,24 @@ export default function CatalogPage() {
                 ))}
               </div>
 
-              {status === 'succeeded' && hasMore && (
-                <button className={styles.moreButton} onClick={() => dispatch(showMore())}>
-                  Показать ещё
-                </button>
-              )}
+              <div ref={filteredSentinelRef} className={styles.sentinel} />
             </>
           ) : (
             <div className={styles.sections}>
               <SectionCards
                 title="Популярное"
-                users={popularUsers}
+                users={expandedSection === 'popular' ? popularAll : popularUsers}
                 status={status}
-                allHref={ROUTES.HOME}
+                onSeeAll={() => handleSeeAll('popular')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
               />
 
               <SectionCards
                 title="Новое"
-                users={newUsers}
+                users={expandedSection === 'newest' ? newAll : newUsers}
                 status={status}
-                allHref={ROUTES.HOME}
+                onSeeAll={() => handleSeeAll('newest')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
               />
@@ -143,6 +158,8 @@ export default function CatalogPage() {
                 title="Рекомендуем"
                 users={recommendedUsers}
                 status={status}
+                onShowMore={() => dispatch(showMore())}
+                hasMore={hasMore}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
               />
