@@ -33,7 +33,7 @@ if (!window.IntersectionObserver) {
     }
 
     unobserve() {}
-  } as typeof IntersectionObserver
+  } as unknown as typeof IntersectionObserver
 }
 
 Object.defineProperties(
