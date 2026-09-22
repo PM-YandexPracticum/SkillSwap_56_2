@@ -20,8 +20,16 @@ export const selectPopular = createSelector([selectUsers], (users: User[]) =>
   [...users].sort(byLikesDesc).slice(0, 3),
 )
 
+export const selectPopularAll = createSelector([selectUsers], (users: User[]) =>
+  [...users].sort(byLikesDesc),
+)
+
 export const selectNew = createSelector([selectUsers], (users: User[]) =>
   [...users].sort(byCreatedAtDesc).slice(0, 3),
+)
+
+export const selectNewAll = createSelector([selectUsers], (users: User[]) =>
+  [...users].sort(byCreatedAtDesc),
 )
 
 export const selectRecommended = createSelector(

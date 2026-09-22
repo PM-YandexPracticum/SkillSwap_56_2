@@ -140,6 +140,30 @@
   }
 }
 
+.moreButton {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--text);
+  background-color: var(--color-success);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.moreButton:hover {
+  opacity: 0.9;
+}
+
+.sentinel {
+  height: 1px;
+  width: 100%;
+}
+
 @media (width <= 900px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
