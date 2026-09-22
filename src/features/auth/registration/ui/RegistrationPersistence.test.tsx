@@ -5,6 +5,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
 import { fetchCities } from '@/api/cities'
 import { MainLayout } from '@/app/layouts/mainLayout'
+import { resetCitiesCache } from '@/entities/city'
 import { getAuthUser, saveAuthUser } from '@/features/auth/model/authUtils'
 import { ProfileEditForm } from '@/features/profile-edit/ui/ProfileEditForm'
 import { LOCAL_STORAGE_KEYS, ROUTES } from '@/shared/lib/constants'
@@ -34,7 +35,7 @@ const expectedSkills = [
   },
 ]
 
-const seedDraft = () => {
+const seedDraft = (overrides: Partial<RegistrationFormValues> = {}) => {
   localStorage.setItem(
     LOCAL_STORAGE_KEYS.REGISTRATION_DRAFT,
     JSON.stringify({
@@ -52,6 +53,7 @@ const seedDraft = () => {
       skillCategory: 'creativity-art',
       skillSubcategory: 'music-sound',
       skillDescription: 'Научу играть на гитаре',
+      ...overrides,
     }),
   )
 }
@@ -93,18 +95,18 @@ const renderFinish = (avatarValue?: File | string | null) =>
 
 beforeEach(() => {
   localStorage.clear()
+  resetCitiesCache()
   seedDraft()
 })
 
 afterEach(() => jest.restoreAllMocks())
 
-test('сохраняет весь профиль и навык, очищает черновик, показывает успех и Header; данные переживают F5', async () => {
+test('сохраняет весь профиль и навык, очищает черновик и обновляет Header; данные переживают F5', async () => {
   const user = userEvent.setup()
   const view = renderFinish()
   await user.click(screen.getByRole('button', { name: 'Завершить' }))
 
   expect(await screen.findByText('Главная страница')).toBeInTheDocument()
-  expect(screen.getByRole('status')).toHaveTextContent('Регистрация успешно завершена')
   expect(getAuthUser()).toEqual({
     id: expect.any(String),
     token: expect.stringMatching(/^mock_token_/),
@@ -210,6 +212,19 @@ test('при ошибке загрузки города не сохраняет 
   await user.click(screen.getByRole('button', { name: 'Завершить' }))
 
   expect(await screen.findByRole('alert')).toBeInTheDocument()
+  expect(getAuthUser()).toBeNull()
+  expect(localStorage.getItem(LOCAL_STORAGE_KEYS.USER_SKILLS)).toBeNull()
+  expect(localStorage.getItem(LOCAL_STORAGE_KEYS.REGISTRATION_DRAFT)).not.toBeNull()
+})
+
+test('показывает конкретную ошибку, если выбранный город не найден', async () => {
+  seedDraft({ city: 'unknown-city' })
+  const user = userEvent.setup()
+  renderFinish()
+
+  await user.click(screen.getByRole('button', { name: 'Завершить' }))
+
+  expect(await screen.findByRole('alert')).toHaveTextContent('Не удалось найти выбранный город')
   expect(getAuthUser()).toBeNull()
   expect(localStorage.getItem(LOCAL_STORAGE_KEYS.USER_SKILLS)).toBeNull()
   expect(localStorage.getItem(LOCAL_STORAGE_KEYS.REGISTRATION_DRAFT)).not.toBeNull()

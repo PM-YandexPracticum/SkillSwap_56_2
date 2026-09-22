@@ -4,7 +4,7 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ValidationError } from 'yup'
 
 import { saveAuthUser } from '@/features/auth/model/authUtils'
-import { fetchCities } from '@/api/cities'
+import { loadCities } from '@/entities/city'
 import { LOCAL_STORAGE_KEYS, ROUTES } from '@/shared/lib/constants'
 import { fileToDataUrl } from '@/shared/lib/fileToDataUrl'
 import { toIsoDate } from '@/shared/lib/helpers'
@@ -164,14 +164,15 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
 
       const values = methods.getValues()
       const [cities, avatarUrl, skillImages] = await Promise.all([
-        fetchCities(),
+        loadCities(),
         values.avatar instanceof File ? fileToDataUrl(values.avatar) : values.avatar,
         Promise.all(values.skillImages.map(fileToDataUrl)),
       ])
       const city = cities.find((item) => item.id === values.city)
 
       if (!city) {
-        throw new Error('Не удалось найти выбранный город. Выберите город заново.')
+        setSubmitError('Не удалось найти выбранный город. Выберите город заново.')
+        return
       }
 
       const skills = [

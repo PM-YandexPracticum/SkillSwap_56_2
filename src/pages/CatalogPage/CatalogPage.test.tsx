@@ -8,6 +8,7 @@ import { resetCitiesCache } from '@/entities/city'
 import { usersReducer, type User } from '@/entities/user'
 import { resetSkillCategoriesCache } from '@/entities/skill'
 import { favoritesReducer } from '@/features/favorites'
+import { ROUTES } from '@/shared/lib/constants'
 
 import CatalogPage from './index'
 
@@ -50,10 +51,10 @@ const makeStore = () =>
     reducer: { users: usersReducer, favorites: favoritesReducer },
   })
 
-const renderPage = (store = makeStore()) =>
+const renderPage = (store = makeStore(), state?: Record<string, unknown>) =>
   render(
     <Provider store={store}>
-      <MemoryRouter>
+      <MemoryRouter initialEntries={[{ pathname: ROUTES.HOME, state }]}>
         <CatalogPage />
       </MemoryRouter>
     </Provider>,
@@ -90,6 +91,13 @@ describe('CatalogPage', () => {
     expect(screen.getByRole('heading', { name: 'Новое' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Рекомендуем' })).toBeInTheDocument()
     expect(screen.queryByText(/Фильтры \(/)).not.toBeInTheDocument()
+  })
+
+  test('показывает сообщение об успешной регистрации', async () => {
+    renderPage(makeStore(), { registrationSuccess: true })
+
+    expect(screen.getByText('Регистрация успешно завершена')).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Популярное' })).toBeInTheDocument()
   })
 
   test('выбор типа фильтра включает сетку с чипсом и пагинацией', async () => {
