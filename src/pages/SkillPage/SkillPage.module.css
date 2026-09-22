@@ -1,0 +1,26 @@
+.page {
+  display: grid;
+  gap: 40px;
+  width: 100%;
+  padding-block: 40px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 324px minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.notFound {
+  padding: 40px;
+  color: var(--text);
+  font-size: 20px;
+  text-align: center;
+}
+
+@media (width <= 900px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+}
