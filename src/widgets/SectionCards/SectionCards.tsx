@@ -1,9 +1,10 @@
 import { useId } from 'react'
 
 import type { User } from '@/shared/types'
-import { Button, ButtonLink } from '@/shared/ui/Button'
+import { Button } from '@/shared/ui/Button'
 import ChevronRightIcon from '@/shared/ui/icons/assets/chevron-right.svg?react'
 import { CardMain } from '@/widgets/CardMain'
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 
 import styles from './SectionCards.module.css'
 
@@ -13,10 +14,12 @@ export type SectionCardsProps = {
   title: string
   users: User[]
   status: SectionCardsStatus
-  allHref?: string
   skeletonCount?: number
   onRetry?: () => void
   errorMessage?: string
+  onShowMore?: () => void
+  hasMore?: boolean
+  onSeeAll?: () => void
 }
 
 const DEFAULT_SKELETON_COUNT = 3
@@ -26,15 +29,23 @@ export const SectionCards = ({
   title,
   users,
   status,
-  allHref,
   skeletonCount = DEFAULT_SKELETON_COUNT,
   onRetry,
   errorMessage = DEFAULT_ERROR_MESSAGE,
+  onShowMore,
+  hasMore,
+  onSeeAll,
 }: SectionCardsProps) => {
   const titleId = useId()
   const shouldShowCards = status === 'succeeded' && users.length > 0
   const shouldShowEmpty = status === 'succeeded' && users.length === 0
   const skeletons = Array.from({ length: skeletonCount }, (_, index) => index)
+
+  const sentinelRef = useInfiniteScroll({
+    onLoadMore: onShowMore ?? (() => {}),
+    hasMore: !!hasMore,
+    isEnabled: !!onShowMore && !!hasMore,
+  })
 
   return (
     <section className={styles.section} aria-labelledby={titleId}>
@@ -43,15 +54,10 @@ export const SectionCards = ({
           {title}
         </h2>
 
-        {allHref && (
-          <ButtonLink
-            to={allHref}
-            className={styles.allLink}
-            variant="tertiary"
-            rightIcon={<ChevronRightIcon className={styles.allIcon} aria-hidden="true" />}
-          >
+        {onSeeAll && (
+          <Button variant="tertiary" className={styles.allLink} rightIcon={<ChevronRightIcon className={styles.allIcon} aria-hidden="true" />} onClick={onSeeAll}>
             Смотреть все
-          </ButtonLink>
+          </Button>
         )}
       </header>
 
@@ -99,6 +105,14 @@ export const SectionCards = ({
           )}
         </div>
       )}
+
+      {onShowMore && hasMore && (
+        <button className={styles.moreButton} onClick={onShowMore}>
+          Показать ещё
+        </button>
+      )}
+
+      <div ref={sentinelRef} className={styles.sentinel} />
     </section>
   )
 }
