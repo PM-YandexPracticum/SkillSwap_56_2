@@ -6,17 +6,25 @@ interface UseInfiniteScrollProps {
   isEnabled?: boolean
 }
 
-export function useInfiniteScroll({ onLoadMore, hasMore, isEnabled = true }: UseInfiniteScrollProps) {
-  const observer = useRef<IntersectionObserver | null>(null)
+export function useInfiniteScroll({
+  onLoadMore,
+  hasMore,
+  isEnabled = true,
+}: UseInfiniteScrollProps) {
+  const onLoadMoreRef = useRef(onLoadMore)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    onLoadMoreRef.current = onLoadMore
+  }, [onLoadMore])
 
   useEffect(() => {
     if (!isEnabled || !hasMore) return
 
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          onLoadMore()
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          onLoadMoreRef.current()
         }
       },
       {
@@ -28,15 +36,11 @@ export function useInfiniteScroll({ onLoadMore, hasMore, isEnabled = true }: Use
 
     const sentinel = sentinelRef.current
     if (sentinel) {
-      observer.current.observe(sentinel)
+      observer.observe(sentinel)
     }
 
-    return () => {
-      if (observer.current && sentinel) {
-        observer.current.unobserve(sentinel)
-      }
-    }
-  }, [onLoadMore, hasMore, isEnabled])
+    return () => observer.disconnect()
+  }, [hasMore, isEnabled])
 
   return sentinelRef
 }
