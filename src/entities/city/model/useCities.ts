@@ -9,7 +9,7 @@ const ERROR_STATUS = 'Не удалось загрузить города'
 let citiesPromise: Promise<City[]> | null = null
 
 /** Справочник общий для всего приложения, поэтому все хуки делят один запрос */
-const loadCities = (): Promise<City[]> => {
+export const loadCities = (): Promise<City[]> => {
   if (!citiesPromise) {
     citiesPromise = fetchCities().catch((error: unknown) => {
       citiesPromise = null

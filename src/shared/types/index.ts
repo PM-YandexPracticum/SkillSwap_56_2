@@ -82,4 +82,6 @@ export interface AuthUser {
   city?: string
   about?: string
   avatarUrl?: string | null
+  learningCategory?: string
+  learningSubcategory?: string
 }

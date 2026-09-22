@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import {
   DEFAULT_FILTERS,
@@ -30,11 +31,21 @@ import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 import styles from './CatalogPage.module.css'
 
 const DEFAULT_ERROR = 'Не удалось загрузить пользователей'
+const REGISTRATION_SUCCESS_MESSAGE = 'Регистрация успешно завершена'
+
+type CatalogPageLocationState = { registrationSuccess?: boolean } | null
 
 export default function CatalogPage() {
   const dispatch = useAppDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT)
+  const [statusMessage] = useState(() =>
+    (location.state as CatalogPageLocationState)?.registrationSuccess
+      ? REGISTRATION_SUCCESS_MESSAGE
+      : '',
+  )
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { isFavorite, toggleFavorite } = useFavorites()
 
@@ -64,6 +75,12 @@ export default function CatalogPage() {
     dispatch(resetVisible())
   }, [filters, dispatch])
 
+  useEffect(() => {
+    if ((location.state as CatalogPageLocationState)?.registrationSuccess) {
+      navigate(location.pathname, { replace: true, state: null })
+    }
+  }, [location, navigate])
+
   const handleRetry = () => {
     dispatch(loadUsers())
   }
@@ -84,6 +101,12 @@ export default function CatalogPage() {
 
   return (
     <main className={styles.page}>
+      {statusMessage && (
+        <p className={styles.statusMessage} role="status">
+          {statusMessage}
+        </p>
+      )}
+
       <ActiveFilters filters={filters} onChange={setFilters} />
 
       <div className={styles.mainRow}>

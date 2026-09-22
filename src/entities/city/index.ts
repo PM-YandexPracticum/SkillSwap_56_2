@@ -1,1 +1,1 @@
-export { useCities, resetCitiesCache } from './model/useCities'
+export { useCities, loadCities, resetCitiesCache } from './model/useCities'

@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import type { User } from '@/entities/user/model/types'
+import { getAuthUser, subscribeAuthUser } from '@/features/auth/model/authUtils'
+import type { AuthUser } from '@/shared/types'
 import { SkillsMenu } from '@/features/skills-menu'
 import { ROUTES } from '@/shared/lib/constants'
 import { ButtonLink } from '@/shared/ui/Button'
@@ -16,11 +18,17 @@ import styles from './Header.module.css'
 
 interface HeaderProps {
   isAuth?: boolean
-  user?: User
+  user?: Pick<AuthUser, 'name' | 'avatarUrl'>
 }
 
-export const Header = ({ isAuth = false, user }: HeaderProps) => {
-  const userName = user?.name ?? 'Профиль'
+export const Header = ({ isAuth, user }: HeaderProps) => {
+  const [authUser, setAuthUser] = useState(getAuthUser)
+
+  useEffect(() => subscribeAuthUser(() => setAuthUser(getAuthUser())), [])
+
+  const currentUser = user ?? authUser
+  const isAuthenticated = isAuth ?? Boolean(currentUser)
+  const userName = currentUser?.name ?? 'Профиль'
 
   return (
     <header className={styles.header}>
@@ -44,7 +52,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
           />
         </form>
 
-        {isAuth ? (
+        {isAuthenticated ? (
           <div className={styles.authActions}>
             <div className={styles.iconGroup}>
               <button className={styles.iconButton} type="button" aria-label="Переключить тему">
@@ -59,7 +67,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
             </div>
             <Link className={styles.profileLink} to={ROUTES.PROFILE}>
               <span className={styles.userName}>{userName}</span>
-              <RoundImage src={user?.avatarUrl} alt={userName} size="md" />
+              <RoundImage src={currentUser?.avatarUrl} alt={userName} size="md" />
             </Link>
           </div>
         ) : (
