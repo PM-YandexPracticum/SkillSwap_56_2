@@ -57,10 +57,25 @@ export default function CatalogPage() {
   const popularAll = useAppSelector(selectPopularAll)
   const newAll = useAppSelector(selectNewAll)
   const recommendedUsers = useAppSelector(selectRecommended)
-  const filteredUsers = useAppSelector((state) => selectFilteredUsers(state, filters))
-  const hasMore = useAppSelector((state) => selectHasMore(state, filters))
+  const usersByFilters = useAppSelector((state) => selectFilteredUsers(state, filters))
+  const hasMoreByFilters = useAppSelector((state) => selectHasMore(state, filters))
+  const searchQuery = new URLSearchParams(location.search).get('search')?.trim() ?? ''
+  const normalizedSearchQuery = searchQuery.toLocaleLowerCase('ru')
 
-  const isFiltering = isFiltersActive(filters)
+  const filteredUsers = useMemo(() => {
+    if (!normalizedSearchQuery) {
+      return usersByFilters
+    }
+
+    return usersByFilters.filter((user) =>
+      user.name.toLocaleLowerCase('ru').startsWith(normalizedSearchQuery),
+    )
+  }, [normalizedSearchQuery, usersByFilters])
+
+  const isSearchActive = normalizedSearchQuery.length > 0
+  const hasActiveFilters = isFiltersActive(filters)
+  const isFiltering = hasActiveFilters || isSearchActive
+  const hasMore = isSearchActive ? visible < filteredUsers.length : hasMoreByFilters
 
   const visibleUsers = useMemo(
     () => sortUsers(filteredUsers, sortBy).slice(0, visible),
@@ -73,7 +88,7 @@ export default function CatalogPage() {
 
   useEffect(() => {
     dispatch(resetVisible())
-  }, [filters, dispatch])
+  }, [filters, normalizedSearchQuery, dispatch])
 
   useEffect(() => {
     if ((location.state as CatalogPageLocationState)?.registrationSuccess) {
@@ -110,13 +125,13 @@ export default function CatalogPage() {
       <ActiveFilters filters={filters} onChange={setFilters} />
 
       <div className={styles.mainRow}>
-        <div className={isFiltering ? styles.sidebar : styles.sidebarCard}>
-          {!isFiltering && <h2 className={styles.sidebarTitleInside}>Фильтры</h2>}
+        <div className={hasActiveFilters ? styles.sidebar : styles.sidebarCard}>
+          {!hasActiveFilters && <h2 className={styles.sidebarTitleInside}>Фильтры</h2>}
 
           <FiltersBar
             filters={filters}
             onChange={setFilters}
-            className={isFiltering ? undefined : styles.filtersTransparent}
+            className={hasActiveFilters ? undefined : styles.filtersTransparent}
           />
         </div>
 

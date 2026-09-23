@@ -52,10 +52,10 @@ const makeStore = () =>
     reducer: { users: usersReducer, favorites: favoritesReducer },
   })
 
-const renderPage = (store = makeStore(), state?: Record<string, unknown>) => {
+const renderPage = (store = makeStore(), state?: Record<string, unknown>, search = '') => {
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={[{ pathname: ROUTES.HOME, state }]}>
+      <MemoryRouter initialEntries={[{ pathname: ROUTES.HOME, search, state }]}>
         <CatalogPage />
       </MemoryRouter>
     </Provider>,
@@ -101,6 +101,18 @@ describe('CatalogPage', () => {
 
     expect(screen.getByText('Регистрация успешно завершена')).toBeInTheDocument()
     expect(await screen.findByRole('heading', { name: 'Популярное' })).toBeInTheDocument()
+  })
+
+  test('поиск из хедера фильтрует пользователей по имени без учёта регистра', async () => {
+    renderPage(makeStore(), undefined, '?search=пОЛЬЗОВАТЕЛЬ%202')
+
+    expect(
+      await screen.findByRole('heading', { name: 'Подходящие предложения: 1' }),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: 'Пользователь 2' })).toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { level: 3, name: 'Пользователь 1' }),
+    ).not.toBeInTheDocument()
   })
 
   test('выбор типа фильтра включает сетку с чипсом и пагинацией', async () => {
