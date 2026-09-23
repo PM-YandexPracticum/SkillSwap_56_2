@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react'
 import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { MainLayout } from '@/app/layouts/mainLayout'
 import { RegistrationLayout } from '@/app/layouts/RegistrationLayout'
+import { ProtectedRoute } from '@/features/auth'
 import { RegistrationProvider } from '@/features/auth/registration'
 
 import { ROUTES } from '@/shared/lib/constants'
@@ -45,19 +46,21 @@ export function AppRouter() {
 
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
 
-            <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
-              <Route index element={<Navigate to={ROUTES.PROFILE_PERSONAL} replace />} />
+            <Route element={<ProtectedRoute />}>
+  <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
+    <Route index element={<Navigate to={ROUTES.PROFILE_PERSONAL} replace />} />
 
-              <Route path={ROUTES.PROFILE_REQUESTS} element={<div>Раздел в разработке</div>} />
+    <Route path={ROUTES.PROFILE_REQUESTS} element={<div>Раздел в разработке</div>} />
 
-              <Route path={ROUTES.PROFILE_EXCHANGES} element={<div>Раздел в разработке</div>} />
+    <Route path={ROUTES.PROFILE_EXCHANGES} element={<div>Раздел в разработке</div>} />
 
-              <Route path={ROUTES.PROFILE_FAVORITES} element={<FavoritesPage />} />
+    <Route path={ROUTES.PROFILE_FAVORITES} element={<FavoritesPage />} />
 
-              <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
+    <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
 
-              <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
-            </Route>
+    <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
+  </Route>
+</Route>
 
             <Route path={ROUTES.CREATE} element={<CreateSkillPage />} />
           </Route>
