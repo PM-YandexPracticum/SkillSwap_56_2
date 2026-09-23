@@ -12,7 +12,6 @@ const draft: RegistrationFormValues = {
   ...REGISTRATION_DEFAULT_VALUES,
   email: 'user@example.com',
   password: '12345678',
-  confirmPassword: '12345678',
 }
 
 beforeEach(() => {
