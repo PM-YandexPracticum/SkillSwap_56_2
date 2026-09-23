@@ -39,17 +39,11 @@ export default function SkillPage() {
   }, [dispatch, status])
 
   const user = users.find((u) => u.id === id)
-  const similarUsers = users.filter((u) => u.id !== id).slice(0, SIMILAR_LIMIT)
 
   if (status === 'idle' || status === 'loading') {
     return (
       <div className={styles.page}>
-        <SectionCards
-          title="Загрузка…"
-          users={[]}
-          status="loading"
-          skeletonCount={1}
-        />
+        <SectionCards title="Загрузка…" users={[]} status="loading" skeletonCount={1} />
         <SectionCards
           title="Похожие предложения"
           users={[]}
@@ -81,6 +75,10 @@ export default function SkillPage() {
     )
   }
 
+  const similarUsers = users
+    .filter((u) => u.id !== user.id && u.teachSkill.category === user.teachSkill.category)
+    .slice(0, SIMILAR_LIMIT)
+
   return (
     <div className={styles.page}>
       <div className={styles.top}>
@@ -89,17 +87,13 @@ export default function SkillPage() {
         <CardSkillOffer
           title={user.teachSkill.title}
           category={user.teachSkill.category}
-          subcategory={user.teachSkill.category}
+          subcategory={user.teachSkill.title}
           description={`Привет! Меня зовут ${user.name}. С радостью поделюсь знаниями по навыку «${user.teachSkill.title}». Пиши — договоримся об обмене!`}
           images={MOCK_GALLERY}
         />
       </div>
 
-      <SectionCards
-        title="Похожие предложения"
-        users={similarUsers}
-        status="succeeded"
-      />
+      <SectionCards title="Похожие предложения" users={similarUsers} status="succeeded" />
     </div>
   )
 }
