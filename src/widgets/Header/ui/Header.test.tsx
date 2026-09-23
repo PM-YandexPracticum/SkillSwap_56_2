@@ -1,5 +1,6 @@
 import { act, render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import userEvent from '@testing-library/user-event'
+import { MemoryRouter, useLocation } from 'react-router-dom'
 
 import { clearAuthUser, saveAuthUser, updateAuthUser } from '@/features/auth/model/authUtils'
 import { LOCAL_STORAGE_KEYS, ROUTES } from '@/shared/lib/constants'
@@ -15,10 +16,18 @@ const user = {
   avatarUrl: 'data:image/png;base64,YXZhdGFy',
 }
 
-const renderHeader = () =>
+const LocationProbe = () => {
+  const location = useLocation()
+  const searchQuery = new URLSearchParams(location.search).get('search') ?? ''
+
+  return <span data-testid="location">{`${location.pathname}|${searchQuery}`}</span>
+}
+
+const renderHeader = (initialEntry: string = ROUTES.HOME) =>
   render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[initialEntry]}>
       <Header />
+      <LocationProbe />
     </MemoryRouter>,
   )
 
@@ -75,4 +84,14 @@ test('реагирует на изменение пользователя в д�
   })
 
   expect(screen.getByText(user.name)).toBeInTheDocument()
+})
+
+test('поиск в хедере переводит в каталог и сохраняет запрос в URL', async () => {
+  const user = userEvent.setup()
+  renderHeader(ROUTES.PROFILE)
+
+  await user.type(screen.getByRole('searchbox', { name: 'Искать навык' }), 'Анна')
+
+  expect(screen.getByTestId('location')).toHaveTextContent(`${ROUTES.HOME}|Анна`)
+  expect(screen.getByRole('searchbox', { name: 'Искать навык' })).toHaveValue('Анна')
 })

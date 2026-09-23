@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { getAuthUser, subscribeAuthUser } from '@/features/auth/model/authUtils'
 import type { AuthUser } from '@/shared/types'
@@ -22,6 +22,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ isAuth, user }: HeaderProps) => {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [authUser, setAuthUser] = useState(getAuthUser)
 
   useEffect(() => subscribeAuthUser(() => setAuthUser(getAuthUser())), [])
@@ -29,6 +31,25 @@ export const Header = ({ isAuth, user }: HeaderProps) => {
   const currentUser = user ?? authUser
   const isAuthenticated = isAuth ?? Boolean(currentUser)
   const userName = currentUser?.name ?? 'Профиль'
+  const searchQuery = new URLSearchParams(location.search).get('search') ?? ''
+
+  const handleSearchChange = (value: string) => {
+    const params = new URLSearchParams()
+
+    if (value) {
+      params.set('search', value)
+    }
+
+    const search = params.toString()
+
+    navigate(
+      {
+        pathname: ROUTES.HOME,
+        search: search ? `?${search}` : '',
+      },
+      { replace: true },
+    )
+  }
 
   return (
     <header className={styles.header}>
@@ -42,13 +63,15 @@ export const Header = ({ isAuth, user }: HeaderProps) => {
           <SkillsMenu />
         </nav>
 
-        <form className={styles.search} role="search">
+        <form className={styles.search} role="search" onSubmit={(event) => event.preventDefault()}>
           <SearchIcon className={styles.searchIcon} aria-hidden="true" />
           <input
             className={styles.searchInput}
             type="search"
             placeholder="Искать навык"
             aria-label="Искать навык"
+            value={searchQuery}
+            onChange={(event) => handleSearchChange(event.target.value)}
           />
         </form>
 
