@@ -1,8 +1,4 @@
-import {
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom'
 
@@ -78,7 +74,6 @@ const seedDraft = (draft: Partial<RegistrationFormValues>) => {
 const fillAccountStep = async (user: ReturnType<typeof userEvent.setup>) => {
   await user.type(screen.getByLabelText('Email'), 'user@example.com')
   await user.type(screen.getByLabelText('Пароль'), '12345678')
-  await user.type(screen.getByLabelText('Повторите пароль'), '12345678')
 }
 
 beforeEach(() => {
@@ -109,7 +104,6 @@ describe('маршруты и защита от перепрыгивания', (
     seedDraft({
       email: 'user@example.com',
       password: '12345678',
-      confirmPassword: '12345678',
     })
 
     renderRegistration(ROUTES.REGISTER_SKILL)
@@ -122,7 +116,6 @@ describe('маршруты и защита от перепрыгивания', (
     seedDraft({
       email: 'user@example.com',
       password: '12345678',
-      confirmPassword: '12345678',
       name: 'Иван',
       birthDate: '01.01.2000',
       gender: '',
@@ -148,9 +141,8 @@ describe('валидация текущего шага', () => {
 
     expect(screen.getByRole('heading', { name: STEP_ACCOUNT_HEADING })).toBeInTheDocument()
 
-    const alerts = (await screen.findAllByRole('alert')).map((node) => node.textContent)
-
-    expect(alerts).toEqual(['Введите email', 'Введите пароль', 'Повторите пароль'])
+    expect(await screen.findByText('Введите email')).toBeInTheDocument()
+    expect(screen.getByText('Введите пароль')).toBeInTheDocument()
   })
 
   test('проверяет только поля текущего шага', async () => {
@@ -159,7 +151,6 @@ describe('валидация текущего шага', () => {
     seedDraft({
       email: 'user@example.com',
       password: '12345678',
-      confirmPassword: '12345678',
     })
 
     renderRegistration(ROUTES.REGISTER_USER)
@@ -202,7 +193,6 @@ describe('сохранение данных', () => {
     expect(savedDraft).toMatchObject({
       email: 'user@example.com',
       password: '12345678',
-      confirmPassword: '12345678',
     })
 
     await user.click(screen.getByRole('button', { name: 'Назад' }))
@@ -221,354 +211,186 @@ describe('сохранение данных', () => {
   })
 })
 
-describe(
-  'третий шаг регистрации',
-  () => {
-    const validPreviousSteps: Partial<RegistrationFormValues> = {
-      email:
-        'user@example.com',
+describe('третий шаг регистрации', () => {
+  const validPreviousSteps: Partial<RegistrationFormValues> = {
+    email: 'user@example.com',
 
-      password:
-        '12345678',
+    password: '12345678',
 
-      confirmPassword:
-        '12345678',
+    name: 'Иван',
 
-      name: 'Иван',
+    birthDate: '01.01.2000',
 
-      birthDate:
-        '01.01.2000',
+    gender: '',
 
-      gender: '',
+    city: 'moscow',
 
-      city: 'moscow',
+    learningCategory: 'creativity-art',
 
-      learningCategory:
-        'creativity-art',
+    learningSubcategory: 'music-sound',
+  }
 
-      learningSubcategory:
-        'music-sound',
-    }
+  test('подкатегории зависят от категории, а смена категории очищает подкатегорию', async () => {
+    const user = userEvent.setup()
 
-    test(
-      'подкатегории зависят от категории, а смена категории очищает подкатегорию',
-      async () => {
-        const user =
-          userEvent.setup()
+    seedDraft(validPreviousSteps)
 
-        seedDraft(
-          validPreviousSteps,
-        )
+    renderRegistration(ROUTES.REGISTER_SKILL)
 
-        renderRegistration(
-          ROUTES.REGISTER_SKILL,
-        )
+    const categorySelect = await screen.findByRole('combobox', {
+      name: 'Категория навыка, которому можете научить',
+    })
 
-        const categorySelect =
-          await screen.findByRole(
-            'combobox',
-            {
-              name:
-                'Категория навыка, которому можете научить',
-            },
-          )
+    await waitFor(() => {
+      expect(categorySelect).toBeEnabled()
+    })
 
-        await waitFor(() => {
-          expect(
-            categorySelect,
-          ).toBeEnabled()
-        })
+    await user.click(categorySelect)
 
-        await user.click(
-          categorySelect,
-        )
-
-        await user.click(
-          screen.getByRole(
-            'option',
-            {
-              name:
-                'Творчество и искусство',
-            },
-          ),
-        )
-
-        const subcategorySelect =
-          screen.getByRole(
-            'combobox',
-            {
-              name:
-                'Подкатегория',
-            },
-          )
-
-        await user.click(
-          subcategorySelect,
-        )
-
-        expect(
-          screen.getByRole(
-            'option',
-            {
-              name:
-                'Музыка и звук',
-            },
-          ),
-        ).toBeInTheDocument()
-
-        expect(
-          screen.queryByRole(
-            'option',
-            {
-              name:
-                'Английский',
-            },
-          ),
-        ).not.toBeInTheDocument()
-
-        await user.click(
-          screen.getByRole(
-            'option',
-            {
-              name:
-                'Музыка и звук',
-            },
-          ),
-        )
-
-        expect(
-          subcategorySelect,
-        ).toHaveTextContent(
-          'Музыка и звук',
-        )
-
-        /*
-         * Меняем категорию.
-         */
-        await user.click(
-          categorySelect,
-        )
-
-        await user.click(
-          screen.getByRole(
-            'option',
-            {
-              name:
-                'Иностранные языки',
-            },
-          ),
-        )
-
-        await waitFor(() => {
-          expect(
-            subcategorySelect,
-          ).toHaveTextContent(
-            'Выберите подкатегорию навыка',
-          )
-        })
-
-        await user.click(
-          subcategorySelect,
-        )
-
-        expect(
-          screen.getByRole(
-            'option',
-            {
-              name:
-                'Английский',
-            },
-          ),
-        ).toBeInTheDocument()
-
-        expect(
-          screen.queryByRole(
-            'option',
-            {
-              name:
-                'Музыка и звук',
-            },
-          ),
-        ).not.toBeInTheDocument()
-      },
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Творчество и искусство',
+      }),
     )
 
-    test(
-      'Назад возвращает на второй экран и сохраняет данные третьего шага',
-      async () => {
-        const user =
-          userEvent.setup()
-
-        seedDraft(
-          validPreviousSteps,
-        )
-
-        renderRegistration(
-          ROUTES.REGISTER_SKILL,
-        )
-
-        await user.type(
-          await screen.findByLabelText(
-            'Название навыка',
-          ),
-          'Игра на гитаре',
-        )
-
-        await user.click(
-          screen.getByRole(
-            'button',
-            {
-              name: 'Назад',
-            },
-          ),
-        )
-
-        expect(
-          await screen.findByRole(
-            'heading',
-            {
-              name:
-                STEP_USER_HEADING,
-            },
-          ),
-        ).toBeInTheDocument()
-
-        const savedDraft =
-          JSON.parse(
-            localStorage.getItem(
-              LOCAL_STORAGE_KEYS
-                .REGISTRATION_DRAFT,
-            ) ?? '{}',
-          ) as RegistrationFormValues
-
-        expect(
-          savedDraft.skillName,
-        ).toBe(
-          'Игра на гитаре',
-        )
-      },
-    )
-
-    test(
-      'пустые обязательные поля не завершают регистрацию',
-      async () => {
-        const user =
-          userEvent.setup()
-
-        seedDraft(
-          validPreviousSteps,
-        )
-
-        renderRegistration(
-          ROUTES.REGISTER_SKILL,
-        )
-
-        await user.click(
-          await screen.findByRole(
-            'button',
-            {
-              name:
-                'Продолжить',
-            },
-          ),
-        )
-
-        expect(
-          screen.getByRole(
-            'heading',
-            {
-              name:
-                STEP_SKILL_HEADING,
-            },
-          ),
-        ).toBeInTheDocument()
-
-        expect(
-          await screen.findByText(
-            'Введите название навыка',
-          ),
-        ).toBeInTheDocument()
-
-const categorySelect =
-  screen.getByRole(
-    'combobox',
-    {
-      name:
-        'Категория навыка, которому можете научить',
-    },
-  )
-
-expect(
-  categorySelect,
-).toHaveAttribute(
-  'aria-invalid',
-  'true',
-)
-
-const categoryErrorId =
-  categorySelect.getAttribute(
-    'aria-describedby',
-  )
-
-expect(
-  categoryErrorId,
-).toBeTruthy()
-
-expect(
-  document.getElementById(
-    categoryErrorId as string,
-  ),
-).toHaveTextContent(
-  'Выберите категорию навыка',
-)
-
-        const subcategorySelect =
-  screen.getByRole(
-    'combobox',
-    {
+    const subcategorySelect = screen.getByRole('combobox', {
       name: 'Подкатегория',
-    },
-  )
+    })
 
-expect(
-  subcategorySelect,
-).toHaveAttribute(
-  'aria-invalid',
-  'true',
-)
+    await user.click(subcategorySelect)
 
-const subcategoryErrorId =
-  subcategorySelect.getAttribute(
-    'aria-describedby',
-  )
+    expect(
+      screen.getByRole('option', {
+        name: 'Музыка и звук',
+      }),
+    ).toBeInTheDocument()
 
-expect(
-  subcategoryErrorId,
-).toBeTruthy()
+    expect(
+      screen.queryByRole('option', {
+        name: 'Английский',
+      }),
+    ).not.toBeInTheDocument()
 
-expect(
-  document.getElementById(
-    subcategoryErrorId as string,
-  ),
-).toHaveTextContent(
-  'Выберите подкатегорию навыка',
-)
-
-        expect(
-          screen.getByText(
-            'Добавьте описание навыка',
-          ),
-        ).toBeInTheDocument()
-
-        expect(
-          screen.getByText(
-            'Добавьте хотя бы одно изображение',
-          ),
-        ).toBeInTheDocument()
-      },
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Музыка и звук',
+      }),
     )
-  },
-)
+
+    expect(subcategorySelect).toHaveTextContent('Музыка и звук')
+
+    /*
+     * Меняем категорию.
+     */
+    await user.click(categorySelect)
+
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Иностранные языки',
+      }),
+    )
+
+    await waitFor(() => {
+      expect(subcategorySelect).toHaveTextContent('Выберите подкатегорию навыка')
+    })
+
+    await user.click(subcategorySelect)
+
+    expect(
+      screen.getByRole('option', {
+        name: 'Английский',
+      }),
+    ).toBeInTheDocument()
+
+    expect(
+      screen.queryByRole('option', {
+        name: 'Музыка и звук',
+      }),
+    ).not.toBeInTheDocument()
+  })
+
+  test('Назад возвращает на второй экран и сохраняет данные третьего шага', async () => {
+    const user = userEvent.setup()
+
+    seedDraft(validPreviousSteps)
+
+    renderRegistration(ROUTES.REGISTER_SKILL)
+
+    await user.type(await screen.findByLabelText('Название навыка'), 'Игра на гитаре')
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Назад',
+      }),
+    )
+
+    expect(
+      await screen.findByRole('heading', {
+        name: STEP_USER_HEADING,
+      }),
+    ).toBeInTheDocument()
+
+    const savedDraft = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEYS.REGISTRATION_DRAFT) ?? '{}',
+    ) as RegistrationFormValues
+
+    expect(savedDraft.skillName).toBe('Игра на гитаре')
+  })
+
+  test('пустые обязательные поля не завершают регистрацию', async () => {
+    const user = userEvent.setup()
+
+    seedDraft(validPreviousSteps)
+
+    renderRegistration(ROUTES.REGISTER_SKILL)
+
+    await user.click(
+      await screen.findByRole('button', {
+        name: 'Продолжить',
+      }),
+    )
+
+    expect(
+      screen.getByRole('heading', {
+        name: STEP_SKILL_HEADING,
+      }),
+    ).toBeInTheDocument()
+
+    expect(await screen.findByText('Введите название навыка')).toBeInTheDocument()
+
+    const categorySelect = screen.getByRole('combobox', {
+      name: 'Категория навыка, которому можете научить',
+    })
+
+    expect(categorySelect).toHaveAttribute('aria-invalid', 'true')
+
+    const categoryErrorId = categorySelect.getAttribute('aria-describedby')
+
+    expect(categoryErrorId).toBeTruthy()
+
+    expect(document.getElementById(categoryErrorId as string)).toHaveTextContent(
+      'Выберите категорию навыка',
+    )
+
+    const subcategorySelect = screen.getByRole('combobox', {
+      name: 'Подкатегория',
+    })
+
+    expect(subcategorySelect).toHaveAttribute('aria-invalid', 'true')
+
+    const subcategoryErrorId = subcategorySelect.getAttribute('aria-describedby')
+
+    expect(subcategoryErrorId).toBeTruthy()
+
+    expect(document.getElementById(subcategoryErrorId as string)).toHaveTextContent(
+      'Выберите подкатегорию навыка',
+    )
+
+    expect(screen.getByText('Добавьте описание навыка')).toBeInTheDocument()
+
+    expect(screen.getByText('Добавьте хотя бы одно изображение')).toBeInTheDocument()
+  })
+})
 
 describe('завершение регистрации', () => {
   test('сохраняет пользователя, чистит черновик и ведёт на главную', async () => {
@@ -600,104 +422,57 @@ describe('завершение регистрации', () => {
 
     await user.click(screen.getByRole('button', { name: 'Продолжить' }))
 
-   await user.type(
-  await screen.findByLabelText(
-    'Название навыка',
-  ),
-  'Игра на гитаре',
-)
+    await user.type(await screen.findByLabelText('Название навыка'), 'Игра на гитаре')
 
-const skillCategorySelect =
-  screen.getByRole(
-    'combobox',
-    {
-      name:
-        'Категория навыка, которому можете научить',
-    },
-  )
+    const skillCategorySelect = screen.getByRole('combobox', {
+      name: 'Категория навыка, которому можете научить',
+    })
 
-await waitFor(() => {
-  expect(
-    skillCategorySelect,
-  ).toBeEnabled()
-})
+    await waitFor(() => {
+      expect(skillCategorySelect).toBeEnabled()
+    })
 
-await user.click(
-  skillCategorySelect,
-)
+    await user.click(skillCategorySelect)
 
-await user.click(
-  screen.getByRole(
-    'option',
-    {
-      name:
-        'Творчество и искусство',
-    },
-  ),
-)
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Творчество и искусство',
+      }),
+    )
 
-const skillSubcategorySelect =
-  screen.getByRole(
-    'combobox',
-    {
-      name:
-        'Подкатегория',
-    },
-  )
+    const skillSubcategorySelect = screen.getByRole('combobox', {
+      name: 'Подкатегория',
+    })
 
-await user.click(
-  skillSubcategorySelect,
-)
+    await user.click(skillSubcategorySelect)
 
-await user.click(
-  screen.getByRole(
-    'option',
-    {
-      name:
-        'Музыка и звук',
-    },
-  ),
-)
+    await user.click(
+      screen.getByRole('option', {
+        name: 'Музыка и звук',
+      }),
+    )
 
-await user.type(
-  screen.getByLabelText(
-    'Описание',
-  ),
-  'Научу базовым аккордам и ритму',
-)
+    await user.type(screen.getByLabelText('Описание'), 'Научу базовым аккордам и ритму')
 
-const fileInput =
-  document.querySelector(
-    'input[type="file"]',
-  ) as HTMLInputElement
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
 
-await user.upload(
-  fileInput,
-  new File(
-    ['image'],
-    'guitar.png',
-    {
-      type: 'image/png',
-    },
-  ),
-)
+    await user.upload(
+      fileInput,
+      new File(['image'], 'guitar.png', {
+        type: 'image/png',
+      }),
+    )
 
-/*
- * Проверяем отправку с клавиатуры.
- */
-const continueButton =
-  screen.getByRole(
-    'button',
-    {
+    /*
+     * Проверяем отправку с клавиатуры.
+     */
+    const continueButton = screen.getByRole('button', {
       name: 'Продолжить',
-    },
-  )
+    })
 
-continueButton.focus()
+    continueButton.focus()
 
-await user.keyboard(
-  '{Enter}',
-)
+    await user.keyboard('{Enter}')
 
     expect(await screen.findByText('Главная страница')).toBeInTheDocument()
 

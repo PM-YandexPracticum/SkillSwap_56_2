@@ -1,1 +1,1 @@
-export { CardRegistration } from "./CardRegistration";
+export { CardRegistration } from './CardRegistration'
