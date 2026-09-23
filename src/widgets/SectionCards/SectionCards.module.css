@@ -25,11 +25,6 @@
   border: none;
 }
 
-.allIcon {
-  width: 24px;
-  height: 24px;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

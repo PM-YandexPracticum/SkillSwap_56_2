@@ -1,8 +1,8 @@
 import { useId } from 'react'
 
 import type { User } from '@/shared/types'
+import { ArrowButton } from '@/shared/ui/ArrowButton'
 import { Button } from '@/shared/ui/Button'
-import ChevronRightIcon from '@/shared/ui/icons/assets/chevron-right.svg?react'
 import { CardMain } from '@/widgets/CardMain'
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 
@@ -20,6 +20,7 @@ export type SectionCardsProps = {
   onShowMore?: () => void
   hasMore?: boolean
   onSeeAll?: () => void
+  isExpanded?: boolean
 }
 
 const DEFAULT_SKELETON_COUNT = 3
@@ -35,6 +36,7 @@ export const SectionCards = ({
   onShowMore,
   hasMore,
   onSeeAll,
+  isExpanded = false,
 }: SectionCardsProps) => {
   const titleId = useId()
   const shouldShowCards = status === 'succeeded' && users.length > 0
@@ -55,9 +57,14 @@ export const SectionCards = ({
         </h2>
 
         {onSeeAll && (
-          <Button variant="tertiary" className={styles.allLink} rightIcon={<ChevronRightIcon className={styles.allIcon} aria-hidden="true" />} onClick={onSeeAll}>
-            Смотреть все
-          </Button>
+          <ArrowButton
+            variant="tertiary"
+            className={styles.allLink}
+            isOpen={isExpanded}
+            onClick={onSeeAll}
+          >
+            {isExpanded ? 'Скрыть все' : 'Смотреть все'}
+          </ArrowButton>
         )}
       </header>
 

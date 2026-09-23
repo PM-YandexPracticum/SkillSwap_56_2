@@ -1,5 +1,5 @@
 import { Button } from '../Button'
-import ChevronDownIcon from '../icons/assets/chevron-down.svg?react'
+import ChevronRightIcon from '../icons/assets/chevron-right.svg?react'
 
 import { ArrowButtonProps } from './type'
 import styles from './ArrowButton.module.css'
@@ -11,7 +11,7 @@ export const ArrowButton = ({ isOpen, onClick, children, ...props }: ArrowButton
     <Button
       onClick={onClick}
       aria-expanded={isOpen}
-      rightIcon={<ChevronDownIcon className={arrowClassName} aria-hidden="true" />}
+      rightIcon={<ChevronRightIcon className={arrowClassName} aria-hidden="true" />}
       {...props}                                                //  атрибут доступности игнорирует элементы для декора стрелка
     >
       {children}

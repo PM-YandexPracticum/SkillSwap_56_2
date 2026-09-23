@@ -163,6 +163,7 @@ export default function CatalogPage() {
                 title="Популярное"
                 users={expandedSection === 'popular' ? popularAll : popularUsers}
                 status={status}
+                isExpanded={expandedSection === 'popular'}
                 onSeeAll={() => handleSeeAll('popular')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
@@ -172,6 +173,7 @@ export default function CatalogPage() {
                 title="Новое"
                 users={expandedSection === 'newest' ? newAll : newUsers}
                 status={status}
+                isExpanded={expandedSection === 'newest'}
                 onSeeAll={() => handleSeeAll('newest')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
