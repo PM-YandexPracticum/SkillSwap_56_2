@@ -1,15 +1,42 @@
+import { useEffect } from 'react'
+
+import { loadUsers, selectUsersError, selectUsersStatus } from '@/entities/user'
+import { selectFavoriteUsers, useFavorites } from '@/features/favorites'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { CardMain } from '@/widgets/CardMain'
-import { useFavorites } from '@/features/favorites'
-import { useAppSelector } from '@/store/hooks'
-import { selectUsers } from '@/entities/user'
 
 import styles from './FavoritesPage.module.css'
 
-export default function FavoritesPage() {
-  const { favoriteIds, toggleFavorite } = useFavorites()
-  const users = useAppSelector(selectUsers)
+const DEFAULT_ERROR = 'Не удалось загрузить пользователей'
 
-  const favoriteUsers = users.filter((user) => favoriteIds.includes(user.id))
+export default function FavoritesPage() {
+  const dispatch = useAppDispatch()
+  const status = useAppSelector(selectUsersStatus)
+  const error = useAppSelector(selectUsersError)
+  const { toggleFavorite } = useFavorites()
+  const favoriteUsers = useAppSelector(selectFavoriteUsers)
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(loadUsers())
+    }
+  }, [dispatch, status])
+
+  if (status === 'idle' || status === 'loading') {
+    return (
+      <main className={styles.page}>
+        <p className={styles.empty}>Загрузка…</p>
+      </main>
+    )
+  }
+
+  if (status === 'failed') {
+    return (
+      <main className={styles.page}>
+        <p className={styles.empty}>{error ?? DEFAULT_ERROR}</p>
+      </main>
+    )
+  }
 
   return (
     <main className={styles.page}>
@@ -18,12 +45,7 @@ export default function FavoritesPage() {
       ) : (
         <div className={styles.grid}>
           {favoriteUsers.map((user) => (
-            <CardMain
-              key={user.id}
-              user={user}
-              isLiked={true}
-              onLikeToggle={toggleFavorite}
-            />
+            <CardMain key={user.id} user={user} isLiked={true} onLikeToggle={toggleFavorite} />
           ))}
         </div>
       )}

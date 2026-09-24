@@ -73,7 +73,7 @@ describe('selectFavoriteUsers', () => {
   test('возвращает только пользователей из избранного', () => {
     const state = {
       favorites: { ids: ['user-1', 'user-3'] },
-      users,
+      users: { users },
     }
 
     const result = selectFavoriteUsers(state)
@@ -84,19 +84,19 @@ describe('selectFavoriteUsers', () => {
   })
 
   test('возвращает пустой массив, когда избранное пустое', () => {
-    const state = { favorites: { ids: [] }, users }
+    const state = { favorites: { ids: [] }, users: { users } }
 
     expect(selectFavoriteUsers(state)).toEqual([])
   })
 
   test('возвращает пустой массив, когда нет пользователей', () => {
-    const state = { favorites: { ids: ['user-1'] }, users: [] }
+    const state = { favorites: { ids: ['user-1'] }, users: { users: [] } }
 
     expect(selectFavoriteUsers(state)).toEqual([])
   })
 
   test('игнорирует id, которых нет в users', () => {
-    const state = { favorites: { ids: ['user-1', 'unknown'] }, users }
+    const state = { favorites: { ids: ['user-1', 'unknown'] }, users: { users } }
 
     expect(selectFavoriteUsers(state)).toHaveLength(1)
     expect(selectFavoriteUsers(state)[0].id).toBe('user-1')

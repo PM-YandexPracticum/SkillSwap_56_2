@@ -9,7 +9,9 @@ export const selectFavoriteIds = (state: FavoritesRootState) => state.favorites.
 export const selectIsFavorite = (state: FavoritesRootState, id: string) =>
   state.favorites.ids.includes(id)
 
-export const selectFavoriteUsers = (state: { favorites: FavoritesState; users: User[] }) => {
+export const selectFavoriteUsers = (
+  state: FavoritesRootState & { users: { users: User[] } },
+) => {
   const favoriteIds = new Set(state.favorites.ids)
-  return state.users.filter((user) => favoriteIds.has(user.id))
+  return state.users.users.filter((user) => favoriteIds.has(user.id))
 }

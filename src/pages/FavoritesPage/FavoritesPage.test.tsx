@@ -36,7 +36,7 @@ const makeUser = (id: string, name: string): User => ({
 
 const users = [makeUser('user-1', 'Иван'), makeUser('user-2', 'Анна'), makeUser('user-3', 'Максим')]
 
-const createWrapper = (favoriteIds: string[] = []) => {
+const createWrapper = (favoriteIds: string[] = [], overrides: Partial<UsersState> = {}) => {
   const store = configureStore({
     reducer: {
       favorites: favoritesReducer,
@@ -49,6 +49,7 @@ const createWrapper = (favoriteIds: string[] = []) => {
         status: 'succeeded' as const,
         error: null,
         visible: 6,
+        ...overrides,
       } as UsersState,
     },
   })
@@ -62,8 +63,8 @@ const createWrapper = (favoriteIds: string[] = []) => {
   return Wrapper
 }
 
-const renderPage = (favoriteIds: string[] = []) =>
-  render(<FavoritesPage />, { wrapper: createWrapper(favoriteIds) })
+const renderPage = (favoriteIds: string[] = [], overrides: Partial<UsersState> = {}) =>
+  render(<FavoritesPage />, { wrapper: createWrapper(favoriteIds, overrides) })
 
 describe('FavoritesPage', () => {
   test('показывает текст пустого состояния, когда избранное пусто', () => {
@@ -86,5 +87,18 @@ describe('FavoritesPage', () => {
     expect(screen.getByText('Иван')).toBeInTheDocument()
     expect(screen.getByText('Анна')).toBeInTheDocument()
     expect(screen.queryByText('Максим')).not.toBeInTheDocument()
+  })
+
+  test('показывает загрузку, пока пользователи не загружены', () => {
+    renderPage([], { status: 'loading' })
+
+    expect(screen.getByText('Загрузка…')).toBeInTheDocument()
+    expect(screen.queryByText('Вы пока не добавили никого в избранное')).not.toBeInTheDocument()
+  })
+
+  test('показывает ошибку загрузки пользователей', () => {
+    renderPage([], { status: 'failed', error: 'Сервер недоступен' })
+
+    expect(screen.getByText('Сервер недоступен')).toBeInTheDocument()
   })
 })
