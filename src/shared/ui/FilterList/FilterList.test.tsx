@@ -92,6 +92,22 @@ describe('FilterList', () => {
     expect(parent).toBePartiallyChecked()
   })
 
+  test('показывает спиннер вместо текста статуса во время загрузки', () => {
+    render(
+      <FilterList
+        title="Город"
+        items={cities}
+        value={[]}
+        onChange={onChange}
+        status="Загрузка…"
+        isLoading
+      />,
+    )
+
+    expect(screen.getByRole('status', { name: 'Загрузка...' })).toBeInTheDocument()
+    expect(screen.queryByText('Загрузка…')).not.toBeInTheDocument()
+  })
+
   test('разворачивает вложенный список по стрелке', () => {
     render(<Controlled items={categories} />)
 

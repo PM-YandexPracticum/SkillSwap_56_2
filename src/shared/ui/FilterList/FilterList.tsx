@@ -22,6 +22,8 @@ export interface FilterListProps {
   showAllLabel?: string
   /** Короткое сообщение под заголовком: загрузка, ошибка */
   status?: string
+  /** Показывает спиннер вместо текста статуса */
+  isLoading?: boolean
   className?: string
 }
 
@@ -60,6 +62,7 @@ export const FilterList = forwardRef<HTMLInputElement, FilterListProps>(
       visibleCount = items.length,
       showAllLabel,
       status,
+      isLoading = false,
       className,
     },
     ref,
@@ -150,10 +153,14 @@ export const FilterList = forwardRef<HTMLInputElement, FilterListProps>(
       <div className={[styles.root, className].filter(Boolean).join(' ')}>
         <h3 className={styles.title}>{title}</h3>
 
-        {status && (
-          <div className={styles.status} role="status">
-            {status === 'Загрузка…' ? <Spinner size="sm" /> : status}
-          </div>
+        {isLoading ? (
+          <Spinner className={styles.status} size="sm" />
+        ) : (
+          status && (
+            <p className={styles.status} role="status">
+              {status}
+            </p>
+          )
         )}
 
         <ul className={styles.list}>

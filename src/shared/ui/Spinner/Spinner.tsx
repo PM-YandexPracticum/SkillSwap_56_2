@@ -8,22 +8,12 @@ export interface SpinnerProps {
   className?: string
 }
 
-export const Spinner = ({
-  size = 'md',
-  fullPage = false,
-  className,
-}: SpinnerProps) => {
-  const containerClassName = [
-    styles.container,
-    fullPage ? styles.fullPage : '',
-    className,
-  ]
+export const Spinner = ({ size = 'md', fullPage = false, className }: SpinnerProps) => {
+  const containerClassName = [styles.container, fullPage ? styles.fullPage : '', className]
     .filter(Boolean)
     .join(' ')
 
-  const spinnerClassName = [styles.spinner, styles[size]]
-    .filter(Boolean)
-    .join(' ')
+  const spinnerClassName = [styles.spinner, styles[size]].filter(Boolean).join(' ')
 
   return (
     <div className={containerClassName} role="status" aria-label="Загрузка...">

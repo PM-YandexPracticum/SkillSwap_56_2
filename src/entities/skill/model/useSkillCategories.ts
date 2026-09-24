@@ -47,5 +47,5 @@ export const useSkillCategories = () => {
     }
   }, [])
 
-  return { categories, status }
+  return { categories, status, isLoading: status === LOADING_STATUS }
 }

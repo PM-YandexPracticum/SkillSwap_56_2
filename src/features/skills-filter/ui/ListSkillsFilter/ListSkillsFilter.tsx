@@ -10,7 +10,7 @@ export type ListSkillsFilterProps = FilterFieldProps & {
 
 export const ListSkillsFilter = forwardRef<HTMLInputElement, ListSkillsFilterProps>(
   ({ visibleCount, ...field }, ref) => {
-    const { categories, status } = useSkillCategories()
+    const { categories, status, isLoading } = useSkillCategories()
 
     // Категория — узел дерева, её навыки — листья: выбор хранится их id
     const tree = useMemo<FilterItem[]>(
@@ -31,6 +31,7 @@ export const ListSkillsFilter = forwardRef<HTMLInputElement, ListSkillsFilterPro
         visibleCount={visibleCount}
         showAllLabel="Все категории"
         status={status}
+        isLoading={isLoading}
         {...field}
       />
     )
