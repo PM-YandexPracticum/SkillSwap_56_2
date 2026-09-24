@@ -3,18 +3,31 @@ import { accountStepSchema, skillStepSchema, userStepSchema } from './schemas'
 const validAccount = {
   email: 'user@example.com',
   password: '12345678',
-  confirmPassword: '12345678',
 }
 
 const validUser = {
   name: 'Иван',
   birthDate: '01.01.2000',
-  city: 'Москва',
+  gender: '',
+  city: 'moscow',
+  learningCategory: 'creativity-art',
+  learningSubcategory: 'music-sound',
 }
 
 const validSkill = {
-  teachSkill: 'Игра на гитаре',
-  learnSkill: 'Английский язык',
+  skillName: 'Игра на гитаре',
+
+  skillCategory: 'creativity-art',
+
+  skillSubcategory: 'music-sound',
+
+  skillDescription: 'Научу базовым аккордам и ритму',
+
+  skillImages: [
+    new File(['image'], 'guitar.png', {
+      type: 'image/png',
+    }),
+  ],
 }
 
 describe('accountStepSchema', () => {
@@ -33,21 +46,12 @@ describe('accountStepSchema', () => {
       accountStepSchema.validate({
         ...validAccount,
         password: 'short',
-        confirmPassword: 'short',
       }),
-    ).rejects.toThrow('Минимум 8 символов')
-  })
-
-  test('отклоняет несовпадающие пароли', async () => {
-    await expect(
-      accountStepSchema.validate({ ...validAccount, confirmPassword: '12345679' }),
-    ).rejects.toThrow('Пароли не совпадают')
+    ).rejects.toThrow('Пароль должен содержать не менее 8 знаков')
   })
 
   test('отклоняет пустые поля', async () => {
-    await expect(
-      accountStepSchema.validate({ email: '', password: '', confirmPassword: '' }),
-    ).rejects.toThrow()
+    await expect(accountStepSchema.validate({ email: '', password: '' })).rejects.toThrow()
   })
 })
 
@@ -64,8 +68,33 @@ describe('userStepSchema', () => {
 
   test('отклоняет пустые дату рождения и город', async () => {
     await expect(
-      userStepSchema.validate({ name: 'Иван', birthDate: '', city: '' }),
+      userStepSchema.validate({
+        name: 'Иван',
+        birthDate: '',
+        gender: '',
+        city: '',
+        learningCategory: '',
+        learningSubcategory: '',
+      }),
     ).rejects.toThrow()
+  })
+
+  test('отклоняет дату рождения из будущего', async () => {
+    await expect(
+      userStepSchema.validate({
+        ...validUser,
+        birthDate: '01.01.2999',
+      }),
+    ).rejects.toThrow('Дата рождения не может быть в будущем')
+  })
+
+  test('отклоняет несуществующую дату', async () => {
+    await expect(
+      userStepSchema.validate({
+        ...validUser,
+        birthDate: '31.02.2000',
+      }),
+    ).rejects.toThrow('Введите корректную дату рождения')
   })
 })
 
@@ -74,7 +103,24 @@ describe('skillStepSchema', () => {
     await expect(skillStepSchema.validate(validSkill)).resolves.toEqual(validSkill)
   })
 
-  test('отклоняет пустые навыки', async () => {
-    await expect(skillStepSchema.validate({ teachSkill: '   ', learnSkill: '' })).rejects.toThrow()
+  test('отклоняет пустые обязательные поля', async () => {
+    await expect(
+      skillStepSchema.validate({
+        skillName: '   ',
+        skillCategory: '',
+        skillSubcategory: '',
+        skillDescription: '',
+        skillImages: [],
+      }),
+    ).rejects.toThrow()
+  })
+
+  test('требует хотя бы одно изображение', async () => {
+    await expect(
+      skillStepSchema.validate({
+        ...validSkill,
+        skillImages: [],
+      }),
+    ).rejects.toThrow('Добавьте хотя бы одно изображение')
   })
 })

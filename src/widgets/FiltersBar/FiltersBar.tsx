@@ -1,23 +1,24 @@
 import { RadioGroup } from '@/shared/ui/RadioGroup'
 import { ListSkillsFilter } from '@/features/skills-filter'
 import { ListCitiesFilter } from '@/features/cities-filter'
+import { FILTER_GENDER_LABELS, FILTER_TYPE_LABELS } from '@/entities/user'
 
 import type { CatalogFilters, CatalogFilterType, CatalogFilterGender } from './types'
 import styles from './FiltersBar.module.css'
 
 /** Опции первого блока (без заголовка) */
-const TYPE_OPTIONS = [
-  { value: 'all', title: 'Всё' },
-  { value: 'learn', title: 'Хочу научиться' },
-  { value: 'teach', title: 'Могу научить' },
-]
+const TYPE_OPTIONS = (Object.keys(FILTER_TYPE_LABELS) as CatalogFilterType[]).map((value) => ({
+  value,
+  title: FILTER_TYPE_LABELS[value],
+}))
 
 /** Опции блока «Пол автора» */
-const GENDER_OPTIONS = [
-  { value: 'any', title: 'Не имеет значения' },
-  { value: 'male', title: 'Мужской' },
-  { value: 'female', title: 'Женский' },
-]
+const GENDER_OPTIONS = (Object.keys(FILTER_GENDER_LABELS) as CatalogFilterGender[]).map(
+  (value) => ({
+    value,
+    title: FILTER_GENDER_LABELS[value],
+  }),
+)
 
 export interface FiltersBarProps {
   filters: CatalogFilters
@@ -40,9 +41,7 @@ export const FiltersBar = ({ filters, onChange, className }: FiltersBarProps) =>
         name="catalog-type"
         options={TYPE_OPTIONS}
         selectedOptionValue={filters.type}
-        onChange={(e) =>
-          onChange({ ...filters, type: e.target.value as CatalogFilterType })
-        }
+        onChange={(e) => onChange({ ...filters, type: e.target.value as CatalogFilterType })}
       />
 
       {/* 2. Список навыков */}
@@ -57,9 +56,7 @@ export const FiltersBar = ({ filters, onChange, className }: FiltersBarProps) =>
         title="Пол автора"
         options={GENDER_OPTIONS}
         selectedOptionValue={filters.gender}
-        onChange={(e) =>
-          onChange({ ...filters, gender: e.target.value as CatalogFilterGender })
-        }
+        onChange={(e) => onChange({ ...filters, gender: e.target.value as CatalogFilterGender })}
       />
 
       {/* 4. Список городов */}

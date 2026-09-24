@@ -1,0 +1,64 @@
+.root {
+  display: flex;
+  gap: var(--space-xl, 32px);
+  align-items: center;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 324px;
+  flex-shrink: 0;
+  padding: 0 var(--space-xs, 4px);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl, 1.5rem);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  color: var(--color-primary-pressed, #508826);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}
+
+.resetIcon {
+  width: 16px;
+  height: 16px;
+  fill: currentcolor;
+}
+
+.chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: var(--space-sm, 8px);
+  align-items: center;
+}
+
+@media (width <= 768px) {
+  .root {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .heading {
+    width: 100%;
+  }
+}
