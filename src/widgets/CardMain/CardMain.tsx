@@ -14,9 +14,15 @@ export type CardMainProps = {
   user: User
   isLiked?: boolean
   onLikeToggle?: (userId: string) => void
+  showDetailsButton?: boolean
 }
 
-export const CardMain = ({ user, isLiked = false, onLikeToggle }: CardMainProps) => {
+export const CardMain = ({
+  user,
+  isLiked = false,
+  onLikeToggle,
+  showDetailsButton = true,
+}: CardMainProps) => {
   const visibleLearnSkills = user.learnSkills.slice(0, VISIBLE_LEARN_SKILLS)
   const hiddenLearnSkillsCount = user.learnSkills.length - VISIBLE_LEARN_SKILLS
   const skillHref = ROUTES.SKILL.replace(':id', user.id)
@@ -49,9 +55,11 @@ export const CardMain = ({ user, isLiked = false, onLikeToggle }: CardMainProps)
         </div>
       </div>
 
-      <ButtonLink to={skillHref} className={styles.details} fullWidth>
-        Подробнее
-      </ButtonLink>
+      {showDetailsButton && (
+        <ButtonLink to={skillHref} className={styles.details} fullWidth>
+          Подробнее
+        </ButtonLink>
+      )}
     </div>
   )
 }

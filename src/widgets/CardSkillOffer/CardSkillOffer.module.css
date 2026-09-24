@@ -42,7 +42,6 @@
   display: grid;
   grid-template-columns: minmax(0, 450px) minmax(420px, 500px);
   justify-content: space-between;
-  align-items: stretch;
   gap: 48px;
   padding-top: 52px;
 }
@@ -79,7 +78,7 @@
 }
 
 .gallery {
-  align-self: end;
+  align-self: start;
   width: 100%;
 }
 

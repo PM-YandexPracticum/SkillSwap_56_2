@@ -6,23 +6,12 @@ import { loadUsers } from '@/entities/user/model/usersSlice'
 import { CardMain } from '@/widgets/CardMain'
 import { CardSkillOffer } from '@/widgets/CardSkillOffer'
 import { SectionCards } from '@/widgets/SectionCards'
-import type { GalleryImage } from '@/shared/ui/Gallery'
 
+import { getSkillGallery } from './skillGallery'
 import styles from './SkillPage.module.css'
 
 const SKELETON_COUNT = 3
 const SIMILAR_LIMIT = 3
-
-/** Заглушка галереи — пока нет реальных фото в сторе */
-const MOCK_GALLERY: GalleryImage[] = [
-  { src: '/skills/skill-1.avif', alt: 'Фото 1' },
-  { src: '/skills/skill-2.avif', alt: 'Фото 2' },
-  { src: '/skills/skill-3.avif', alt: 'Фото 3' },
-  { src: '/skills/skill-4.avif', alt: 'Фото 4' },
-  { src: '/skills/skill-5.avif', alt: 'Фото 5' },
-  { src: '/skills/skill-6.avif', alt: 'Фото 6' },
-  { src: '/skills/skill-7.avif', alt: 'Фото 7' },
-]
 
 export default function SkillPage() {
   const { id } = useParams<{ id: string }>()
@@ -44,12 +33,7 @@ export default function SkillPage() {
   if (status === 'idle' || status === 'loading') {
     return (
       <div className={styles.page}>
-        <SectionCards
-          title="Загрузка…"
-          users={[]}
-          status="loading"
-          skeletonCount={1}
-        />
+        <SectionCards title="Загрузка…" users={[]} status="loading" skeletonCount={1} />
         <SectionCards
           title="Похожие предложения"
           users={[]}
@@ -84,14 +68,14 @@ export default function SkillPage() {
   return (
     <div className={styles.page}>
       <div className={styles.top}>
-        <CardMain user={user} />
+        <CardMain user={user} showDetailsButton={false} />
 
         <CardSkillOffer
           title={user.teachSkill.title}
           category={user.teachSkill.category}
           subcategory={user.teachSkill.category}
           description={`Привет! Меня зовут ${user.name}. С радостью поделюсь знаниями по навыку «${user.teachSkill.title}». Пиши — договоримся об обмене!`}
-          images={MOCK_GALLERY}
+          images={getSkillGallery(user.teachSkill.id, user.teachSkill.title)}
         />
       </div>
 
