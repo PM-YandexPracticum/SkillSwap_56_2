@@ -8,6 +8,7 @@ import { ProtectedRoute } from '@/features/auth'
 import { RegistrationProvider } from '@/features/auth/registration'
 
 import { ROUTES } from '@/shared/lib/constants'
+import { Spinner } from '@/shared/ui/Spinner'
 import LightBulbIllustration from '@/shared/ui/icons/assets/light-bulb.svg?react'
 
 const CatalogPage = lazy(() => import('@/pages/CatalogPage'))
@@ -37,7 +38,7 @@ const ServerErrorPage = lazy(() => import('@/pages/ServerErrorPage'))
 export function AppRouter() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Загрузка...</div>}>
+      <Suspense fallback={<Spinner fullPage />}>
         <Routes>
           <Route element={<MainLayout />}>
             <Route path={ROUTES.HOME} element={<CatalogPage />} />
@@ -47,20 +48,20 @@ export function AppRouter() {
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
 
             <Route element={<ProtectedRoute />}>
-  <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
-    <Route index element={<Navigate to={ROUTES.PROFILE_PERSONAL} replace />} />
+              <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
+                <Route index element={<Navigate to={ROUTES.PROFILE_PERSONAL} replace />} />
 
-    <Route path={ROUTES.PROFILE_REQUESTS} element={<div>Раздел в разработке</div>} />
+                <Route path={ROUTES.PROFILE_REQUESTS} element={<div>Раздел в разработке</div>} />
 
-    <Route path={ROUTES.PROFILE_EXCHANGES} element={<div>Раздел в разработке</div>} />
+                <Route path={ROUTES.PROFILE_EXCHANGES} element={<div>Раздел в разработке</div>} />
 
-    <Route path={ROUTES.PROFILE_FAVORITES} element={<FavoritesPage />} />
+                <Route path={ROUTES.PROFILE_FAVORITES} element={<FavoritesPage />} />
 
-    <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
+                <Route path={ROUTES.PROFILE_SKILLS} element={<div>Раздел в разработке</div>} />
 
-    <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
-  </Route>
-</Route>
+                <Route path={ROUTES.PROFILE_PERSONAL} element={<ProfilePersonalPage />} />
+              </Route>
+            </Route>
 
             <Route path={ROUTES.CREATE} element={<CreateSkillPage />} />
           </Route>

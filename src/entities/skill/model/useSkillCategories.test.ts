@@ -33,10 +33,12 @@ describe('useSkillCategories', () => {
     const { result } = renderHook(() => useSkillCategories())
 
     expect(result.current.status).toBe('Загрузка…')
+    expect(result.current.isLoading).toBe(true)
 
     await waitFor(() => expect(result.current.categories).toEqual(categories))
 
     expect(result.current.status).toBeUndefined()
+    expect(result.current.isLoading).toBe(false)
   })
 
   test('делит один запрос между несколькими потребителями', async () => {
@@ -55,6 +57,7 @@ describe('useSkillCategories', () => {
     const { result } = renderHook(() => useSkillCategories())
 
     await waitFor(() => expect(result.current.status).toBe('Не удалось загрузить навыки'))
+    expect(result.current.isLoading).toBe(false)
   })
 
   test('после ошибки повторный запрос проходит', async () => {
