@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import type { User } from '@/entities/user/model/types'
+import { getAuthUser, subscribeAuthUser } from '@/features/auth/model/authUtils'
+import type { AuthUser } from '@/shared/types'
 import { SkillsMenu } from '@/features/skills-menu'
 import { ROUTES } from '@/shared/lib/constants'
 import { ButtonLink } from '@/shared/ui/Button'
@@ -16,11 +18,38 @@ import styles from './Header.module.css'
 
 interface HeaderProps {
   isAuth?: boolean
-  user?: User
+  user?: Pick<AuthUser, 'name' | 'avatarUrl'>
 }
 
-export const Header = ({ isAuth = false, user }: HeaderProps) => {
-  const userName = user?.name ?? 'Профиль'
+export const Header = ({ isAuth, user }: HeaderProps) => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [authUser, setAuthUser] = useState(getAuthUser)
+
+  useEffect(() => subscribeAuthUser(() => setAuthUser(getAuthUser())), [])
+
+  const currentUser = user ?? authUser
+  const isAuthenticated = isAuth ?? Boolean(currentUser)
+  const userName = currentUser?.name ?? 'Профиль'
+  const searchQuery = new URLSearchParams(location.search).get('search') ?? ''
+
+  const handleSearchChange = (value: string) => {
+    const params = new URLSearchParams()
+
+    if (value) {
+      params.set('search', value)
+    }
+
+    const search = params.toString()
+
+    navigate(
+      {
+        pathname: ROUTES.HOME,
+        search: search ? `?${search}` : '',
+      },
+      { replace: true },
+    )
+  }
 
   return (
     <header className={styles.header}>
@@ -34,17 +63,19 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
           <SkillsMenu />
         </nav>
 
-        <form className={styles.search} role="search">
+        <form className={styles.search} role="search" onSubmit={(event) => event.preventDefault()}>
           <SearchIcon className={styles.searchIcon} aria-hidden="true" />
           <input
             className={styles.searchInput}
             type="search"
             placeholder="Искать навык"
             aria-label="Искать навык"
+            value={searchQuery}
+            onChange={(event) => handleSearchChange(event.target.value)}
           />
         </form>
 
-        {isAuth ? (
+        {isAuthenticated ? (
           <div className={styles.authActions}>
             <div className={styles.iconGroup}>
               <button className={styles.iconButton} type="button" aria-label="Переключить тему">
@@ -59,7 +90,7 @@ export const Header = ({ isAuth = false, user }: HeaderProps) => {
             </div>
             <Link className={styles.profileLink} to={ROUTES.PROFILE}>
               <span className={styles.userName}>{userName}</span>
-              <RoundImage src={user?.avatarUrl} alt={userName} size="md" />
+              <RoundImage src={currentUser?.avatarUrl} alt={userName} size="md" />
             </Link>
           </div>
         ) : (

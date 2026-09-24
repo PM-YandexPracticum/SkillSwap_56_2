@@ -4,31 +4,32 @@ import EyeSvg from '@/shared/ui/icons/assets/eye.svg?react'
 import EyeSlashSvg from '@/shared/ui/icons/assets/eye-slash.svg?react'
 import { Button } from '@/shared/ui/Button'
 import styles from './CardRegistration.module.css'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Input } from '@/shared/ui/Input'
 import { useState } from 'react'
-
-type FormData = {
-  email: string
-  password: string
-}
+import { useRegistrationFlow, type RegistrationFormValues } from '@/features/auth/registration'
 
 export const CardRegistration = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    mode: 'onChange',
-  })
+  } = useFormContext<RegistrationFormValues>()
 
-  const onSubmit = () => {
-    //заглушка, поменять при отправке формы
-  }
+  const { nextStep } = useRegistrationFlow()
 
   const [showPassword, setShowPassword] = useState(false)
+
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={styles.container}
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault()
+        void nextStep()
+      }}
+    >
+      <h1 className={styles.srOnly}>Регистрация: аккаунт</h1>
+
       <div className={styles['enter-container']}>
         <div className={styles.variants}>
           <div className={styles['enter-with']}>
@@ -72,16 +73,9 @@ export const CardRegistration = () => {
                 type="email"
                 placeholder="Введите email"
                 error={errors.email?.message}
-                {...register('email', {
-                  required: 'Введите email',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: 'Введите корректный email',
-                  },
-                })}
+                {...register('email')}
               />
               <Input
-                className={styles.input}
                 label="Пароль"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Придумайте надёжный пароль"
@@ -96,13 +90,7 @@ export const CardRegistration = () => {
                     aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
                   />
                 }
-                {...register('password', {
-                  required: 'Введите пароль',
-                  minLength: {
-                    value: 8,
-                    message: 'Пароль должен содержать не менее 8 знаков',
-                  },
-                })}
+                {...register('password')}
               />
             </div>
           </div>

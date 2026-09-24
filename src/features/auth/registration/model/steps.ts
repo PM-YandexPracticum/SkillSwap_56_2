@@ -1,19 +1,11 @@
 import { ROUTES } from '@/shared/lib/constants'
 
-import {
-  accountStepSchema,
-  skillStepSchema,
-  userStepSchema,
-} from './schemas'
+import { accountStepSchema, skillStepSchema, userStepSchema } from './schemas'
 
 export const REGISTRATION_STEPS = [
   {
     path: ROUTES.REGISTER_ACCOUNT,
-    fields: [
-      'email',
-      'password',
-      'confirmPassword',
-    ] as const,
+    fields: ['email', 'password'] as const,
     schema: accountStepSchema,
   },
 
@@ -32,16 +24,16 @@ export const REGISTRATION_STEPS = [
   },
 
   {
-  path: ROUTES.REGISTER_SKILL,
-  fields: [
-    'skillName',
-    'skillCategory',
-    'skillSubcategory',
-    'skillDescription',
-    'skillImages',
-  ] as const,
-  schema: skillStepSchema,
-},
+    path: ROUTES.REGISTER_SKILL,
+    fields: [
+      'skillName',
+      'skillCategory',
+      'skillSubcategory',
+      'skillDescription',
+      'skillImages',
+    ] as const,
+    schema: skillStepSchema,
+  },
 ] as const
 
 const STEP_ALIASES: Record<string, number> = {
@@ -52,34 +44,20 @@ const STEP_ALIASES: Record<string, number> = {
   [ROUTES.REGISTER_USER_TYPO]: 1,
 }
 
-function normalizePathname(
-  pathname: string,
-): string {
-  const withoutTrailingSlash =
-    pathname.replace(/\/+$/, '')
+function normalizePathname(pathname: string): string {
+  const withoutTrailingSlash = pathname.replace(/\/+$/, '')
 
-  return (
-    withoutTrailingSlash || '/'
-  ).toLowerCase()
+  return (withoutTrailingSlash || '/').toLowerCase()
 }
 
-export function getRegistrationStepIndex(
-  pathname: string,
-): number {
-  const normalizedPathname =
-    normalizePathname(pathname)
+export function getRegistrationStepIndex(pathname: string): number {
+  const normalizedPathname = normalizePathname(pathname)
 
-  const canonicalIndex =
-    REGISTRATION_STEPS.findIndex(
-      (step) =>
-        step.path === normalizedPathname,
-    )
+  const canonicalIndex = REGISTRATION_STEPS.findIndex((step) => step.path === normalizedPathname)
 
   if (canonicalIndex !== -1) {
     return canonicalIndex
   }
 
-  return (
-    STEP_ALIASES[normalizedPathname] ?? -1
-  )
+  return STEP_ALIASES[normalizedPathname] ?? -1
 }

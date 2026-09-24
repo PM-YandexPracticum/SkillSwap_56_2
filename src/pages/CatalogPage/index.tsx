@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import {
   DEFAULT_FILTERS,
@@ -30,11 +31,21 @@ import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 import styles from './CatalogPage.module.css'
 
 const DEFAULT_ERROR = 'Не удалось загрузить пользователей'
+const REGISTRATION_SUCCESS_MESSAGE = 'Регистрация успешно завершена'
+
+type CatalogPageLocationState = { registrationSuccess?: boolean } | null
 
 export default function CatalogPage() {
   const dispatch = useAppDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT)
+  const [statusMessage] = useState(() =>
+    (location.state as CatalogPageLocationState)?.registrationSuccess
+      ? REGISTRATION_SUCCESS_MESSAGE
+      : '',
+  )
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { isFavorite, toggleFavorite } = useFavorites()
 
@@ -46,10 +57,25 @@ export default function CatalogPage() {
   const popularAll = useAppSelector(selectPopularAll)
   const newAll = useAppSelector(selectNewAll)
   const recommendedUsers = useAppSelector(selectRecommended)
-  const filteredUsers = useAppSelector((state) => selectFilteredUsers(state, filters))
-  const hasMore = useAppSelector((state) => selectHasMore(state, filters))
+  const usersByFilters = useAppSelector((state) => selectFilteredUsers(state, filters))
+  const hasMoreByFilters = useAppSelector((state) => selectHasMore(state, filters))
+  const searchQuery = new URLSearchParams(location.search).get('search')?.trim() ?? ''
+  const normalizedSearchQuery = searchQuery.toLocaleLowerCase('ru')
 
-  const isFiltering = isFiltersActive(filters)
+  const filteredUsers = useMemo(() => {
+    if (!normalizedSearchQuery) {
+      return usersByFilters
+    }
+
+    return usersByFilters.filter((user) =>
+      user.name.toLocaleLowerCase('ru').startsWith(normalizedSearchQuery),
+    )
+  }, [normalizedSearchQuery, usersByFilters])
+
+  const isSearchActive = normalizedSearchQuery.length > 0
+  const hasActiveFilters = isFiltersActive(filters)
+  const isFiltering = hasActiveFilters || isSearchActive
+  const hasMore = isSearchActive ? visible < filteredUsers.length : hasMoreByFilters
 
   const visibleUsers = useMemo(
     () => sortUsers(filteredUsers, sortBy).slice(0, visible),
@@ -62,7 +88,13 @@ export default function CatalogPage() {
 
   useEffect(() => {
     dispatch(resetVisible())
-  }, [filters, dispatch])
+  }, [filters, normalizedSearchQuery, dispatch])
+
+  useEffect(() => {
+    if ((location.state as CatalogPageLocationState)?.registrationSuccess) {
+      navigate(location.pathname, { replace: true, state: null })
+    }
+  }, [location, navigate])
 
   const handleRetry = () => {
     dispatch(loadUsers())
@@ -84,16 +116,22 @@ export default function CatalogPage() {
 
   return (
     <main className={styles.page}>
+      {statusMessage && (
+        <p className={styles.statusMessage} role="status">
+          {statusMessage}
+        </p>
+      )}
+
       <ActiveFilters filters={filters} onChange={setFilters} />
 
       <div className={styles.mainRow}>
-        <div className={isFiltering ? styles.sidebar : styles.sidebarCard}>
-          {!isFiltering && <h2 className={styles.sidebarTitleInside}>Фильтры</h2>}
+        <div className={hasActiveFilters ? styles.sidebar : styles.sidebarCard}>
+          {!hasActiveFilters && <h2 className={styles.sidebarTitleInside}>Фильтры</h2>}
 
           <FiltersBar
             filters={filters}
             onChange={setFilters}
-            className={isFiltering ? undefined : styles.filtersTransparent}
+            className={hasActiveFilters ? undefined : styles.filtersTransparent}
           />
         </div>
 
@@ -140,6 +178,7 @@ export default function CatalogPage() {
                 title="Популярное"
                 users={expandedSection === 'popular' ? popularAll : popularUsers}
                 status={status}
+                isExpanded={expandedSection === 'popular'}
                 onSeeAll={() => handleSeeAll('popular')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
@@ -151,6 +190,7 @@ export default function CatalogPage() {
                 title="Новое"
                 users={expandedSection === 'newest' ? newAll : newUsers}
                 status={status}
+                isExpanded={expandedSection === 'newest'}
                 onSeeAll={() => handleSeeAll('newest')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
