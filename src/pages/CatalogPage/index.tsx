@@ -143,6 +143,8 @@ export default function CatalogPage() {
                 onSeeAll={() => handleSeeAll('popular')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
+                isLiked={isFavorite}
+                onLikeToggle={toggleFavorite}
               />
 
               <SectionCards
@@ -152,6 +154,8 @@ export default function CatalogPage() {
                 onSeeAll={() => handleSeeAll('newest')}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
+                isLiked={isFavorite}
+                onLikeToggle={toggleFavorite}
               />
 
               <SectionCards
@@ -162,6 +166,8 @@ export default function CatalogPage() {
                 hasMore={hasMore}
                 onRetry={handleRetry}
                 errorMessage={error ?? undefined}
+                isLiked={isFavorite}
+                onLikeToggle={toggleFavorite}
               />
             </div>
           )}

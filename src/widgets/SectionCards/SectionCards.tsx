@@ -20,6 +20,8 @@ export type SectionCardsProps = {
   onShowMore?: () => void
   hasMore?: boolean
   onSeeAll?: () => void
+  isLiked?: (userId: string) => boolean
+  onLikeToggle?: (userId: string) => void
 }
 
 const DEFAULT_SKELETON_COUNT = 3
@@ -35,6 +37,8 @@ export const SectionCards = ({
   onShowMore,
   hasMore,
   onSeeAll,
+  isLiked,
+  onLikeToggle,
 }: SectionCardsProps) => {
   const titleId = useId()
   const shouldShowCards = status === 'succeeded' && users.length > 0
@@ -87,7 +91,11 @@ export const SectionCards = ({
         <ul className={styles.grid} aria-label={title}>
           {users.map((user) => (
             <li className={styles.item} key={user.id}>
-              <CardMain user={user} />
+              <CardMain
+                user={user}
+                isLiked={isLiked?.(user.id) ?? false}
+                onLikeToggle={onLikeToggle}
+              />
             </li>
           ))}
         </ul>

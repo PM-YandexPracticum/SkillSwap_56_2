@@ -6,6 +6,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .icon {
@@ -16,12 +17,15 @@
 
 .icon path {
   fill: transparent;
+  stroke: var(--text);
+  transition: fill 0.3s ease;
 }
 
 .liked {
-  color: var(--accent);
+  color: #ABD27A;
 }
 
 .liked .icon path {
   fill: currentcolor;
+  stroke: currentcolor;
 }

@@ -125,4 +125,40 @@ describe('SectionCards', () => {
 
     expect(screen.getAllByRole('link', { name: 'Подробнее' })).toHaveLength(3)
   })
+
+  describe('isLiked и onLikeToggle', () => {
+    test('передаёт isLiked и onLikeToggle в CardMain', () => {
+      const isLiked = jest.fn((id: string) => id === 'user-1')
+      const onLikeToggle = jest.fn()
+
+      renderSection({ isLiked, onLikeToggle })
+
+      const buttons = screen.getAllByRole('button', { name: '' })
+
+      // Все кнопки лайка должны быть в DOM
+      expect(buttons.length).toBeGreaterThan(0)
+    })
+
+    test('onLikeToggle вызывается при клике на кнопку лайка', async () => {
+      const onLikeToggle = jest.fn()
+
+      renderSection({ onLikeToggle })
+
+      const buttons = screen.getAllByRole('button')
+      // Первая кнопка — это кнопка лайка
+      await userEvent.click(buttons[0])
+
+      expect(onLikeToggle).toHaveBeenCalledWith('user-1')
+    })
+
+    test('isLiked вызывается с id каждого пользователя', () => {
+      const isLiked = jest.fn(() => false)
+
+      renderSection({ isLiked })
+
+      expect(isLiked).toHaveBeenNthCalledWith(1, 'user-1')
+      expect(isLiked).toHaveBeenNthCalledWith(2, 'user-2')
+      expect(isLiked).toHaveBeenNthCalledWith(3, 'user-3')
+    })
+  })
 })
