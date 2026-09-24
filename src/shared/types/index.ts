@@ -85,3 +85,17 @@ export interface AuthUser {
   learningCategory?: string
   learningSubcategory?: string
 }
+
+export interface StoredUser {
+  id: string
+  name: string
+  email: string
+  password: string
+  birthDate?: string
+  gender?: Gender
+  city?: string
+  about?: string
+  avatarUrl?: string | null
+  learningCategory?: string
+  learningSubcategory?: string
+}

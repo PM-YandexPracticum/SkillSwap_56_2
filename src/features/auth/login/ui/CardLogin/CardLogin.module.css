@@ -1,0 +1,78 @@
+.container {
+  padding-block: 121.5px;
+  padding-inline: 60px;
+  max-width: 556px;
+  max-height: 692px;
+  background-color: var(--card-input);
+  border-radius: 12px;
+}
+
+.enter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.variants {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.enter-with {
+  display: grid;
+  gap: 28px;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltipText {
+  display: none;
+  position: absolute;
+  font-size: 13px;
+}
+
+.tooltip:hover .tooltipText {
+  display: block;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-disabled);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input {
+  max-height: 48px;
+}
+
+.registerLink {
+  align-self: center;
+  text-decoration: none;
+  color: var(--color-primary-pressed);
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

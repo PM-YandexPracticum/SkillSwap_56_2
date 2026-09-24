@@ -3,9 +3,9 @@ export const ROUTES = {
   SKILL: '/skill/:id',
   PROFILE: '/profile',
   PROFILE_REQUESTS: '/profile/requests',
-  PROFILE_EXCHANGES: '/profile/exchanges', 
-  PROFILE_FAVORITES: '/profile/favorites', 
-  PROFILE_SKILLS: '/profile/skills', 
+  PROFILE_EXCHANGES: '/profile/exchanges',
+  PROFILE_FAVORITES: '/profile/favorites',
+  PROFILE_SKILLS: '/profile/skills',
   PROFILE_PERSONAL: '/profile/personal',
   FAVORITES: '/favorites',
   CREATE: '/create',
@@ -45,4 +45,5 @@ export const LOCAL_STORAGE_KEYS = {
   REQUESTS: 'skillswap_requests',
   THEME: 'skillswap_theme',
   REGISTRATION_DRAFT: 'skillswap_registration_draft',
+  USERS: 'skillswap_users',
 } as const

@@ -3,7 +3,7 @@ import { FormProvider, useForm, type FieldPath } from 'react-hook-form'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ValidationError } from 'yup'
 
-import { saveAuthUser } from '@/features/auth/model/authUtils'
+import { saveAuthUser, saveRegisteredUser } from '@/features/auth/model/authUtils'
 import { loadCities } from '@/entities/city'
 import { LOCAL_STORAGE_KEYS, ROUTES } from '@/shared/lib/constants'
 import { fileToDataUrl } from '@/shared/lib/fileToDataUrl'
@@ -41,6 +41,7 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
 
   const completedRef = useRef(false)
   const submittingRef = useRef(false)
+
   const [isFinishing, setIsFinishing] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
@@ -52,8 +53,8 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
   })
 
   /**
-   * При любом изменении формы сохраняем
-   * её в localStorage.
+   * При любом изменении формы
+   * сохраняем данные в localStorage.
    */
   useEffect(() => {
     const subscription = methods.watch((values) => {
@@ -71,7 +72,7 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
   }, [methods])
 
   /**
-   * Проверяет только один конкретный шаг.
+   * Проверяет один конкретный шаг регистрации.
    */
   const validateStep = async (stepIndex: number): Promise<boolean> => {
     const step = REGISTRATION_STEPS[stepIndex]
@@ -111,7 +112,7 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
   }
 
   /**
-   * Кнопка "Далее".
+   * Переход на следующий шаг.
    */
   const nextStep = async () => {
     if (currentStepIndex < 0 || currentStepIndex >= REGISTRATION_STEPS.length - 1) {
@@ -128,7 +129,7 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
   }
 
   /**
-   * Кнопка "Назад".
+   * Переход на предыдущий шаг.
    */
   const previousStep = () => {
     if (currentStepIndex <= 0) {
@@ -139,7 +140,7 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
   }
 
   /**
-   * Последняя отправка формы.
+   * Завершение регистрации.
    */
   const finishRegistration = async () => {
     if (
@@ -155,26 +156,38 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
     setSubmitError('')
 
     try {
+      /**
+       * Перед завершением регистрации
+       * проверяем все шаги.
+       */
       for (let stepIndex = 0; stepIndex < REGISTRATION_STEPS.length; stepIndex += 1) {
         if (!(await validateStep(stepIndex))) {
           navigate(REGISTRATION_STEPS[stepIndex].path)
+
           return
         }
       }
 
       const values = methods.getValues()
+
       const [cities, avatarUrl, skillImages] = await Promise.all([
         loadCities(),
         values.avatar instanceof File ? fileToDataUrl(values.avatar) : values.avatar,
+
         Promise.all(values.skillImages.map(fileToDataUrl)),
       ])
+
       const city = cities.find((item) => item.id === values.city)
 
       if (!city) {
         setSubmitError('Не удалось найти выбранный город. Выберите город заново.')
+
         return
       }
 
+      /**
+       * Навыки пользователя.
+       */
       const skills = [
         {
           skillName: values.skillName.trim(),
@@ -184,15 +197,29 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
           skillImages,
         },
       ]
+
       const previousSkills = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_SKILLS)
 
       localStorage.setItem(LOCAL_STORAGE_KEYS.USER_SKILLS, JSON.stringify(skills))
 
       try {
-        saveAuthUser({
-          id: String(Date.now()),
+        /**
+         * Один id используем и для зарегистрированного,
+         * и для авторизованного пользователя.
+         */
+        const userId = String(Date.now())
+
+        /**
+         * Пользователь для mock-базы.
+         *
+         * Здесь есть password, потому что он понадобится
+         * для дальнейшего логина.
+         */
+        const registeredUser = {
+          id: userId,
           name: values.name.trim(),
           email: values.email.trim(),
+          password: values.password,
           birthDate: toIsoDate(values.birthDate),
           gender: values.gender || undefined,
           city: city.title,
@@ -200,22 +227,53 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
           avatarUrl,
           learningCategory: values.learningCategory,
           learningSubcategory: values.learningSubcategory,
-        })
+        }
+
+        /**
+         * Сохраняем пользователя в список
+         * зарегистрированных пользователей.
+         */
+        saveRegisteredUser(registeredUser)
+
+        /**
+         * Убираем password перед сохранением
+         * текущего авторизованного пользователя.
+         */
+        const { password: registeredPassword, ...authUser } = registeredUser
+
+        void registeredPassword
+
+        /**
+         * Авторизуем пользователя сразу
+         * после регистрации.
+         */
+        saveAuthUser(authUser)
       } catch (error) {
-        // При неудачной записи профиля сохраняем навык предыдущего пользователя.
+        /**
+         * Если сохранение пользователя не удалось,
+         * возвращаем предыдущие навыки.
+         */
         if (previousSkills === null) {
           localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_SKILLS)
         } else {
           localStorage.setItem(LOCAL_STORAGE_KEYS.USER_SKILLS, previousSkills)
         }
+
         throw error
       }
 
+      /**
+       * Регистрация завершена.
+       */
       completedRef.current = true
+
       clearRegistrationDraft()
+
       navigate(ROUTES.HOME, {
         replace: true,
-        state: { registrationSuccess: true },
+        state: {
+          registrationSuccess: true,
+        },
       })
     } catch {
       setSubmitError('Не удалось завершить регистрацию. Попробуйте ещё раз.')
@@ -225,11 +283,13 @@ export const RegistrationProvider = ({ children }: RegistrationProviderProps) =>
     }
   }
 
-  /*
-   * Защита от перепрыгивания.
+  /**
+   * Защита от перехода сразу
+   * на последующие шаги регистрации.
    *
-   * Например, пользователь открыл /register/3.
-   * Проверяем шаги 1 и 2.
+   * Например:
+   * пользователь вручную открыл /register/3,
+   * но предыдущие шаги ещё не заполнены.
    */
   const firstIncompleteStepIndex =
     currentStepIndex > 0
