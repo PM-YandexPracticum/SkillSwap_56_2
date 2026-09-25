@@ -3,13 +3,52 @@
   /* Colors */
   --color-primary: #6366f1;
   --color-primary-hover: #4f46e5;
-  --color-bg: #ffffff;
+
+  /* color-bg изменен с fff, так как в макете цвет фона F9FAF7 */
+  --color-bg: #F9FAF7;
   --color-bg-secondary: #f9fafb;
   --color-text: #111827;
   --color-text-secondary: #6b7280;
   --color-border: #e5e7eb;
   --color-error: #ef4444;
   --color-success: #22c55e;
+  --text: #253017;
+  --accent: #abd27a;
+  --button-hover: #deebc5;
+  --color-primary-pressed: #508826;
+  --color-disabled: #e4e8df;
+  --card-input: #fff;
+  --color-disabled-text: #9ca197;
+  --color-radio-checked: #508826;
+
+  /* Формы: границы полей, подложки и затемнение модалки */
+  --color-input-border: #69735d;
+  --color-dropzone-border: #b8beaf;
+
+  /* Светлая подложка под hover и drag-over */
+  --color-accent-subtle: #f4f9ee;
+
+  /* Подложка выбранного пункта списка */
+  --color-accent-selected: #eef6e5;
+  --color-primary-dark: #3f6f1c;
+  --color-overlay: rgb(37 48 23 / 42%);
+
+  /* Layout */
+  
+  /* вынесено в root, так как можно переиспользовать не только в mainlayout, но и в header, footer */
+  --layout-width: 1440px; 
+  --layout-padding: 36px;
+  --layout-padding-auth: 152px;
+  --layout-padding-error: 490px;
+
+  /* Tags-color */
+  --tag-bg-lilac: #eee7f7;
+  --tag-bg-pink: #f7e7f2;
+  --tag-bg-yellow: #ebe5c5;
+  --tag-bg-blue: #e7f2f6;
+  --tag-bg-beige: #f7ebe5;
+  --tag-bg-mint: #e9f7e7;
+  --tag-bg-neutral: #e8ecf7;
 
   /* Spacing */
   --space-xs: 4px;
@@ -20,7 +59,12 @@
   --space-2xl: 48px;
 
   /* Typography */
-  --font-sans: system-ui, -apple-system, sans-serif;
+
+  /* Roboto — шрифт основного текста по макету, подключается в index.html */
+  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+
+  /* Jost — шрифт заголовков по макету */
+  --font-heading: 'Jost', var(--font-sans);
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
@@ -33,8 +77,9 @@
   --radius-lg: 12px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 7%);
+  --shadow-lg: 0 16px 48px rgb(0 0 0 / 18%);
 }
 
 /* Тёмная тема — добавить поддержку через data-theme="dark" */

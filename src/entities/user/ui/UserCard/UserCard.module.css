@@ -1,0 +1,45 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 324px;
+  height: 444px;
+  background-color: var(--card-input);
+  padding: 32px;
+  gap: 24px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text);
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.title-tag {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.information {
+  display: grid;
+  gap: 14px;
+}
+
+.container-tag {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}

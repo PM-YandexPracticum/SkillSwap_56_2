@@ -1,0 +1,182 @@
+[
+  {
+    "id": "moscow",
+    "title": "Москва"
+  },
+  {
+    "id": "saint-petersburg",
+    "title": "Санкт-Петербург"
+  },
+  {
+    "id": "novosibirsk",
+    "title": "Новосибирск"
+  },
+  {
+    "id": "yekaterinburg",
+    "title": "Екатеринбург"
+  },
+  {
+    "id": "kazan",
+    "title": "Казань"
+  },
+  {
+    "id": "nizhny-novgorod",
+    "title": "Нижний Новгород"
+  },
+  {
+    "id": "krasnoyarsk",
+    "title": "Красноярск"
+  },
+  {
+    "id": "chelyabinsk",
+    "title": "Челябинск"
+  },
+  {
+    "id": "samara",
+    "title": "Самара"
+  },
+  {
+    "id": "ufa",
+    "title": "Уфа"
+  },
+  {
+    "id": "rostov-on-don",
+    "title": "Ростов-на-Дону"
+  },
+  {
+    "id": "krasnodar",
+    "title": "Краснодар"
+  },
+  {
+    "id": "omsk",
+    "title": "Омск"
+  },
+  {
+    "id": "voronezh",
+    "title": "Воронеж"
+  },
+  {
+    "id": "perm",
+    "title": "Пермь"
+  },
+  {
+    "id": "arkhangelsk",
+    "title": "Архангельск"
+  },
+  {
+    "id": "astrakhan",
+    "title": "Астрахань"
+  },
+  {
+    "id": "belgorod",
+    "title": "Белгород"
+  },
+  {
+    "id": "bryansk",
+    "title": "Брянск"
+  },
+  {
+    "id": "vladimir",
+    "title": "Владимир"
+  },
+  {
+    "id": "volgograd",
+    "title": "Волгоград"
+  },
+  {
+    "id": "vologda",
+    "title": "Вологда"
+  },
+  {
+    "id": "ivanovo",
+    "title": "Иваново"
+  },
+  {
+    "id": "irkutsk",
+    "title": "Иркутск"
+  },
+  {
+    "id": "kaliningrad",
+    "title": "Калининград"
+  },
+  {
+    "id": "kaluga",
+    "title": "Калуга"
+  },
+  {
+    "id": "kostroma",
+    "title": "Кострома"
+  },
+  {
+    "id": "kursk",
+    "title": "Курск"
+  },
+  {
+    "id": "lipetsk",
+    "title": "Липецк"
+  },
+  {
+    "id": "murmansk",
+    "title": "Мурманск"
+  },
+  {
+    "id": "penza",
+    "title": "Пенза"
+  },
+  {
+    "id": "pskov",
+    "title": "Псков"
+  },
+  {
+    "id": "ryazan",
+    "title": "Рязань"
+  },
+  {
+    "id": "saratov",
+    "title": "Саратов"
+  },
+  {
+    "id": "simferopol",
+    "title": "Симферополь"
+  },
+  {
+    "id": "smolensk",
+    "title": "Смоленск"
+  },
+  {
+    "id": "sochi",
+    "title": "Сочи"
+  },
+  {
+    "id": "tver",
+    "title": "Тверь"
+  },
+  {
+    "id": "tomsk",
+    "title": "Томск"
+  },
+  {
+    "id": "tula",
+    "title": "Тула"
+  },
+  {
+    "id": "tyumen",
+    "title": "Тюмень"
+  },
+  {
+    "id": "ulyanovsk",
+    "title": "Ульяновск"
+  },
+  {
+    "id": "khabarovsk",
+    "title": "Хабаровск"
+  },
+  {
+    "id": "cheboksary",
+    "title": "Чебоксары"
+  },
+  {
+    "id": "yaroslavl",
+    "title": "Ярославль"
+  }
+]

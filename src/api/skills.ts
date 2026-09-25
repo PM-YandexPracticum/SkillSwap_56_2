@@ -1,14 +1,14 @@
-import type { Skill } from '@/shared/types'
+import type { SkillCategory, SkillOption } from '@/shared/types'
 
 const BASE_URL = '/db'
 
-export async function fetchSkills(): Promise<Skill[]> {
-  const response = await fetch(`${BASE_URL}/skills.json`)
+export async function fetchSkillCategories(signal?: AbortSignal): Promise<SkillCategory[]> {
+  const response = await fetch(`${BASE_URL}/skills.json`, { signal })
   if (!response.ok) throw new Error('Failed to fetch skills')
   return response.json()
 }
 
-export async function fetchSkillById(id: string): Promise<Skill | undefined> {
-  const skills = await fetchSkills()
-  return skills.find((skill) => skill.id === id)
+export async function fetchSkillById(id: string): Promise<SkillOption | undefined> {
+  const categories = await fetchSkillCategories()
+  return categories.flatMap((category) => category.skills).find((skill) => skill.id === id)
 }

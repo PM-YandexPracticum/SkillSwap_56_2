@@ -1,0 +1,100 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-sans);
+}
+
+.label {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.dropzone {
+  display: flex;
+  min-height: 96px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  border: 1px dashed var(--color-dropzone-border);
+  border-radius: 12px;
+  background: var(--card-input);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.dragActive {
+  border-color: var(--color-primary-pressed);
+  background: var(--color-accent-subtle);
+}
+
+.errorDropzone {
+  border-color: var(--color-error);
+}
+
+.dropzoneText {
+  color: var(--color-disabled-text);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  color: var(--color-primary-pressed);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.actionButton:hover:not(:disabled) {
+  color: var(--color-primary-dark);
+}
+
+.actionButton:focus-visible {
+  outline: 2px solid var(--color-primary-pressed);
+  outline-offset: 2px;
+}
+
+.actionButton:disabled {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.actionButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.fileList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.fileItem {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.errorText {
+  color: var(--color-error);
+  font-size: 12px;
+  line-height: 16px;
+}

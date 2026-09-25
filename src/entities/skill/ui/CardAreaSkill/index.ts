@@ -1,0 +1,1 @@
+export { CardAreaSkill } from './CardAreaSkill';

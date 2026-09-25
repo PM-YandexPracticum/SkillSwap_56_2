@@ -1,0 +1,40 @@
+.sidebar {
+  flex-shrink: 0;
+  width: 324px;
+  padding: 40px;
+  border-radius: 24px;
+  background-color: var(--card-input);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
+
+.itemActive {
+  background-color: var(--color-accent-selected);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}

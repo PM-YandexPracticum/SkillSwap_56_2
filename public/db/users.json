@@ -1,1 +1,1492 @@
-[]
+[
+  {
+    "id": "user-1",
+    "name": "Иван",
+    "email": "ivan@example.com",
+    "city": "Санкт-Петербург",
+    "birthDate": "1992-02-12",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/12.jpg",
+    "createdAt": "2024-01-10T10:00:00.000Z",
+    "likesCount": 7,
+    "teachSkill": {
+      "id": "music-sound",
+      "title": "Музыка и звук",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "french",
+        "title": "Французский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "time-management",
+        "title": "Тайм-менеджмент",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-2", "user-4", "user-5", "user-10", "user-14"],
+    "gender": "male",
+    "cityId": "saint-petersburg"
+  },
+  {
+    "id": "user-2",
+    "name": "Кирилл",
+    "email": "kirill@example.com",
+    "city": "Воронеж",
+    "birthDate": "1996-07-18",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/33.jpg",
+    "createdAt": "2024-02-14T12:30:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "english",
+      "title": "Английский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "video-editing",
+        "title": "Видеомонтаж",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-1", "user-4", "user-9"],
+    "gender": "male",
+    "cityId": "voronezh"
+  },
+  {
+    "id": "user-3",
+    "name": "Олег",
+    "email": "oleg@example.com",
+    "city": "Симферополь",
+    "birthDate": "2005-03-04",
+    "avatarUrl": null,
+    "createdAt": "2024-03-20T09:15:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "japanese",
+      "title": "Японский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "music-sound",
+        "title": "Музыка и звук",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "cooking",
+        "title": "Приготовление еды",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "fitness",
+        "title": "Физические тренировки",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-1", "user-10", "user-13", "user-22"],
+    "gender": "male",
+    "cityId": "simferopol"
+  },
+  {
+    "id": "user-4",
+    "name": "Анна",
+    "email": "anna@example.com",
+    "city": "Москва",
+    "birthDate": "1994-11-21",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/21.jpg",
+    "createdAt": "2024-04-02T08:40:00.000Z",
+    "likesCount": 11,
+    "teachSkill": {
+      "id": "drawing-illustration",
+      "title": "Рисование и иллюстрация",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "marketing",
+        "title": "Маркетинг и реклама",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "chinese",
+        "title": "Китайский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-1", "user-5", "user-8", "user-10", "user-16", "user-28"],
+    "gender": "female",
+    "cityId": "moscow"
+  },
+  {
+    "id": "user-5",
+    "name": "Мария",
+    "email": "maria@example.com",
+    "city": "Казань",
+    "birthDate": "1990-05-08",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/44.jpg",
+    "createdAt": "2024-04-18T14:05:00.000Z",
+    "likesCount": 7,
+    "teachSkill": {
+      "id": "cooking",
+      "title": "Приготовление еды",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-4", "user-8", "user-18", "user-24"],
+    "gender": "female",
+    "cityId": "kazan"
+  },
+  {
+    "id": "user-6",
+    "name": "Елена",
+    "email": "elena@example.com",
+    "city": "Новосибирск",
+    "birthDate": "1988-09-15",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/5.jpg",
+    "createdAt": "2024-05-01T11:20:00.000Z",
+    "likesCount": 5,
+    "teachSkill": {
+      "id": "coaching",
+      "title": "Коучинг",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "time-management",
+        "title": "Тайм-менеджмент",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "german",
+        "title": "Немецкий",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-4", "user-7", "user-12", "user-27"],
+    "gender": "female",
+    "cityId": "novosibirsk"
+  },
+  {
+    "id": "user-7",
+    "name": "Дмитрий",
+    "email": "dmitry@example.com",
+    "city": "Екатеринбург",
+    "birthDate": "1991-01-30",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg",
+    "createdAt": "2024-05-12T16:45:00.000Z",
+    "likesCount": 7,
+    "teachSkill": {
+      "id": "project-management",
+      "title": "Проектное управление",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "spanish",
+        "title": "Испанский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-1", "user-9", "user-21", "user-39"],
+    "gender": "male",
+    "cityId": "yekaterinburg"
+  },
+  {
+    "id": "user-8",
+    "name": "Алина",
+    "email": "alina@example.com",
+    "city": "Краснодар",
+    "birthDate": "1998-04-12",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/32.jpg",
+    "createdAt": "2024-06-03T09:00:00.000Z",
+    "likesCount": 11,
+    "teachSkill": {
+      "id": "yoga-meditation",
+      "title": "Йога и медитация",
+      "category": "Здоровье и лайфстайл"
+    },
+    "learnSkills": [
+      {
+        "id": "french",
+        "title": "Французский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "decor-diy",
+        "title": "Декор и DIY",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "houseplants",
+        "title": "Домашние растения",
+        "category": "Дом и уют"
+      }
+    ],
+    "favorites": ["user-4", "user-5", "user-24", "user-32", "user-44"],
+    "gender": "female",
+    "cityId": "krasnodar"
+  },
+  {
+    "id": "user-9",
+    "name": "Максим",
+    "email": "maxim@example.com",
+    "city": "Нижний Новгород",
+    "birthDate": "1993-08-22",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/11.jpg",
+    "createdAt": "2024-06-21T13:10:00.000Z",
+    "likesCount": 6,
+    "teachSkill": {
+      "id": "sales-negotiation",
+      "title": "Продажи и переговоры",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-1", "user-4", "user-7", "user-21"],
+    "gender": "male",
+    "cityId": "nizhny-novgorod"
+  },
+  {
+    "id": "user-10",
+    "name": "София",
+    "email": "sofia@example.com",
+    "city": "Сочи",
+    "birthDate": "2001-06-03",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/65.jpg",
+    "createdAt": "2024-07-08T18:25:00.000Z",
+    "likesCount": 12,
+    "teachSkill": {
+      "id": "photography",
+      "title": "Фотография",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "video-editing",
+        "title": "Видеомонтаж",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "marketing",
+        "title": "Маркетинг и реклама",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "acting",
+        "title": "Актёрское мастерство",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-4", "user-13", "user-16", "user-22", "user-28"],
+    "gender": "female",
+    "cityId": "sochi"
+  },
+  {
+    "id": "user-11",
+    "name": "Павел",
+    "email": "pavel@example.com",
+    "city": "Калининград",
+    "birthDate": "1987-12-19",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/68.jpg",
+    "createdAt": "2024-07-19T07:50:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "german",
+      "title": "Немецкий",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "entrepreneurship",
+        "title": "Предпринимательство",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "home-finance",
+        "title": "Домашние финансы",
+        "category": "Дом и уют"
+      }
+    ],
+    "favorites": ["user-1", "user-7", "user-25"],
+    "gender": "male",
+    "cityId": "kaliningrad"
+  },
+  {
+    "id": "user-12",
+    "name": "Наталья",
+    "email": "natalya@example.com",
+    "city": "Самара",
+    "birthDate": "1985-03-27",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/9.jpg",
+    "createdAt": "2024-08-04T10:15:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "teaching-skills",
+      "title": "Навыки преподавания",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "chinese",
+        "title": "Китайский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "speed-reading",
+        "title": "Скорочтение",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "mindfulness",
+        "title": "Осознанность",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-6", "user-16", "user-26", "user-33"],
+    "gender": "female",
+    "cityId": "samara"
+  },
+  {
+    "id": "user-13",
+    "name": "Артём",
+    "email": "artem@example.com",
+    "city": "Ростов-на-Дону",
+    "birthDate": "1999-10-11",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/14.jpg",
+    "createdAt": "2024-08-22T15:30:00.000Z",
+    "likesCount": 5,
+    "teachSkill": {
+      "id": "video-editing",
+      "title": "Видеомонтаж",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "music-sound",
+        "title": "Музыка и звук",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-3", "user-10", "user-22", "user-43"],
+    "gender": "male",
+    "cityId": "rostov-on-don"
+  },
+  {
+    "id": "user-14",
+    "name": "Виктория",
+    "email": "victoria@example.com",
+    "city": "Пермь",
+    "birthDate": "1995-07-04",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/47.jpg",
+    "createdAt": "2024-09-09T12:00:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "marketing",
+      "title": "Маркетинг и реклама",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "spanish",
+        "title": "Испанский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-4", "user-9", "user-10", "user-16", "user-36"],
+    "gender": "female",
+    "cityId": "perm"
+  },
+  {
+    "id": "user-15",
+    "name": "Сергей",
+    "email": "sergey@example.com",
+    "city": "Уфа",
+    "birthDate": "1982-02-14",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/7.jpg",
+    "createdAt": "2024-09-27T08:35:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "home-repair",
+      "title": "Ремонт",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "home-finance",
+        "title": "Домашние финансы",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "time-management",
+        "title": "Тайм-менеджмент",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-5", "user-21", "user-23", "user-41"],
+    "gender": "male",
+    "cityId": "ufa"
+  },
+  {
+    "id": "user-16",
+    "name": "Юлия",
+    "email": "yulia@example.com",
+    "city": "Красноярск",
+    "birthDate": "1997-01-09",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/16.jpg",
+    "createdAt": "2024-10-05T19:40:00.000Z",
+    "likesCount": 7,
+    "teachSkill": {
+      "id": "creative-writing",
+      "title": "Креативное письмо",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-4", "user-10", "user-14", "user-28", "user-36"],
+    "gender": "female",
+    "cityId": "krasnoyarsk"
+  },
+  {
+    "id": "user-17",
+    "name": "Андрей",
+    "email": "andrey@example.com",
+    "city": "Томск",
+    "birthDate": "1990-11-02",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/22.jpg",
+    "createdAt": "2024-10-18T11:05:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "chinese",
+      "title": "Китайский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "project-management",
+        "title": "Проектное управление",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "coaching",
+        "title": "Коучинг",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-6", "user-7", "user-35", "user-40"],
+    "gender": "male",
+    "cityId": "tomsk"
+  },
+  {
+    "id": "user-18",
+    "name": "Дарья",
+    "email": "darya@example.com",
+    "city": "Иркутск",
+    "birthDate": "2002-08-25",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/28.jpg",
+    "createdAt": "2024-11-01T09:55:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "houseplants",
+      "title": "Домашние растения",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "cooking",
+        "title": "Приготовление еды",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "french",
+        "title": "Французский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "decor-diy",
+        "title": "Декор и DIY",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-5", "user-8", "user-30", "user-34"],
+    "gender": "female",
+    "cityId": "irkutsk"
+  },
+  {
+    "id": "user-19",
+    "name": "Никита",
+    "email": "nikita@example.com",
+    "city": "Ярославль",
+    "birthDate": "2000-05-17",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/36.jpg",
+    "createdAt": "2024-11-14T17:20:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "fitness",
+      "title": "Физические тренировки",
+      "category": "Здоровье и лайфстайл"
+    },
+    "learnSkills": [
+      {
+        "id": "nutrition",
+        "title": "Питание и ЗОЖ",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-8", "user-13", "user-31", "user-43"],
+    "gender": "male",
+    "cityId": "yaroslavl"
+  },
+  {
+    "id": "user-20",
+    "name": "Екатерина",
+    "email": "ekaterina@example.com",
+    "city": "Тула",
+    "birthDate": "1992-09-28",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/38.jpg",
+    "createdAt": "2024-11-29T13:45:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "cleaning-organizing",
+      "title": "Уборка и организация",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "home-finance",
+        "title": "Домашние финансы",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "time-management",
+        "title": "Тайм-менеджмент",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-5", "user-8", "user-15", "user-24"],
+    "gender": "female",
+    "cityId": "tula"
+  },
+  {
+    "id": "user-21",
+    "name": "Алексей",
+    "email": "alexey@example.com",
+    "city": "Тюмень",
+    "birthDate": "1989-04-06",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg",
+    "createdAt": "2024-12-10T08:10:00.000Z",
+    "likesCount": 8,
+    "teachSkill": {
+      "id": "entrepreneurship",
+      "title": "Предпринимательство",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "marketing",
+        "title": "Маркетинг и реклама",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "sales-negotiation",
+        "title": "Продажи и переговоры",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-7", "user-9", "user-27", "user-39"],
+    "gender": "male",
+    "cityId": "tyumen"
+  },
+  {
+    "id": "user-22",
+    "name": "Полина",
+    "email": "polina@example.com",
+    "city": "Челябинск",
+    "birthDate": "2003-12-01",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/49.jpg",
+    "createdAt": "2024-12-22T20:00:00.000Z",
+    "likesCount": 5,
+    "teachSkill": {
+      "id": "acting",
+      "title": "Актёрское мастерство",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "video-editing",
+        "title": "Видеомонтаж",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "music-sound",
+        "title": "Музыка и звук",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-10", "user-13", "user-16", "user-28", "user-40"],
+    "gender": "female",
+    "cityId": "chelyabinsk"
+  },
+  {
+    "id": "user-23",
+    "name": "Игорь",
+    "email": "igor@example.com",
+    "city": "Волгоград",
+    "birthDate": "1984-06-18",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/51.jpg",
+    "createdAt": "2025-01-08T10:25:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "home-finance",
+      "title": "Домашние финансы",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "resume-interview",
+        "title": "Резюме и собеседование",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "time-management",
+        "title": "Тайм-менеджмент",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-15", "user-21", "user-27", "user-45"],
+    "gender": "male",
+    "cityId": "volgograd"
+  },
+  {
+    "id": "user-24",
+    "name": "Ольга",
+    "email": "olga@example.com",
+    "city": "Саратов",
+    "birthDate": "1991-03-13",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/54.jpg",
+    "createdAt": "2025-01-21T14:50:00.000Z",
+    "likesCount": 7,
+    "teachSkill": {
+      "id": "nutrition",
+      "title": "Питание и ЗОЖ",
+      "category": "Здоровье и лайфстайл"
+    },
+    "learnSkills": [
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "cooking",
+        "title": "Приготовление еды",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "mindfulness",
+        "title": "Осознанность",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-5", "user-8", "user-32", "user-38", "user-44"],
+    "gender": "female",
+    "cityId": "saratov"
+  },
+  {
+    "id": "user-25",
+    "name": "Роман",
+    "email": "roman@example.com",
+    "city": "Омск",
+    "birthDate": "1996-10-07",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/57.jpg",
+    "createdAt": "2025-02-03T09:35:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "spanish",
+      "title": "Испанский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-2", "user-10", "user-11", "user-14"],
+    "gender": "male",
+    "cityId": "omsk"
+  },
+  {
+    "id": "user-26",
+    "name": "Татьяна",
+    "email": "tatyana@example.com",
+    "city": "Хабаровск",
+    "birthDate": "1986-08-30",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/60.jpg",
+    "createdAt": "2025-02-16T16:15:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "speed-reading",
+      "title": "Скорочтение",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "cognitive-techniques",
+        "title": "Когнитивные техники",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "learning-skills",
+        "title": "Навыки обучения",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-6", "user-12", "user-33", "user-37"],
+    "gender": "female",
+    "cityId": "khabarovsk"
+  },
+  {
+    "id": "user-27",
+    "name": "Владимир",
+    "email": "vladimir@example.com",
+    "city": "Мурманск",
+    "birthDate": "1979-01-22",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/63.jpg",
+    "createdAt": "2025-03-01T11:40:00.000Z",
+    "likesCount": 5,
+    "teachSkill": {
+      "id": "team-management",
+      "title": "Управление командой",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "work-life-balance",
+        "title": "Баланс жизни и работы",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "coaching",
+        "title": "Коучинг",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-7", "user-21", "user-23", "user-45"],
+    "gender": "male",
+    "cityId": "murmansk"
+  },
+  {
+    "id": "user-28",
+    "name": "Ксения",
+    "email": "ksenia@example.com",
+    "city": "Архангельск",
+    "birthDate": "1999-02-16",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/67.jpg",
+    "createdAt": "2025-03-14T18:05:00.000Z",
+    "likesCount": 6,
+    "teachSkill": {
+      "id": "french",
+      "title": "Французский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "drawing-illustration",
+        "title": "Рисование и иллюстрация",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "art-therapy",
+        "title": "Арт-терапия",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "creative-writing",
+        "title": "Креативное письмо",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-4", "user-8", "user-10", "user-16", "user-32"],
+    "gender": "female",
+    "cityId": "arkhangelsk"
+  },
+  {
+    "id": "user-29",
+    "name": "Михаил",
+    "email": "mikhail@example.com",
+    "city": "Псков",
+    "birthDate": "1994-07-21",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/70.jpg",
+    "createdAt": "2025-03-27T07:20:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "resume-interview",
+      "title": "Резюме и собеседование",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "personal-brand",
+        "title": "Личный бренд",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-1", "user-9", "user-21", "user-33"],
+    "gender": "male",
+    "cityId": "pskov"
+  },
+  {
+    "id": "user-30",
+    "name": "Анастасия",
+    "email": "anastasia@example.com",
+    "city": "Тверь",
+    "birthDate": "1998-11-05",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/72.jpg",
+    "createdAt": "2025-04-09T12:55:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "decor-diy",
+      "title": "Декор и DIY",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "houseplants",
+        "title": "Домашние растения",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "storage",
+        "title": "Хранение вещей",
+        "category": "Дом и уют"
+      }
+    ],
+    "favorites": ["user-8", "user-18", "user-34", "user-36"],
+    "gender": "female",
+    "cityId": "tver"
+  },
+  {
+    "id": "user-31",
+    "name": "Глеб",
+    "email": "gleb@example.com",
+    "city": "Белгород",
+    "birthDate": "2001-09-14",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/75.jpg",
+    "createdAt": "2025-04-22T15:10:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "time-management",
+      "title": "Тайм-менеджмент",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "german",
+        "title": "Немецкий",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "fitness",
+        "title": "Физические тренировки",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-3", "user-19", "user-35", "user-43"],
+    "gender": "male",
+    "cityId": "belgorod"
+  },
+  {
+    "id": "user-32",
+    "name": "Вера",
+    "email": "vera@example.com",
+    "city": "Калуга",
+    "birthDate": "1983-05-29",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/78.jpg",
+    "createdAt": "2025-05-05T09:45:00.000Z",
+    "likesCount": 5,
+    "teachSkill": {
+      "id": "art-therapy",
+      "title": "Арт-терапия",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "mental-health",
+        "title": "Ментальное здоровье",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "mindfulness",
+        "title": "Осознанность",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-8", "user-24", "user-28", "user-38"],
+    "gender": "female",
+    "cityId": "kaluga"
+  },
+  {
+    "id": "user-33",
+    "name": "Степан",
+    "email": "stepan@example.com",
+    "city": "Рязань",
+    "birthDate": "1997-12-08",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/81.jpg",
+    "createdAt": "2025-05-18T13:30:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "exam-preparation",
+      "title": "Подготовка к экзаменам (IELTS, TOEFL)",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "teaching-skills",
+        "title": "Навыки преподавания",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-2", "user-12", "user-26", "user-29"],
+    "gender": "male",
+    "cityId": "ryazan"
+  },
+  {
+    "id": "user-34",
+    "name": "Людмила",
+    "email": "lyudmila@example.com",
+    "city": "Владимир",
+    "birthDate": "1980-04-03",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/84.jpg",
+    "createdAt": "2025-06-01T10:00:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "storage",
+      "title": "Хранение вещей",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "cleaning-organizing",
+        "title": "Уборка и организация",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "houseplants",
+        "title": "Домашние растения",
+        "category": "Дом и уют"
+      }
+    ],
+    "favorites": ["user-18", "user-20", "user-30"],
+    "gender": "female",
+    "cityId": "vladimir"
+  },
+  {
+    "id": "user-35",
+    "name": "Тимур",
+    "email": "timur@example.com",
+    "city": "Ульяновск",
+    "birthDate": "2004-01-19",
+    "avatarUrl": null,
+    "createdAt": "2025-06-14T19:15:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "chinese",
+      "title": "Китайский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "japanese",
+        "title": "Японский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "video-editing",
+        "title": "Видеомонтаж",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "fitness",
+        "title": "Физические тренировки",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-3", "user-17", "user-31", "user-40"],
+    "gender": "male",
+    "cityId": "ulyanovsk"
+  },
+  {
+    "id": "user-36",
+    "name": "Ирина",
+    "email": "irina@example.com",
+    "city": "Пенза",
+    "birthDate": "1993-06-26",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/12.jpg",
+    "createdAt": "2025-06-27T08:25:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "personal-brand",
+      "title": "Личный бренд",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "marketing",
+        "title": "Маркетинг и реклама",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "photography",
+        "title": "Фотография",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-4", "user-10", "user-14", "user-16"],
+    "gender": "female",
+    "cityId": "penza"
+  },
+  {
+    "id": "user-37",
+    "name": "Фёдор",
+    "email": "fedor@example.com",
+    "city": "Липецк",
+    "birthDate": "1988-10-10",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/17.jpg",
+    "createdAt": "2025-07-10T14:40:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "cognitive-techniques",
+      "title": "Когнитивные техники",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "speed-reading",
+        "title": "Скорочтение",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "personal-development",
+        "title": "Личностное развитие",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-6", "user-26", "user-38", "user-45"],
+    "gender": "male",
+    "cityId": "lipetsk"
+  },
+  {
+    "id": "user-38",
+    "name": "Маргарита",
+    "email": "margarita@example.com",
+    "city": "Смоленск",
+    "birthDate": "1995-02-23",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/24.jpg",
+    "createdAt": "2025-07-23T11:05:00.000Z",
+    "likesCount": 4,
+    "teachSkill": {
+      "id": "mental-health",
+      "title": "Ментальное здоровье",
+      "category": "Здоровье и лайфстайл"
+    },
+    "learnSkills": [
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "coaching",
+        "title": "Коучинг",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "work-life-balance",
+        "title": "Баланс жизни и работы",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-8", "user-24", "user-32", "user-44"],
+    "gender": "female",
+    "cityId": "smolensk"
+  },
+  {
+    "id": "user-39",
+    "name": "Константин",
+    "email": "konstantin@example.com",
+    "city": "Курск",
+    "birthDate": "1992-08-01",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/29.jpg",
+    "createdAt": "2025-08-05T16:50:00.000Z",
+    "likesCount": 2,
+    "teachSkill": {
+      "id": "project-management",
+      "title": "Проектное управление",
+      "category": "Бизнес и карьера"
+    },
+    "learnSkills": [
+      {
+        "id": "team-management",
+        "title": "Управление командой",
+        "category": "Бизнес и карьера"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-7", "user-9", "user-21", "user-27"],
+    "gender": "male",
+    "cityId": "kursk"
+  },
+  {
+    "id": "user-40",
+    "name": "Алиса",
+    "email": "alisa@example.com",
+    "city": "Брянск",
+    "birthDate": "2006-07-12",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/35.jpg",
+    "createdAt": "2025-08-18T09:20:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "japanese",
+      "title": "Японский",
+      "category": "Иностранные языки"
+    },
+    "learnSkills": [
+      {
+        "id": "chinese",
+        "title": "Китайский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "drawing-illustration",
+        "title": "Рисование и иллюстрация",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "music-sound",
+        "title": "Музыка и звук",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      }
+    ],
+    "favorites": ["user-3", "user-10", "user-22", "user-35"],
+    "gender": "female",
+    "cityId": "bryansk"
+  },
+  {
+    "id": "user-41",
+    "name": "Вадим",
+    "email": "vadim@example.com",
+    "city": "Астрахань",
+    "birthDate": "1981-11-17",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/39.jpg",
+    "createdAt": "2025-09-01T12:35:00.000Z",
+    "likesCount": 1,
+    "teachSkill": {
+      "id": "home-repair",
+      "title": "Ремонт",
+      "category": "Дом и уют"
+    },
+    "learnSkills": [
+      {
+        "id": "home-finance",
+        "title": "Домашние финансы",
+        "category": "Дом и уют"
+      },
+      {
+        "id": "entrepreneurship",
+        "title": "Предпринимательство",
+        "category": "Бизнес и карьера"
+      }
+    ],
+    "favorites": ["user-15", "user-21", "user-23"],
+    "gender": "male",
+    "cityId": "astrakhan"
+  },
+  {
+    "id": "user-42",
+    "name": "Светлана",
+    "email": "svetlana@example.com",
+    "city": "Вологда",
+    "birthDate": "1987-03-09",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/43.jpg",
+    "createdAt": "2025-09-14T07:55:00.000Z",
+    "likesCount": 0,
+    "teachSkill": {
+      "id": "learning-skills",
+      "title": "Навыки обучения",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "teaching-skills",
+        "title": "Навыки преподавания",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "english",
+        "title": "Английский",
+        "category": "Иностранные языки"
+      },
+      {
+        "id": "personal-development",
+        "title": "Личностное развитие",
+        "category": "Образование и развитие"
+      }
+    ],
+    "favorites": ["user-6", "user-12", "user-24", "user-26"],
+    "gender": "female",
+    "cityId": "vologda"
+  },
+  {
+    "id": "user-43",
+    "name": "Георгий",
+    "email": "georgy@example.com",
+    "city": "Иваново",
+    "birthDate": "1998-09-20",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/46.jpg",
+    "createdAt": "2026-01-06T15:00:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "music-sound",
+      "title": "Музыка и звук",
+      "category": "Творчество и искусство"
+    },
+    "learnSkills": [
+      {
+        "id": "video-editing",
+        "title": "Видеомонтаж",
+        "category": "Творчество и искусство"
+      },
+      {
+        "id": "acting",
+        "title": "Актёрское мастерство",
+        "category": "Творчество и искусство"
+      }
+    ],
+    "favorites": ["user-10", "user-13", "user-19", "user-22"],
+    "gender": "male",
+    "cityId": "ivanovo"
+  },
+  {
+    "id": "user-44",
+    "name": "Валерия",
+    "email": "valeria@example.com",
+    "city": "Кострома",
+    "birthDate": "2000-12-31",
+    "avatarUrl": "https://randomuser.me/api/portraits/women/56.jpg",
+    "createdAt": "2026-02-11T18:30:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "sleep-recovery",
+      "title": "Сон и восстановление",
+      "category": "Здоровье и лайфстайл"
+    },
+    "learnSkills": [
+      {
+        "id": "nutrition",
+        "title": "Питание и ЗОЖ",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "yoga-meditation",
+        "title": "Йога и медитация",
+        "category": "Здоровье и лайфстайл"
+      },
+      {
+        "id": "mindfulness",
+        "title": "Осознанность",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-8", "user-24", "user-28", "user-32", "user-38"],
+    "gender": "female",
+    "cityId": "kostroma"
+  },
+  {
+    "id": "user-45",
+    "name": "Леонид",
+    "email": "leonid@example.com",
+    "city": "Чебоксары",
+    "birthDate": "1975-05-05",
+    "avatarUrl": "https://randomuser.me/api/portraits/men/61.jpg",
+    "createdAt": "2026-03-02T10:10:00.000Z",
+    "likesCount": 3,
+    "teachSkill": {
+      "id": "personal-development",
+      "title": "Личностное развитие",
+      "category": "Образование и развитие"
+    },
+    "learnSkills": [
+      {
+        "id": "coaching",
+        "title": "Коучинг",
+        "category": "Образование и развитие"
+      },
+      {
+        "id": "work-life-balance",
+        "title": "Баланс жизни и работы",
+        "category": "Здоровье и лайфстайл"
+      }
+    ],
+    "favorites": ["user-23", "user-27", "user-37"],
+    "gender": "male",
+    "cityId": "cheboksary"
+  }
+]

@@ -1,0 +1,11 @@
+/* Колонка + flex: 1 у контента прижимают подвал к низу */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.content {
+  flex: 1;
+}

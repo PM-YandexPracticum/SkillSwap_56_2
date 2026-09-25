@@ -1,10 +1,16 @@
-// TODO: реализовать страницу ProfilePage
+import { Outlet } from 'react-router-dom'
+
+import { ProfileSidebar } from '@/widgets/ProfileSidebar'
+
+import styles from './ProfilePage.module.css'
 
 export default function ProfilePage() {
   return (
-    <main>
-      <h1>ProfilePage</h1>
-      <p>Страница в разработке</p>
-    </main>
+    <div className={styles.page}>
+      <ProfileSidebar />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+    </div>
   )
 }
