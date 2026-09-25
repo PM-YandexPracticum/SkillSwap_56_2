@@ -1,7 +1,8 @@
-import type { AuthUser } from '@/shared/types'
+import type { AuthUser, StoredUser } from '@/shared/types'
 import { LOCAL_STORAGE_KEYS } from '@/shared/lib/constants'
 
 const AUTH_USER_CHANGED = 'skillswap:auth-user-changed'
+
 export function subscribeAuthUser(onChange: () => void): () => void {
   const onStorage = (event: StorageEvent) => {
     if (event.key === LOCAL_STORAGE_KEYS.AUTH_USER || event.key === null) {
@@ -29,6 +30,30 @@ export function getAuthUser(): AuthUser | null {
   }
 }
 
+/** Читает список зарегистрированных пользователей */
+export function getRegisteredUsers(): StoredUser[] {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.USERS)
+
+    return raw ? (JSON.parse(raw) as StoredUser[]) : []
+  } catch {
+    return []
+  }
+}
+
+/** Сохраняет зарегистрированного пользователя, обновляя запись с тем же email */
+export function saveRegisteredUser(user: StoredUser): void {
+  const users = getRegisteredUsers()
+  const email = user.email.trim().toLowerCase()
+  const isExistingUser = users.some((item) => item.email.trim().toLowerCase() === email)
+
+  const nextUsers = isExistingUser
+    ? users.map((item) => (item.email.trim().toLowerCase() === email ? user : item))
+    : [...users, user]
+
+  localStorage.setItem(LOCAL_STORAGE_KEYS.USERS, JSON.stringify(nextUsers))
+}
+
 /** Сохраняет пользователя и mock-токен в localStorage */
 export function saveAuthUser(user: Omit<AuthUser, 'token'>): AuthUser {
   const authUser: AuthUser = {
@@ -37,9 +62,29 @@ export function saveAuthUser(user: Omit<AuthUser, 'token'>): AuthUser {
   }
 
   localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_USER, JSON.stringify(authUser))
+
   window.dispatchEvent(new Event(AUTH_USER_CHANGED))
 
   return authUser
+}
+
+/** Авторизует пользователя по email и паролю */
+export function loginUser(email: string, password: string): AuthUser | null {
+  const users = getRegisteredUsers()
+
+  const user = users.find(
+    (item) => item.email.toLowerCase() === email.trim().toLowerCase() && item.password === password,
+  )
+
+  if (!user) {
+    return null
+  }
+
+  const { password: storedPassword, ...authUser } = user
+
+  void storedPassword
+
+  return saveAuthUser(authUser)
 }
 
 /** Обновляет данные текущего пользователя */
@@ -56,6 +101,7 @@ export function updateAuthUser(data: Partial<Omit<AuthUser, 'id' | 'token'>>): A
   }
 
   localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_USER, JSON.stringify(updatedUser))
+
   window.dispatchEvent(new Event(AUTH_USER_CHANGED))
 
   return updatedUser
@@ -64,5 +110,6 @@ export function updateAuthUser(data: Partial<Omit<AuthUser, 'id' | 'token'>>): A
 /** Удаляет пользователя из localStorage (logout) */
 export function clearAuthUser(): void {
   localStorage.removeItem(LOCAL_STORAGE_KEYS.AUTH_USER)
+
   window.dispatchEvent(new Event(AUTH_USER_CHANGED))
 }

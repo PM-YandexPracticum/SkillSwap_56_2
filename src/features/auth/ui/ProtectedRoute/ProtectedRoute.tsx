@@ -11,7 +11,9 @@ export const ProtectedRoute = () => {
   useEffect(() => subscribeAuthUser(() => setAuthUser(getAuthUser())), [])
 
   if (!authUser) {
-    return <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />
+    const from = location.pathname + location.search + location.hash
+
+    return <Navigate to={ROUTES.LOGIN} replace state={{ from }} />
   }
 
   return <Outlet />

@@ -8,16 +8,18 @@ import CrossIcon from '@/shared/ui/icons/assets/cross.svg?react'
 import styles from './AuthLayout.module.css'
 
 export interface AuthLayoutProps {
-  current: number
-  total: number
+  current?: number
+  total?: number
+  title?: string
   info: InfoCardProps
   onClose?: () => void
 }
 
-export const AuthLayout = ({ current, total, info, onClose }: AuthLayoutProps) => (
+export const AuthLayout = ({ current, total, title, info, onClose }: AuthLayoutProps) => (
   <div className={styles.page}>
     <header className={styles.header}>
       <Logo />
+
       <Link
         className={styles.closeLink}
         to="/"
@@ -30,14 +32,15 @@ export const AuthLayout = ({ current, total, info, onClose }: AuthLayoutProps) =
     </header>
 
     <div className={styles.content}>
-      <Stepper current={current} total={total} />
+      {current !== undefined && total !== undefined && <Stepper current={current} total={total} />}
+
+      {title && <h1 className={styles.title}>{title}</h1>}
 
       <section className={styles.cards}>
         <div className={styles.formCard} aria-label="Форма авторизации">
           <Outlet />
         </div>
 
-        {/* добавить варианты правой карточки для регистрации и входа после реализации этих страниц. */}
         <InfoCard {...info} />
       </section>
     </div>

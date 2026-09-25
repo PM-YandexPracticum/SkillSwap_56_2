@@ -1,10 +1,5 @@
-// TODO: реализовать страницу LoginPage
+import { CardLogin } from '@/features/auth/login/ui/CardLogin'
 
 export default function LoginPage() {
-  return (
-    <main>
-      <h1>LoginPage</h1>
-      <p>Страница в разработке</p>
-    </main>
-  )
+  return <CardLogin />
 }

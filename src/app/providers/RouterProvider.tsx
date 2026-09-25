@@ -70,15 +70,11 @@ export function AppRouter() {
           <Route
             element={
               <AuthLayout
-                current={1}
-                total={3}
+                title="Вход"
                 info={{
                   illustration: LightBulbIllustration,
-
-                  title: 'Добро пожаловать в SkillSwap!',
-
-                  description:
-                    'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
+                  title: 'С возвращением в SkillSwap!',
+                  description: 'Обменивайтесь знаниями и навыками с другими людьми',
                 }}
               />
             }
