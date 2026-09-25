@@ -41,11 +41,17 @@ export function getRegisteredUsers(): StoredUser[] {
   }
 }
 
-/** Сохраняет нового зарегистрированного пользователя */
+/** Сохраняет зарегистрированного пользователя, обновляя запись с тем же email */
 export function saveRegisteredUser(user: StoredUser): void {
   const users = getRegisteredUsers()
+  const email = user.email.trim().toLowerCase()
+  const isExistingUser = users.some((item) => item.email.trim().toLowerCase() === email)
 
-  localStorage.setItem(LOCAL_STORAGE_KEYS.USERS, JSON.stringify([...users, user]))
+  const nextUsers = isExistingUser
+    ? users.map((item) => (item.email.trim().toLowerCase() === email ? user : item))
+    : [...users, user]
+
+  localStorage.setItem(LOCAL_STORAGE_KEYS.USERS, JSON.stringify(nextUsers))
 }
 
 /** Сохраняет пользователя и mock-токен в localStorage */

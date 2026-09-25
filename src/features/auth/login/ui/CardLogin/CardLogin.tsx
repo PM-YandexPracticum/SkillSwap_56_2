@@ -60,13 +60,7 @@ export const CardLogin = () => {
         <div className={styles.variants}>
           <div className={styles['enter-with']}>
             <div className={styles.tooltip}>
-              <Button
-                className={styles.button}
-                leftIcon={<GoogleSvg />}
-                variant="secondary"
-                fullWidth
-                disabled
-              >
+              <Button leftIcon={<GoogleSvg />} variant="secondary" fullWidth disabled>
                 Продолжить с&nbsp;Google
               </Button>
 
@@ -74,13 +68,7 @@ export const CardLogin = () => {
             </div>
 
             <div className={styles.tooltip}>
-              <Button
-                className={styles.button}
-                leftIcon={<AppleSvg />}
-                variant="secondary"
-                fullWidth
-                disabled
-              >
+              <Button leftIcon={<AppleSvg />} variant="secondary" fullWidth disabled>
                 Продолжить с&nbsp;Apple
               </Button>
 
@@ -94,42 +82,40 @@ export const CardLogin = () => {
             <span className={styles.line} />
           </div>
 
-          <div className={styles['enter-login']}>
-            <div className={styles['input-container']}>
-              <Input
-                label="Email"
-                type="email"
-                placeholder="Введите email"
-                error={errors.email?.message}
-                {...register('email', {
-                  required: 'Введите email',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: 'Введите корректный email',
-                  },
-                })}
-              />
+          <div className={styles['input-container']}>
+            <Input
+              label="Email"
+              type="email"
+              placeholder="Введите email"
+              error={errors.email?.message}
+              {...register('email', {
+                required: 'Введите email',
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: 'Введите корректный email',
+                },
+              })}
+            />
 
-              <Input
-                className={styles.input}
-                label="Пароль"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Введите пароль"
-                error={errors.password?.message}
-                rightElement={
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    leftIcon={showPassword ? <EyeSlashSvg /> : <EyeSvg />}
-                    onClick={() => setShowPassword((value) => !value)}
-                    aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
-                  />
-                }
-                {...register('password', {
-                  required: 'Введите пароль',
-                })}
-              />
-            </div>
+            <Input
+              className={styles.input}
+              label="Пароль"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Введите пароль"
+              error={errors.password?.message}
+              rightElement={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  leftIcon={showPassword ? <EyeSlashSvg /> : <EyeSvg />}
+                  onClick={() => setShowPassword((value) => !value)}
+                  aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                />
+              }
+              {...register('password', {
+                required: 'Введите пароль',
+              })}
+            />
           </div>
         </div>
         <div className={styles.actions}>
